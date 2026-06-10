@@ -1,0 +1,1 @@
+Latest changes (20% off promotion, single-use logic, notification cleanup) are committed locally. Run 'git push' when logged in to the correct GitHub account. 

@@ -1,0 +1,218 @@
+@import "tailwindcss";
+
+/* Tailwind v4 theme variables - ignore IDE warnings about @theme */
+@theme {
+  --color-primary: #0e7490;
+  --color-primary-dark: #155e75;
+  --color-background-dark: #101822;
+  --color-surface-dark: #1a2431;
+
+  --shadow-blue: 0 4px 15px rgba(14, 116, 144, 0.25);
+  --shadow-blue-lg: 0 10px 25px rgba(14, 116, 144, 0.3);
+
+  --font-inter: "Inter", sans-serif;
+}
+
+/* stylelint-disable */
+html,
+body,
+#root {
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  /* Prevent body-level scroll to avoid issues with fixed headers/footers */
+}
+
+:root {
+  /* Safe Area Variables with fallbacks */
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+}
+
+body {
+  background-color: #101822;
+  color: white;
+  font-family: var(--font-inter);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  overscroll-behavior-y: none;
+  display: flex;
+  flex-direction: column;
+  color-scheme: dark;
+
+  min-height: 100dvh;
+  /* Use -webkit-fill-available for iOS and fill-available for others where supported */
+  min-height: -webkit-fill-available;
+
+  /* Improve font rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+@media screen and (max-height: 450px) {
+  .platform-mobile .pb-24 {
+    padding-bottom: 4rem !important;
+  }
+}
+
+/* Android Specific Adjustments */
+.platform-android .washer-dash-container {
+  padding-top: 20px !important;
+  /* Approx 0.5cm down */
+}
+
+.platform-android .washer-scroll-area {
+  padding-bottom: 180px !important;
+  /* Extra padding to clear nav bar + safe area on S23 */
+}
+
+/* Force Android to use full viewport height */
+.platform-android #root {
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-height: 100vh !important;
+  max-height: 100dvh !important;
+}
+
+/* Ensure full scrollability */
+.overflow-y-auto {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  /* Hide scrollbar Firefox */
+  -ms-overflow-style: none;
+  /* Hide scrollbar IE/Edge */
+}
+
+.overflow-y-auto::-webkit-scrollbar {
+  display: none;
+  /* Hide scrollbar Chrome/Safari */
+}
+
+/* Universal Scaling for larger screens while maintaining app feel */
+@media screen and (min-width: 500px) {
+  #root {
+    align-items: center;
+    background-color: #000;
+  }
+}
+
+input,
+textarea {
+  user-select: text;
+}
+
+.material-symbols-outlined.filled {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+}
+
+/* --- Premium Animations --- */
+
+@keyframes kenburns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+
+  50% {
+    transform: scale(1.1) translate(-1%, -1%);
+  }
+
+  100% {
+    transform: scale(1) translate(0, 0);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.shadow-blue {
+  box-shadow: 0 0 20px rgba(14, 116, 144, 0.25);
+}
+
+.drop-shadow-blue {
+  filter: drop-shadow(0 0 10px rgba(14, 116, 144, 0.3));
+}
+
+/* --- Skeleton & Shimmer --- */
+.skeleton {
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0.03) 25%,
+      rgba(255, 255, 255, 0.08) 50%,
+      rgba(255, 255, 255, 0.03) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 0.5rem;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.scale-pop {
+  animation: scale-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes scale-pop {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Safe Area Utilities */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 20px) !important;
+}
+
+.safe-area-top {
+  padding-top: env(safe-area-inset-top, 20px) !important;
+}

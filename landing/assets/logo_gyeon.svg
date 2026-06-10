@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" role="img" aria-label="Gyeon Quartz">
+  <rect width="240" height="80" fill="none"/>
+  <!-- Diamond accent shape -->
+  <polygon points="12,15 24,6 36,15 24,24" fill="#C8A951"/>
+  <!-- GYEON wordmark -->
+  <text x="46" y="34" font-family="'Arial Black','Arial',sans-serif" font-weight="900" font-size="26" fill="#ffffff" letter-spacing="4">GYEON</text>
+  <!-- QUARTZ subtext -->
+  <text x="47" y="52" font-family="'Arial',sans-serif" font-weight="400" font-size="11" fill="#C8A951" letter-spacing="6">QUARTZ</text>
+  <!-- Bottom line -->
+  <rect x="46" y="58" width="170" height="2" fill="rgba(200,169,81,0.4)" rx="1"/>
+</svg>

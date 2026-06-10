@@ -1,0 +1,164 @@
+{
+    "firestore": {
+        "rules": "firestore.rules",
+        "indexes": "firestore.indexes.json"
+    },
+    "storage": {
+        "rules": "storage.rules"
+    },
+    "functions": [
+        {
+            "source": "functions",
+            "codebase": "default",
+            "ignore": [
+                "node_modules",
+                ".git",
+                "firebase-debug.log",
+                "firebase-debug.*.log"
+            ],
+            "runtime": "nodejs20"
+        }
+    ],
+    "hosting": [
+        {
+            "target": "app",
+            "public": "dist",
+            "cleanUrls": true,
+            "ignore": [
+                "firebase.json",
+                "**/.*",
+                "**/node_modules/**"
+            ],
+            "rewrites": [
+                {
+                    "source": "/fleet",
+                    "destination": "/fleet/index.html"
+                },
+                {
+                    "source": "/fleet/**",
+                    "destination": "/fleet/index.html"
+                },
+                {
+                    "source": "!**/*.@(xml|txt)",
+                    "destination": "/index.html"
+                }
+            ],
+            "headers": [
+                {
+                    "source": "**",
+                    "headers": [
+                        {
+                            "key": "Cache-Control",
+                            "value": "no-cache, no-store, must-revalidate"
+                        }
+                    ]
+                },
+                {
+                    "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|js|css|woff|woff2)",
+                    "headers": [
+                        {
+                            "key": "Cache-Control",
+                            "value": "max-age=31536000"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "target": "landing",
+            "public": "landing",
+            "cleanUrls": true,
+            "ignore": [
+                "firebase.json",
+                "**/.*",
+                "**/node_modules/**"
+            ],
+            "rewrites": [
+                {
+                    "source": "!**/*.@(xml|txt|png|jpg|jpeg|gif|webp|svg|css|js|html)",
+                    "destination": "/index.html"
+                }
+            ],
+            "redirects": [
+                {
+                    "source": "/landing",
+                    "destination": "/",
+                    "type": 301
+                },
+                {
+                    "source": "/landing/:path*",
+                    "destination": "/:path*",
+                    "type": 301
+                },
+                {
+                    "source": "/cities/:city.html",
+                    "destination": "/:city",
+                    "type": 301
+                },
+                {
+                    "source": "/cities/:city",
+                    "destination": "/:city",
+                    "type": 301
+                },
+                { "source": "/santamonica", "destination": "/santa-monica", "type": 301 },
+                { "source": "/sanpedro", "destination": "/san-pedro", "type": 301 },
+                { "source": "/ranchopalosverdes", "destination": "/rancho-palos-verdes", "type": 301 },
+                { "source": "/palosverdesestates", "destination": "/palos-verdes-estates", "type": 301 },
+                { "source": "/rollinghills", "destination": "/rolling-hills", "type": 301 },
+                { "source": "/rollinghillsestates", "destination": "/rolling-hills-estates", "type": 301 },
+                { "source": "/redondobeach", "destination": "/redondo-beach", "type": 301 },
+                { "source": "/hermosabeach", "destination": "/hermosa-beach", "type": 301 },
+                { "source": "/manhattanbeach", "destination": "/manhattan-beach", "type": 301 },
+                { "source": "/elsegundo", "destination": "/el-segundo", "type": 301 },
+                { "source": "/playadelrey", "destination": "/playa-del-rey", "type": 301 },
+                { "source": "/marinadelrey", "destination": "/marina-del-rey", "type": 301 },
+                { "source": "/pacificpalisades", "destination": "/pacific-palisades", "type": 301 },
+                { "source": "/belair", "destination": "/bel-air", "type": 301 },
+                { "source": "/beverlyhills", "destination": "/beverly-hills", "type": 301 },
+                { "source": "/westhollywood", "destination": "/west-hollywood", "type": 301 },
+                { "source": "/culvercity", "destination": "/culver-city", "type": 301 },
+                { "source": "/marvista", "destination": "/mar-vista", "type": 301 },
+                { "source": "/centurycity", "destination": "/century-city", "type": 301 },
+                { "source": "/silverlake", "destination": "/silver-lake", "type": 301 },
+                { "source": "/echopark", "destination": "/echo-park", "type": 301 },
+                { "source": "/downtownlosangeles", "destination": "/downtown-los-angeles", "type": 301 },
+                { "source": "/harborcity", "destination": "/harbor-city", "type": 301 },
+                { "source": "/longbeach", "destination": "/long-beach", "type": 301 },
+                { "source": "/signalhill", "destination": "/signal-hill", "type": 301 },
+                { "source": "/southgate", "destination": "/south-gate", "type": 301 },
+                { "source": "/huntingtonpark", "destination": "/huntington-park", "type": 301 },
+                { "source": "/santafesprings", "destination": "/santa-fe-springs", "type": 301 },
+                { "source": "/montereypark", "destination": "/monterey-park", "type": 301 }
+            ],
+            "headers": [
+                {
+                    "source": "/index.html",
+                    "headers": [
+                        {
+                            "key": "Cache-Control",
+                            "value": "no-cache, no-store, must-revalidate"
+                        }
+                    ]
+                },
+                {
+                    "source": "**/index.html",
+                    "headers": [
+                        {
+                            "key": "Cache-Control",
+                            "value": "no-cache, no-store, must-revalidate"
+                        }
+                    ]
+                },
+                {
+                    "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|js|css|woff|woff2|ico|json)",
+                    "headers": [
+                        {
+                            "key": "Cache-Control",
+                            "value": "max-age=31536000"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

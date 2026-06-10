@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 80" role="img" aria-label="P&amp;S Detail Products">
+  <rect width="260" height="80" fill="none"/>
+  <!-- Shield/badge shape -->
+  <path d="M18,8 L36,8 L36,32 L27,42 L18,32 Z" fill="none" stroke="#FF6B00" stroke-width="2.5"/>
+  <text x="22" y="28" font-family="'Arial Black',sans-serif" font-weight="900" font-size="14" fill="#FF6B00">P</text>
+  <!-- P&S wordmark -->
+  <text x="48" y="35" font-family="'Arial Black','Arial',sans-serif" font-weight="900" font-size="30" fill="#ffffff">P&amp;S</text>
+  <!-- DETAIL PRODUCTS subtext -->
+  <text x="48" y="52" font-family="'Arial Black','Arial',sans-serif" font-weight="700" font-size="13" fill="#FF6B00" letter-spacing="0.5">DETAIL PRODUCTS</text>
+  <text x="49" y="66" font-family="'Arial',sans-serif" font-size="8.5" fill="rgba(255,255,255,0.35)" letter-spacing="2">PROFESSIONAL GRADE</text>
+</svg>

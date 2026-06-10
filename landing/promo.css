@@ -1,0 +1,219 @@
+/* =============================================
+   PROMO MODAL POPUP (Floating)
+   ============================================= */
+
+#promoBar {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(8, 13, 26, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    padding: 1rem;
+}
+
+#promoBar.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.promo-modal-content {
+    background: var(--dark-lighter);
+    width: 100%;
+    max-width: 440px;
+    border-radius: 28px;
+    padding: 3rem 2rem;
+    position: relative;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transform: translateY(40px) scale(0.95);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: 0.1s;
+    overflow: hidden;
+}
+
+/* Optional glowing background inside the modal */
+.promo-modal-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 150px;
+    background: radial-gradient(ellipse at top, rgba(37, 99, 235, 0.15), transparent 70%);
+    pointer-events: none;
+}
+
+#promoBar.active .promo-modal-content {
+    transform: translateY(0) scale(1);
+}
+
+.promo-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(255,255,255,0.05);
+    border: none;
+    cursor: pointer;
+    color: rgba(255,255,255,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transition: all 0.2s;
+    z-index: 10;
+}
+
+.promo-modal-close:hover {
+    color: var(--white);
+    background: rgba(255,255,255,0.15);
+}
+
+.promo-modal-header {
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.promo-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    color: #ffffff;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    margin-top: 0.5rem;
+}
+
+.promo-modal-title {
+    font-size: 2.4rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.promo-modal-desc {
+    font-size: 0.95rem;
+    color: var(--gray);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Code Box */
+.promo-modal-code-box {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 1.2rem;
+    margin-bottom: 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.promo-modal-code-box:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.promo-code-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--gray);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+}
+
+.promo-code-value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.promo-code-value span:first-child {
+    font-family: 'Courier New', monospace;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+.promo-code-value .copy-icon {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.4);
+    transition: color 0.2s;
+}
+
+.promo-modal-code-box:hover .copy-icon {
+    color: #ffffff;
+}
+
+/* Button */
+.promo-modal-cta {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+
+/* Copied confirmation tooltip */
+.promo-copied {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: #ffffff;
+    color: #000000;
+    font-size: 14px;
+    font-weight: 800;
+    padding: 12px 24px;
+    border-radius: 30px;
+    z-index: 10002;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+}
+
+.promo-copied.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Mobile optimizations */
+@media (max-width: 480px) {
+    .promo-modal-content {
+        padding: 2.5rem 1.5rem;
+    }
+    
+    .promo-modal-title {
+        font-size: 2rem;
+    }
+    
+    .promo-code-value span:first-child {
+        font-size: 1.4rem;
+    }
+}

@@ -1,0 +1,1367 @@
+{
+  "San Pedro": {
+    "neighborhoods": [
+      "Point Fermin",
+      "Ponte Vista",
+      "Gaffey Street Corridor",
+      "Harbor Gateway"
+    ],
+    "landmarks": [
+      "USS Iowa Battleship Museum",
+      "Cabrillo Marine Aquarium",
+      "Angels Gate Park"
+    ],
+    "streets": [
+      "Gaffey St",
+      "Western Ave",
+      "Pacific Ave",
+      "25th St"
+    ],
+    "vehicle_profile": "trucks, SUVs, working vehicles, and family sedans",
+    "local_angle": "Salt air from the Port of Los Angeles and San Pedro Bay aggressively attacks paint and metal. Regular professional detailing is essential to combat corrosion caused by sea salt and industrial fallout from the port.",
+    "competition_angle": "San Pedro's working-class heritage means most residents rely on DIY washes or cheap tunnel washes — our mobile premium service is a step above anything available locally.",
+    "service_area_desc": "Point Fermin, Ponte Vista, Cabrillo Beach, and the Harbor Gateway corridor",
+    "zip": "90731",
+    "why_us_local": "We protect your vehicle from the aggressive marine environment near the Port of LA. Our mobile team comes to your home or workplace in San Pedro — no driving required."
+  },
+  "Rancho Palos Verdes": {
+    "neighborhoods": [
+      "Miraleste",
+      "Malaga Cove",
+      "Portuguese Bend",
+      "Eastview"
+    ],
+    "landmarks": [
+      "Wayfarers Chapel",
+      "Point Vicente Lighthouse",
+      "Terranea Resort",
+      "Trump National Golf Club"
+    ],
+    "streets": [
+      "Palos Verdes Dr East",
+      "Palos Verdes Dr South",
+      "Hawthorne Blvd"
+    ],
+    "vehicle_profile": "luxury SUVs, German imports, Tesla, and high-end sedans",
+    "local_angle": "The stunning coastal bluffs of Rancho Palos Verdes come with one downside for car owners: constant salt sea spray, wind-driven dust, and harsh UV from the Pacific-facing hillsides. Luxury vehicles here require premium protective care.",
+    "competition_angle": "There are no traditional car washes in the Palos Verdes Peninsula — our mobile service is the only premium option that comes directly to your estate or driveway.",
+    "service_area_desc": "Miraleste Hills, Portuguese Bend, Malaga Cove, and the coastal estates of RPV",
+    "zip": "90275",
+    "why_us_local": "We serve the Palos Verdes Peninsula exclusively with mobile detailing — bringing the full-service detail shop to your home overlooking the Pacific."
+  },
+  "Palos Verdes Estates": {
+    "neighborhoods": [
+      "Malaga Cove",
+      "Lunada Bay",
+      "Valmonte",
+      "Montemalaga"
+    ],
+    "landmarks": [
+      "Malaga Cove Plaza",
+      "Lunada Bay Beach",
+      "Palos Verdes Golf Club"
+    ],
+    "streets": [
+      "Palos Verdes Dr West",
+      "Via Corta",
+      "Via Almar",
+      "Palos Verdes Blvd"
+    ],
+    "vehicle_profile": "European luxury sedans, Tesla, Range Rover, and Porsche",
+    "local_angle": "Palos Verdes Estates is one of the most affluent coastal cities in California. The combination of ocean breezes, high-value vehicles, and winding hillside roads means your car needs expert protection year-round.",
+    "competition_angle": "No tunnel washes exist in the Palos Verdes Peninsula — our premium mobile detailing is the exclusive option for estate-level car care.",
+    "service_area_desc": "Malaga Cove, Lunada Bay, Valmonte, and the gated communities of PVE",
+    "zip": "90274",
+    "why_us_local": "We understand the unique needs of Palos Verdes Estates residents. Our mobile team arrives discreetly at your home and delivers showroom results every time."
+  },
+  "Rolling Hills": {
+    "neighborhoods": [
+      "Rolling Hills Estates",
+      "Crest Road area",
+      "Eastfield"
+    ],
+    "landmarks": [
+      "Rolling Hills Country Club",
+      "South Coast Botanic Garden"
+    ],
+    "streets": [
+      "Crest Rd",
+      "Eastfield Dr",
+      "Rolling Hills Rd"
+    ],
+    "vehicle_profile": "luxury SUVs, equestrian vehicles, Range Rover, and full-size trucks",
+    "local_angle": "Rolling Hills is an exclusive gated community where residents take pride in their properties — and their vehicles. Dusty ranch roads and ocean winds create unique paint challenges that require professional-grade care.",
+    "competition_angle": "As a gated community, Rolling Hills residents have limited access to car washes. Our mobile service is the only option that comes inside the gates.",
+    "service_area_desc": "the gated communities along Crest Road and the Eastfield estates of Rolling Hills",
+    "zip": "90274",
+    "why_us_local": "We are one of the few mobile detailing services authorized to serve inside the Rolling Hills gated community — delivering premium results at your stable or driveway."
+  },
+  "Rolling Hills Estates": {
+    "neighborhoods": [
+      "Chandler's Palos Verdes",
+      "Rolling Hills Estates Town Center"
+    ],
+    "landmarks": [
+      "Peninsula Center",
+      "Golden Cove Shopping Center"
+    ],
+    "streets": [
+      "Indian Peak Rd",
+      "Crenshaw Blvd",
+      "Hawthorne Blvd"
+    ],
+    "vehicle_profile": "family SUVs, luxury sedans, and European imports",
+    "local_angle": "Rolling Hills Estates combines suburban family life with Peninsula luxury. Vehicles here face salt air from the nearby coast and heavy dust from surrounding open-space corridors.",
+    "competition_angle": "The Peninsula has limited local car wash options. Our mobile service eliminates the 20-30 minute drive to the nearest facility.",
+    "service_area_desc": "the residential neighborhoods and community centers of Rolling Hills Estates",
+    "zip": "90274",
+    "why_us_local": "Save time in Rolling Hills Estates — we come to you with everything needed for a perfect detail, so you never have to leave the Hill."
+  },
+  "Torrance": {
+    "neighborhoods": [
+      "Old Torrance",
+      "Walteria",
+      "Hollywood Riviera",
+      "West Torrance",
+      "North Torrance"
+    ],
+    "landmarks": [
+      "Del Amo Fashion Center",
+      "Honda R&D Americas",
+      "Toyota Motor North America",
+      "Madrona Marsh"
+    ],
+    "streets": [
+      "Hawthorne Blvd",
+      "Crenshaw Blvd",
+      "Sepulveda Blvd",
+      "Carson St",
+      "PCH"
+    ],
+    "vehicle_profile": "Japanese imports, Hondas, Toyotas, SUVs, and commuter vehicles",
+    "local_angle": "Torrance is the home of Honda and Toyota's American headquarters. With more Japanese imports per capita than almost any city in LA, keeping your vehicle in pristine condition is a matter of local pride.",
+    "competition_angle": "Torrance has many budget car washes, but none offer the mobile convenience and premium results of Pro Detail Lab.",
+    "service_area_desc": "Old Torrance, Walteria, Hollywood Riviera, West and North Torrance neighborhoods",
+    "zip": "90501",
+    "why_us_local": "In the city where Toyota and Honda call home, we deliver Japanese-quality precision detailing right to your Torrance driveway or office."
+  },
+  "Redondo Beach": {
+    "neighborhoods": [
+      "Hollywood Riviera",
+      "North Redondo",
+      "South Redondo",
+      "Avenues"
+    ],
+    "landmarks": [
+      "Redondo Beach Pier",
+      "King Harbor Marina",
+      "International Boardwalk",
+      "Galleria at South Bay"
+    ],
+    "streets": [
+      "Esplanade",
+      "Pacific Coast Hwy",
+      "Catalina Ave",
+      "Aviation Blvd"
+    ],
+    "vehicle_profile": "beachside SUVs, Jeeps, sports cars, and California trucks",
+    "local_angle": "Living near Redondo Beach means constant salt spray from King Harbor and the Pacific. Sand from the beach gets everywhere, and salt air etches paint over time — making regular professional detailing a non-negotiable for coastal car owners.",
+    "competition_angle": "While Redondo has a few traditional car washes, none come to your home or King Harbor marina slip. We do.",
+    "service_area_desc": "Hollywood Riviera, North and South Redondo, King Harbor marina area, and the Avenues",
+    "zip": "90277",
+    "why_us_local": "From the King Harbor marina to Hollywood Riviera hillsides, we bring premium mobile detailing to every corner of Redondo Beach."
+  },
+  "Hermosa Beach": {
+    "neighborhoods": [
+      "Downtown Hermosa",
+      "The Strand",
+      "Valley Park"
+    ],
+    "landmarks": [
+      "Hermosa Beach Pier",
+      "The Strand bike path",
+      "Pier Plaza"
+    ],
+    "streets": [
+      "Hermosa Ave",
+      "Pier Ave",
+      "Valley Dr",
+      "Ardmore Ave"
+    ],
+    "vehicle_profile": "Jeeps, convertibles, beach cruiser SUVs, and sports cars",
+    "local_angle": "Hermosa Beach is arguably the most car-corroding location in the South Bay. The Strand's direct Pacific exposure means every vehicle within blocks of the ocean accumulates salt air damage rapidly — weekly protection is essential.",
+    "competition_angle": "There are no full-service car washes in Hermosa Beach — our mobile service is the only premium option available without leaving the city.",
+    "service_area_desc": "The Strand, Pier Plaza area, Valley Park, and all residential neighborhoods of Hermosa Beach",
+    "zip": "90254",
+    "why_us_local": "We're the go-to mobile detailing service for Hermosa Beach residents who want showroom-quality results without leaving their beachside home."
+  },
+  "Manhattan Beach": {
+    "neighborhoods": [
+      "The Hill",
+      "Tree Section",
+      "Sand Section",
+      "Liberty Village",
+      "El Porto"
+    ],
+    "landmarks": [
+      "Manhattan Beach Pier",
+      "Manhattan Village Mall",
+      "El Porto surf break"
+    ],
+    "streets": [
+      "Highland Ave",
+      "Manhattan Beach Blvd",
+      "Rosecrans Ave",
+      "Sepulveda Blvd",
+      "Marine Ave"
+    ],
+    "vehicle_profile": "Tesla, Mercedes-Benz, BMW, Porsche, and luxury beach SUVs",
+    "local_angle": "Manhattan Beach attracts some of the wealthiest residents in Southern California. The combination of high-end European imports and direct ocean proximity creates the perfect storm for paint damage — only professional mobile detailing keeps these premium vehicles protected.",
+    "competition_angle": "Manhattan Beach residents demand premium services. We deliver a five-star detail experience directly to the Tree Section, Sand Section, or anywhere on the Hill.",
+    "service_area_desc": "the Hill, Tree Section, Sand Section, Liberty Village, El Porto, and the Manhattan Beach Pier area",
+    "zip": "90266",
+    "why_us_local": "Manhattan Beach deserves a premium detailing service that matches the neighborhood's standards. We come to your home, office, or beachside parking spot."
+  },
+  "El Segundo": {
+    "neighborhoods": [
+      "Standard Hotels area",
+      "Smoky Hollow",
+      "Center St"
+    ],
+    "landmarks": [
+      "Los Angeles International Airport",
+      "Chevron El Segundo Refinery",
+      "Mattel HQ",
+      "El Segundo Brewing Co"
+    ],
+    "streets": [
+      "Main St",
+      "Grand Ave",
+      "Sepulveda Blvd",
+      "El Segundo Blvd"
+    ],
+    "vehicle_profile": "corporate commuter vehicles, SUVs, fleet vehicles, and tech employee cars",
+    "local_angle": "El Segundo is home to major corporations including Mattel, Chevron, and dozens of tech firms adjacent to LAX. Employees and executives need their vehicles detailed efficiently during the workday — we come to your office parking structure.",
+    "competition_angle": "The industrial nature of El Segundo means most car washes are basic. Our mobile service provides executive-level detailing at your office or home.",
+    "service_area_desc": "Smoky Hollow, the Grand Ave business district, residential areas, and corporate campuses near LAX",
+    "zip": "90245",
+    "why_us_local": "We specialize in lunchtime detailing for El Segundo's corporate community — your car is detailed while you work, ready when you leave."
+  },
+  "Westchester": {
+    "neighborhoods": [
+      "Loyola Village",
+      "Kentwood",
+      "Emerson",
+      "Green Meadows"
+    ],
+    "landmarks": [
+      "Loyola Marymount University",
+      "LAX Airport",
+      "Westchester Park",
+      "Proud Bird Restaurant"
+    ],
+    "streets": [
+      "Sepulveda Blvd",
+      "Manchester Ave",
+      "Lincoln Blvd",
+      "Westchester Pkwy"
+    ],
+    "vehicle_profile": "family SUVs, airport commuter vehicles, and corporate cars",
+    "local_angle": "Westchester's location adjacent to LAX creates unique vehicle challenges: ultra-fine jet exhaust particles settle on paint and cause rapid degradation. Regular decontamination washes are critical for Westchester vehicle owners.",
+    "competition_angle": "Busy LAX traffic makes driving to a car wash inconvenient. Our mobile service eliminates the hassle entirely.",
+    "service_area_desc": "Loyola Village, Kentwood, Emerson, Green Meadows, and the neighborhoods adjacent to LMU and LAX",
+    "zip": "90045",
+    "why_us_local": "Live near LAX? Your car is exposed to jet exhaust daily. We provide mobile decontamination detailing in Westchester to keep your paint safe."
+  },
+  "Playa del Rey": {
+    "neighborhoods": [
+      "The Jungle",
+      "Surfridge",
+      "Del Rey Lagoon"
+    ],
+    "landmarks": [
+      "Dockweiler State Beach",
+      "Ballona Wetlands",
+      "Del Rey Lagoon Park"
+    ],
+    "streets": [
+      "Culver Blvd",
+      "Vista del Mar",
+      "Pershing Dr",
+      "Napoleon St"
+    ],
+    "vehicle_profile": "beach SUVs, vintage cars, and surf-lifestyle vehicles",
+    "local_angle": "Playa del Rey sits between the Pacific Ocean and Ballona Wetlands — making it one of the most salt-air-exposed communities in Los Angeles. This unique geography accelerates paint oxidation and metal corrosion faster than almost anywhere in the city.",
+    "competition_angle": "Playa del Rey has no local car washes. Residents must drive to Marina del Rey or Culver City — our mobile service eliminates that trip entirely.",
+    "service_area_desc": "The Jungle, Surfridge, Del Rey Lagoon area, and the beachfront homes of Playa del Rey",
+    "zip": "90293",
+    "why_us_local": "We know Playa del Rey's coastal environment. Our detailing packages are specifically designed for salt-air protection in beachfront communities."
+  },
+  "Marina del Rey": {
+    "neighborhoods": [
+      "Admiralty Park",
+      "Marina Peninsula",
+      "Palawan Way",
+      "Fiji Way"
+    ],
+    "landmarks": [
+      "Marina del Rey Harbor",
+      "Fisherman's Village",
+      "Burton Chace Park",
+      "Villa Marina Marketplace"
+    ],
+    "streets": [
+      "Admiralty Way",
+      "Via Marina",
+      "Washington Blvd",
+      "Lincoln Blvd"
+    ],
+    "vehicle_profile": "luxury imports, Tesla, convertibles, and boat owner SUVs",
+    "local_angle": "Marina del Rey is California's largest small craft harbor, surrounded by luxury condos and yacht clubs. The marine environment here is especially corrosive — salt air, boat exhaust, and sea mist combine to attack vehicle finishes daily.",
+    "competition_angle": "Marina del Rey's affluent residents expect concierge-level service. We deliver premium mobile detailing to your condo parking garage or marina slip.",
+    "service_area_desc": "the Marina del Rey Harbor area, Admiralty Way, Marina Peninsula, Palawan Way, and the luxury condo corridor",
+    "zip": "90292",
+    "why_us_local": "Marina del Rey's yacht club lifestyle demands a premium mobile detailing service. We come to your marina condo — even to your parking level."
+  },
+  "Venice": {
+    "neighborhoods": [
+      "Abbot Kinney",
+      "Silver Triangle",
+      "Venice Canals",
+      "Ocean Front Walk",
+      "Del Rey"
+    ],
+    "landmarks": [
+      "Venice Beach Boardwalk",
+      "Abbot Kinney Blvd",
+      "Venice Canals",
+      "Muscle Beach"
+    ],
+    "streets": [
+      "Abbot Kinney Blvd",
+      "Rose Ave",
+      "Lincoln Blvd",
+      "Venice Blvd",
+      "Main St"
+    ],
+    "vehicle_profile": "Tesla, vintage VWs, creative-class vehicles, cargo bikes, and luxury electric cars",
+    "local_angle": "Venice Beach is where bohemian culture meets Silicon Beach tech money. From sand-covered Jeeps at the beach to spotless Teslas parked on Abbot Kinney, Venice vehicles need as much personality and care as the neighborhood itself.",
+    "competition_angle": "Venice's progressive community loves eco-friendly services. Our waterless and biodegradable mobile detailing aligns perfectly with the Venice lifestyle.",
+    "service_area_desc": "Abbot Kinney corridor, Venice Canals district, Ocean Front Walk area, Silver Triangle, and all Venice Beach neighborhoods",
+    "zip": "90291",
+    "why_us_local": "Eco-friendly mobile detailing for Venice Beach — we use biodegradable products and water reclamation to protect both your car and the Pacific Ocean."
+  },
+  "Santa Monica": {
+    "neighborhoods": [
+      "Montana Avenue",
+      "Ocean Park",
+      "Sunset Park",
+      "Mid-City",
+      "Wilshire Montana"
+    ],
+    "landmarks": [
+      "Santa Monica Pier",
+      "Third Street Promenade",
+      "Montana Ave shopping",
+      "Palisades Park"
+    ],
+    "streets": [
+      "Montana Ave",
+      "Ocean Ave",
+      "Wilshire Blvd",
+      "Lincoln Blvd",
+      "Main St"
+    ],
+    "vehicle_profile": "Tesla, luxury German imports, convertibles, and upscale SUVs",
+    "local_angle": "Santa Monica combines Westside luxury with direct Pacific Ocean exposure. Residents on Ocean Avenue face the most intense salt air on the Westside. Our premium protective treatments keep their high-value vehicles flawless despite the harsh coastal environment.",
+    "competition_angle": "Santa Monica has high parking costs and congestion. Our mobile service means you never need to drive to a car wash again.",
+    "service_area_desc": "Montana Avenue, Ocean Park, Sunset Park, the Third Street Promenade area, and all Santa Monica neighborhoods",
+    "zip": "90401",
+    "why_us_local": "Santa Monica's Westside luxury meets coastal exposure. We deliver mobile ceramic coating and premium detailing to your Santa Monica address — apartment, condo, or home."
+  },
+  "Pacific Palisades": {
+    "neighborhoods": [
+      "Palisades Village",
+      "Rustic Canyon",
+      "Castellammare",
+      "Will Rogers State Park area"
+    ],
+    "landmarks": [
+      "Palisades Village",
+      "Will Rogers State Historic Park",
+      "Topanga State Park trailheads",
+      "Gladstones Restaurant"
+    ],
+    "streets": [
+      "Sunset Blvd",
+      "PCH",
+      "Chautauqua Blvd",
+      "Temescal Canyon Rd"
+    ],
+    "vehicle_profile": "Range Rover, Tesla, Mercedes-Benz, BMW, and luxury family SUVs",
+    "local_angle": "Pacific Palisades is one of LA's most exclusive coastal communities, where celebrity estates and ocean-view homes demand the highest standard of vehicle care. The canyon roads and coastal proximity create unique paint challenges requiring professional attention.",
+    "competition_angle": "There are no walk-in car washes in Pacific Palisades — residents must drive out of the area or call us. We eliminate that inconvenience entirely.",
+    "service_area_desc": "Palisades Village, Rustic Canyon, Castellammare, the Malibu border area, and canyon estates",
+    "zip": "90272",
+    "why_us_local": "Pacific Palisades estates deserve white-glove mobile detailing. We serve this exclusive community with the discretion and premium quality you expect."
+  },
+  "Brentwood": {
+    "neighborhoods": [
+      "Brentwood Park",
+      "Brentwood Village",
+      "Sullivan Canyon",
+      "San Vicente"
+    ],
+    "landmarks": [
+      "Brentwood Country Club",
+      "Getty Center",
+      "San Vicente Blvd jogging path",
+      "Brentwood Country Mart"
+    ],
+    "streets": [
+      "San Vicente Blvd",
+      "Sunset Blvd",
+      "Barrington Ave",
+      "Bundy Dr"
+    ],
+    "vehicle_profile": "Range Rover, Bentley, Porsche, Tesla, and ultra-luxury imports",
+    "local_angle": "Brentwood is home to some of LA's most successful lawyers, entertainment executives, and tech founders. Their high-value European and exotic vehicles require meticulous professional maintenance — not a tunnel wash.",
+    "competition_angle": "Brentwood residents have demanding standards. Our mobile detailing delivers Rodeo Drive-quality results at your Brentwood estate or office.",
+    "service_area_desc": "Brentwood Park, Sullivan Canyon, San Vicente corridor, Brentwood Country Club area, and the Sunset strip corridor",
+    "zip": "90049",
+    "why_us_local": "Brentwood's elite community demands elite service. We arrive in our professional detail van and transform your vehicle in your own driveway."
+  },
+  "Bel Air": {
+    "neighborhoods": [
+      "Lower Bel Air",
+      "Upper Bel Air",
+      "Stone Canyon"
+    ],
+    "landmarks": [
+      "Hotel Bel-Air",
+      "Bel Air Country Club",
+      "Stone Canyon Reservoir",
+      "Getty Center"
+    ],
+    "streets": [
+      "Stone Canyon Rd",
+      "Bel Air Rd",
+      "Beverly Glen Blvd",
+      "Mulholland Dr"
+    ],
+    "vehicle_profile": "Rolls-Royce, Bentley, Lamborghini, McLaren, Bugatti, and ultra-exotic vehicles",
+    "local_angle": "Bel Air is home to some of the world's most expensive automobiles. From multi-million dollar hypercars to daily-driven Rolls-Royces, these vehicles require the most careful, expert paint protection available — no brush, no machine, only hand-polished perfection.",
+    "competition_angle": "Bel Air's gated estates don't have car washes nearby — and they shouldn't. We bring an elite mobile experience befitting the most exclusive zip code in Los Angeles.",
+    "service_area_desc": "Upper and Lower Bel Air estates, Stone Canyon, the Hotel Bel-Air vicinity, and the gated communities of Bel Air",
+    "zip": "90077",
+    "why_us_local": "We are one of the elite mobile detailing services trusted to care for exotic and ultra-luxury vehicles on Bel Air estates. Discretion and perfection guaranteed."
+  },
+  "Beverly Hills": {
+    "neighborhoods": [
+      "The Flats",
+      "Trousdale Estates",
+      "Beverly Hills Post Office",
+      "Benedict Canyon"
+    ],
+    "landmarks": [
+      "Rodeo Drive",
+      "Beverly Hills Hotel",
+      "Greystone Mansion",
+      "Saks Fifth Avenue",
+      "Spago"
+    ],
+    "streets": [
+      "Rodeo Drive",
+      "Sunset Blvd",
+      "Canon Drive",
+      "Beverly Dr",
+      "Wilshire Blvd"
+    ],
+    "vehicle_profile": "Ferrari, Lamborghini, Rolls-Royce, Bentley, Tesla, and ultra-luxury imports",
+    "local_angle": "Beverly Hills is synonymous with luxury — and nowhere is that more true than in the vehicle choices of its residents. From Ferrari collections parked on Rodeo Drive to daily-driven Bentleys in Trousdale Estates, the 90210 zip code demands automotive care that matches its legendary status.",
+    "competition_angle": "Beverly Hills has strict aesthetic standards. Our discreet mobile detailing service arrives in a professional van and delivers results worthy of the 90210 address.",
+    "service_area_desc": "the Flats, Trousdale Estates, the Golden Triangle, Benedict Canyon, and all Beverly Hills neighborhoods",
+    "zip": "90210",
+    "why_us_local": "On Rodeo Drive's doorstep, we deliver 90210-worthy mobile detailing to your Beverly Hills home, estate, or garage. Your Ferrari deserves nothing less."
+  },
+  "West Hollywood": {
+    "neighborhoods": [
+      "Sunset Strip",
+      "Design District",
+      "Norma Triangle",
+      "Boy's Town",
+      "Santa Monica Blvd corridor"
+    ],
+    "landmarks": [
+      "Sunset Strip",
+      "Chateau Marmont",
+      "The Comedy Store",
+      "Pacific Design Center",
+      "Troubadour"
+    ],
+    "streets": [
+      "Santa Monica Blvd",
+      "Sunset Strip",
+      "Melrose Ave",
+      "San Vicente Blvd"
+    ],
+    "vehicle_profile": "Tesla, luxury imports, vintage Porsche, and fashion-forward vehicles",
+    "local_angle": "West Hollywood's vibrant entertainment and design scene means your car is always on display — whether you're valet parking at Chateau Marmont or street parking on Sunset. Looking immaculate is non-negotiable in WeHo.",
+    "competition_angle": "WeHo parking is notoriously difficult. We come directly to your address — no driving, no waiting in line.",
+    "service_area_desc": "the Sunset Strip, Design District, Norma Triangle, Santa Monica Blvd, and the Boy's Town corridor",
+    "zip": "90069",
+    "why_us_local": "West Hollywood's style-conscious community deserves a mobile detailing service that matches the energy of the Sunset Strip. We come to you, anywhere in WeHo."
+  },
+  "Culver City": {
+    "neighborhoods": [
+      "Downtown Culver City",
+      "Culver Crest",
+      "Fox Hills",
+      "Sunkist Park"
+    ],
+    "landmarks": [
+      "Sony Pictures Studios",
+      "Platform at Culver City",
+      "Museum of Jurassic Technology",
+      "Culver City Steps"
+    ],
+    "streets": [
+      "Washington Blvd",
+      "Culver Blvd",
+      "Venice Blvd",
+      "Jefferson Blvd"
+    ],
+    "vehicle_profile": "tech employee commuters, Tesla, midsize SUVs, and studio lot vehicles",
+    "local_angle": "Culver City is LA's booming tech and entertainment hub — home to Amazon Studios, Apple TV, and Sony Pictures. Tech employees and executives in the area need efficient, professional car care that fits their busy Silicon Beach schedules.",
+    "competition_angle": "Culver City's rapid growth means more people, more cars, and more demand for convenient services. Our mobile detail eliminates the need to find parking at a car wash.",
+    "service_area_desc": "Downtown Culver City, Fox Hills, Culver Crest, Sunkist Park, and the media district near the studios",
+    "zip": "90230",
+    "why_us_local": "Silicon Beach headquarters are here. We offer mobile lunchtime detailing for Culver City's tech and entertainment professionals — ready when your workday ends."
+  },
+  "Mar Vista": {
+    "neighborhoods": [
+      "Sunset Park",
+      "Mar Vista Gardens",
+      "Elliot Drive",
+      "Rose Avenue area"
+    ],
+    "landmarks": [
+      "Mar Vista Farmers Market",
+      "Ballona Creek bike path",
+      "West Los Angeles College"
+    ],
+    "streets": [
+      "Venice Blvd",
+      "Centinela Ave",
+      "Palms Blvd",
+      "Inglewood Blvd"
+    ],
+    "vehicle_profile": "family SUVs, midsize sedans, eco-friendly vehicles, and creative-class cars",
+    "local_angle": "Mar Vista is a family-friendly Westside neighborhood with a strong sense of community. Residents here value convenience and quality — our mobile detailing serves the entire neighborhood without disrupting the laid-back Mar Vista lifestyle.",
+    "competition_angle": "Mar Vista has few local car wash options. The nearest full-service car wash requires a drive to Culver City or Santa Monica.",
+    "service_area_desc": "all Mar Vista residential neighborhoods, Sunset Park, and the Venice Boulevard corridor",
+    "zip": "90066",
+    "why_us_local": "Mar Vista families deserve a convenient, eco-friendly mobile detailing service. We come to your home while you spend time with your family."
+  },
+  "Palms": {
+    "neighborhoods": [
+      "Palms",
+      "Westdale",
+      "Overland Avenue area"
+    ],
+    "landmarks": [
+      "Palms Park",
+      "West Los Angeles area shopping",
+      "Overland Ave business district"
+    ],
+    "streets": [
+      "Venice Blvd",
+      "Overland Ave",
+      "Palms Blvd",
+      "National Blvd"
+    ],
+    "vehicle_profile": "young professional vehicles, midsize sedans, and commuter SUVs",
+    "local_angle": "Palms is a vibrant neighborhood of young professionals and families near Silicon Beach. Convenient, affordable, and high-quality mobile detailing fits perfectly with the busy Palms lifestyle.",
+    "competition_angle": "Palms residents don't want to spend weekends waiting at car washes. Our mobile service fits into any busy schedule.",
+    "service_area_desc": "Palms, Westdale, and the Overland Avenue corridor between Culver City and Century City",
+    "zip": "90034",
+    "why_us_local": "For Palms professionals who value their time, we deliver premium mobile detailing without disrupting your weekend or workday."
+  },
+  "Century City": {
+    "neighborhoods": [
+      "Century City Business District",
+      "Westfield Century City area",
+      "Fox Studio Lot"
+    ],
+    "landmarks": [
+      "Westfield Century City Mall",
+      "Century City Medical Plaza",
+      "Fox Studios",
+      "CAA headquarters"
+    ],
+    "streets": [
+      "Avenue of the Stars",
+      "Constellation Blvd",
+      "Santa Monica Blvd",
+      "Century Park E"
+    ],
+    "vehicle_profile": "executive vehicles, Tesla, Porsche, BMW, Mercedes-Benz, and entertainment industry cars",
+    "local_angle": "Century City is one of LA's premier business districts — home to entertainment agencies, law firms, and media corporations. Executives here expect premium services that respect their time. We offer mobile lunchtime detailing at your Century City office parking structure.",
+    "competition_angle": "Parking in Century City is expensive and scarce. Our mobile service comes directly to your building's parking level — no additional drives required.",
+    "service_area_desc": "the Century City Business District, Westfield Century City, Fox Studio Lot area, and surrounding high-rise offices",
+    "zip": "90067",
+    "why_us_local": "Century City executives trust us to detail their vehicles in their office parking garage. We work while you work — your car is ready when you are."
+  },
+  "Westwood": {
+    "neighborhoods": [
+      "Westwood Village",
+      "UCLA campus area",
+      "Little Tehran",
+      "Holmby Hills"
+    ],
+    "landmarks": [
+      "UCLA Campus",
+      "Westwood Village",
+      "Hammer Museum",
+      "National Veterans Affairs campus"
+    ],
+    "streets": [
+      "Westwood Blvd",
+      "Wilshire Blvd",
+      "Gayley Ave",
+      "Hilgard Ave"
+    ],
+    "vehicle_profile": "student vehicles, luxury family SUVs, Tesla, and university community cars",
+    "local_angle": "Westwood serves both UCLA's academic community and the affluent residents of nearby Holmby Hills. From student sedans that need their first professional detail to luxury SUVs parked in estate driveways, we serve the full spectrum of Westwood drivers.",
+    "competition_angle": "UCLA campus parking is notoriously difficult. We offer mobile service that comes to your Westwood apartment, dorm, or home.",
+    "service_area_desc": "Westwood Village, UCLA campus, Little Tehran, and the Holmby Hills estates",
+    "zip": "90024",
+    "why_us_local": "From UCLA's campus to Holmby Hills estates, we provide mobile detailing for every Westwood resident — students and executives alike."
+  },
+  "Hollywood": {
+    "neighborhoods": [
+      "Hollywood Hills",
+      "Los Feliz",
+      "Thai Town",
+      "Little Armenia",
+      "Cahuenga Pass"
+    ],
+    "landmarks": [
+      "Hollywood Walk of Fame",
+      "TCL Chinese Theatre",
+      "Hollywood Bowl",
+      "Griffith Observatory",
+      "Capitol Records Building"
+    ],
+    "streets": [
+      "Hollywood Blvd",
+      "Sunset Blvd",
+      "Melrose Ave",
+      "Highland Ave",
+      "Cahuenga Blvd"
+    ],
+    "vehicle_profile": "entertainment industry vehicles, Tesla, vintage classics, and international luxury cars",
+    "local_angle": "Hollywood is the entertainment capital of the world — a city where first impressions are everything. Whether you're a showrunner pulling up to a studio in a Porsche or an actor arriving at a premiere, your vehicle is part of your image.",
+    "competition_angle": "Hollywood's entertainment professionals are always on the go. Our mobile detailing service fits into any call sheet — we come to your Hollywood home or studio parking.",
+    "service_area_desc": "Hollywood Hills, the Walk of Fame district, Los Feliz, Thai Town, Little Armenia, and the Cahuenga corridor",
+    "zip": "90028",
+    "why_us_local": "Lights, camera, clean car. We provide mobile detailing for Hollywood's entertainment community — arriving at your home or studio on your schedule."
+  },
+  "Silver Lake": {
+    "neighborhoods": [
+      "Silver Lake Reservoir area",
+      "Micheltorena",
+      "Sunset Junction",
+      "Ivanhoe"
+    ],
+    "landmarks": [
+      "Silver Lake Reservoir",
+      "Sunset Junction",
+      "Intelligentsia Coffee",
+      "LAMILL Coffee"
+    ],
+    "streets": [
+      "Sunset Blvd",
+      "Silver Lake Blvd",
+      "Hyperion Ave",
+      "Glendale Blvd"
+    ],
+    "vehicle_profile": "vintage and classic cars, Tesla, creative-class vehicles, and eco-friendly options",
+    "local_angle": "Silver Lake's artistic and creative community is passionate about both sustainability and aesthetics. Our eco-friendly mobile detailing uses biodegradable products and water reclamation — a perfect fit for Silver Lake's values.",
+    "competition_angle": "Silver Lake's hilly streets and limited parking make driving to a car wash inconvenient. Our mobile service comes right to your Silverlake home.",
+    "service_area_desc": "the Silver Lake Reservoir area, Sunset Junction, Micheltorena, Ivanhoe, and all Silver Lake hillside streets",
+    "zip": "90026",
+    "why_us_local": "Silver Lake's creative community loves eco-friendly mobile detailing. We use sustainable products and zero water runoff — cleaning your car AND the environment."
+  },
+  "Echo Park": {
+    "neighborhoods": [
+      "Echo Park Lake",
+      "Angelino Heights",
+      "Elysian Heights",
+      "Ewing Street"
+    ],
+    "landmarks": [
+      "Echo Park Lake",
+      "Elysian Park",
+      "Dodger Stadium",
+      "Angelino Heights Victorian District"
+    ],
+    "streets": [
+      "Sunset Blvd",
+      "Echo Park Ave",
+      "Glendale Blvd",
+      "Alvarado St"
+    ],
+    "vehicle_profile": "creative professionals' vehicles, vintage cars, and commuter sedans",
+    "local_angle": "Echo Park's neighborhood character is defined by creativity, community, and character. Vehicle owners here often have passion cars or daily drivers they care about deeply but don't have time to take to a car wash in more car-centric neighborhoods.",
+    "competition_angle": "Echo Park's hilly, tight-streeted neighborhood has no full-service car wash nearby. We fill that gap with mobile service.",
+    "service_area_desc": "Echo Park Lake area, Angelino Heights historic district, Elysian Heights, and all Echo Park neighborhoods",
+    "zip": "90026",
+    "why_us_local": "Echo Park deserves convenient, community-friendly mobile detailing. We come to your street and clean your car while respecting the neighborhood."
+  },
+  "Downtown Los Angeles": {
+    "neighborhoods": [
+      "Arts District",
+      "Little Tokyo",
+      "Financial District",
+      "South Park",
+      "Bunker Hill",
+      "Historic Core"
+    ],
+    "landmarks": [
+      "Staples Center (Crypto.com Arena)",
+      "Grand Central Market",
+      "The Broad Museum",
+      "MOCA",
+      "Grand Park"
+    ],
+    "streets": [
+      "Grand Ave",
+      "Figueroa St",
+      "Hope St",
+      "Spring St",
+      "Broadway"
+    ],
+    "vehicle_profile": "executive fleet vehicles, luxury sedans, residential tower vehicles, and corporate cars",
+    "local_angle": "Downtown LA's urban environment is tough on vehicles — smog, bird droppings, construction dust, and industrial fallout combine daily. High-rise residents and corporate executives can't easily drive to a car wash during business hours.",
+    "competition_angle": "DTLA has complex parking and heavy traffic. Our mobile service comes to your building's parking structure — no moving your car, no hassle.",
+    "service_area_desc": "the Arts District, Little Tokyo, Financial District, South Park, Bunker Hill, and the Historic Core",
+    "zip": "90012",
+    "why_us_local": "We detail vehicles in Downtown LA parking garages — no driving out, no hassle. Perfect for Bunker Hill executives and Arts District residents."
+  },
+  "Inglewood": {
+    "neighborhoods": [
+      "Morningside Park",
+      "Fairview Heights",
+      "Crenshaw Imperial",
+      "Hyde Park"
+    ],
+    "landmarks": [
+      "SoFi Stadium",
+      "Kia Forum",
+      "Hollywood Park Casino",
+      "Crenshaw/LAX Metro Line"
+    ],
+    "streets": [
+      "Century Blvd",
+      "Crenshaw Blvd",
+      "Manchester Blvd",
+      "Prairie Ave"
+    ],
+    "vehicle_profile": "family vehicles, SUVs, commuter cars, and sports fans' vehicles",
+    "local_angle": "Inglewood is the new entertainment capital of Southern California — home to SoFi Stadium and the Kia Forum. Game day traffic and event parking bring thousands of vehicles to the area regularly. We serve Inglewood residents who deserve premium car care close to home.",
+    "competition_angle": "Inglewood has limited premium car wash options. Our mobile service brings quality detailing that matches the city's new major-league status.",
+    "service_area_desc": "Morningside Park, Fairview Heights, the SoFi Stadium district, Hollywood Park, and all Inglewood neighborhoods",
+    "zip": "90301",
+    "why_us_local": "Inglewood's new major-league status deserves major-league car care. We deliver premium mobile detailing to your Inglewood home or workplace."
+  },
+  "Hawthorne": {
+    "neighborhoods": [
+      "Prairie Ave corridor",
+      "South Bay Galleria area",
+      "Wiseburn"
+    ],
+    "landmarks": [
+      "South Bay Galleria",
+      "Northrop Grumman HQ",
+      "SpaceX Headquarters",
+      "The Beach Boys birthplace"
+    ],
+    "streets": [
+      "Hawthorne Blvd",
+      "El Segundo Blvd",
+      "Rosecrans Ave",
+      "Sepulveda Blvd"
+    ],
+    "vehicle_profile": "aerospace industry vehicles, Tesla, tech employee cars, and family SUVs",
+    "local_angle": "Hawthorne is home to SpaceX — and the city's aerospace heritage continues with Northrop Grumman. Tech and aerospace employees here take pride in innovation, including how they maintain their vehicles.",
+    "competition_angle": "Hawthorne's aerospace professionals want efficient, no-hassle services. Our mobile detailing fits perfectly into their demanding schedules.",
+    "service_area_desc": "the Prairie Ave corridor, South Bay Galleria area, Wiseburn, and the SpaceX/Northrop corridor",
+    "zip": "90250",
+    "why_us_local": "Built in the shadow of SpaceX, Hawthorne deserves tech-forward mobile detailing. We bring precision and innovation to every vehicle we service."
+  },
+  "Gardena": {
+    "neighborhoods": [
+      "Rosecrans Ave corridor",
+      "South Gardena",
+      "North Gardena"
+    ],
+    "landmarks": [
+      "Gardena Valley Japanese Cultural Institute",
+      "Hollywood Park area"
+    ],
+    "streets": [
+      "Redondo Beach Blvd",
+      "Gardena Blvd",
+      "Western Ave",
+      "Vermont Ave"
+    ],
+    "vehicle_profile": "family vehicles, Japanese imports, trucks, and commuter cars",
+    "local_angle": "Gardena's diverse community includes a significant Japanese-American population with a deep appreciation for vehicle care and maintenance. We provide meticulous Japanese-quality detailing right to your Gardena home.",
+    "competition_angle": "Gardena has several basic car washes but nothing that offers mobile premium service at your door.",
+    "service_area_desc": "all Gardena neighborhoods, the Rosecrans corridor, and South and North Gardena",
+    "zip": "90247",
+    "why_us_local": "Gardena's community appreciates quality and precision. We deliver meticulous mobile detailing that matches the high standards of this proud community."
+  },
+  "Lawndale": {
+    "neighborhoods": [
+      "Lawndale Square",
+      "South Bay area"
+    ],
+    "landmarks": [
+      "Lawndale Recreation Center",
+      "South Bay Galleria proximity"
+    ],
+    "streets": [
+      "Hawthorne Blvd",
+      "Artesia Blvd",
+      "Prairie Ave",
+      "Inglewood Ave"
+    ],
+    "vehicle_profile": "family vehicles, commuter cars, and trucks",
+    "local_angle": "Lawndale is a tight-knit South Bay community where working families take pride in their vehicles. Our affordable mobile detailing packages make professional car care accessible to everyone in Lawndale without the trip to an expensive detail shop.",
+    "competition_angle": "Lawndale's budget-conscious community benefits from our competitive pricing and the convenience of mobile service.",
+    "service_area_desc": "all Lawndale neighborhoods, the Hawthorne Blvd corridor, and surrounding South Bay areas",
+    "zip": "90260",
+    "why_us_local": "Lawndale families deserve affordable, professional mobile detailing. We offer competitive pricing and come directly to your home."
+  },
+  "Carson": {
+    "neighborhoods": [
+      "Cal State Dominguez Hills area",
+      "South Carson",
+      "North Carson"
+    ],
+    "landmarks": [
+      "Dignity Health Sports Park",
+      "Carson Community Center",
+      "Cal State Dominguez Hills"
+    ],
+    "streets": [
+      "Carson St",
+      "Avalon Blvd",
+      "Del Amo Blvd",
+      "Wilmington Ave"
+    ],
+    "vehicle_profile": "sports fans' vehicles, family SUVs, trucks, and commuter cars",
+    "local_angle": "Carson hosts major sporting events at Dignity Health Sports Park, home to the LA Galaxy. This active sports community means vehicles here accumulate tailgate dust, event parking grime, and road wear that regular washing can't fully address.",
+    "competition_angle": "Carson residents don't have easy access to premium car wash services. Our mobile detailing brings quality results to your Carson home or business.",
+    "service_area_desc": "North and South Carson, the Cal State Dominguez Hills area, Dignity Health Sports Park vicinity, and all Carson neighborhoods",
+    "zip": "90745",
+    "why_us_local": "From Galaxy games at Dignity Health to daily commutes, Carson vehicle owners deserve professional mobile detailing at their front door."
+  },
+  "Lomita": {
+    "neighborhoods": [
+      "Old Town Lomita",
+      "Western Ave corridor"
+    ],
+    "landmarks": [
+      "Lomita Railroad Museum",
+      "Lomita Park"
+    ],
+    "streets": [
+      "Lomita Blvd",
+      "Western Ave",
+      "Narbonne Ave",
+      "Pacific Coast Hwy"
+    ],
+    "vehicle_profile": "family vehicles, commuter cars, and South Bay everyday vehicles",
+    "local_angle": "Lomita's small-town feel belies its central South Bay location. Residents here appreciate personalized, quality service — and our mobile detailing delivers exactly that, right to your Lomita front door.",
+    "competition_angle": "Lomita has limited local car wash options. Our mobile service brings full-service detailing without requiring a trip to Torrance or Harbor City.",
+    "service_area_desc": "Old Town Lomita, the Western Ave corridor, and all Lomita neighborhoods",
+    "zip": "90717",
+    "why_us_local": "Lomita's close-knit community deserves personal, professional service. We come to your door and treat your vehicle like our own."
+  },
+  "Harbor City": {
+    "neighborhoods": [
+      "Harbor Gateway",
+      "Harbor City residential areas"
+    ],
+    "landmarks": [
+      "Banning's Landing Community Center",
+      "Pacific Coast Hwy corridor"
+    ],
+    "streets": [
+      "Figueroa St",
+      "Sepulveda Blvd",
+      "Vermont Ave",
+      "Pacific Coast Hwy"
+    ],
+    "vehicle_profile": "commercial vehicles, trucks, industrial fleet vehicles, and family cars",
+    "local_angle": "Harbor City is a key industrial gateway between Los Angeles and the Port, with a mix of commercial fleets and family residences. Our mobile service handles everything from fleet trucks to family SUVs.",
+    "competition_angle": "The industrial Harbor City area has limited premium detailing options for both commercial fleets and personal vehicles.",
+    "service_area_desc": "Harbor City residential areas, the Pacific Coast Hwy corridor, and industrial zones connecting to Harbor Gateway",
+    "zip": "90710",
+    "why_us_local": "We serve both commercial fleets and personal vehicles in Harbor City — covering every vehicle need in this gateway community."
+  },
+  "Wilmington": {
+    "neighborhoods": [
+      "Banning Park",
+      "Avalon Corridor",
+      "Port of LA adjacent"
+    ],
+    "landmarks": [
+      "Banning Residence Museum",
+      "Wilmington Waterfront Park",
+      "Pacific Coast Highway corridor"
+    ],
+    "streets": [
+      "Avalon Blvd",
+      "Figueroa St",
+      "Pacific Coast Hwy",
+      "Alameda St"
+    ],
+    "vehicle_profile": "industrial and port fleet vehicles, trucks, and family cars",
+    "local_angle": "Wilmington is adjacent to the Port of Los Angeles — one of the busiest ports in the world. Vehicle owners here face industrial air pollution, port fallout, and heavy truck exhaust daily. Professional decontamination detailing is essential.",
+    "competition_angle": "Wilmington's industrial character means most car washes are basic. Our premium mobile service provides the professional decontamination Wilmington vehicles need.",
+    "service_area_desc": "Banning Park, the Avalon corridor, Port of LA adjacent areas, and all Wilmington neighborhoods",
+    "zip": "90744",
+    "why_us_local": "Industrial fallout from the Port of LA attacks your paint daily. Our decontamination mobile detailing in Wilmington removes iron particles and restores your vehicle's finish."
+  },
+  "Long Beach": {
+    "neighborhoods": [
+      "Belmont Shore",
+      "Naples",
+      "East Village Arts District",
+      "Bixby Knolls",
+      "Signal Hill adjacent",
+      "Downtown Long Beach"
+    ],
+    "landmarks": [
+      "Queen Mary",
+      "Aquarium of the Pacific",
+      "Long Beach Grand Prix circuit",
+      "Belmont Shore",
+      "The Pike Outlets"
+    ],
+    "streets": [
+      "Ocean Blvd",
+      "Pine Ave",
+      "Second St",
+      "Lakewood Blvd",
+      "Atlantic Ave"
+    ],
+    "vehicle_profile": "beach lifestyle SUVs, Tesla, sports cars, and family vehicles",
+    "local_angle": "Long Beach is LA County's second-largest city with a unique blend of port-side industry, beachfront lifestyle, and arts culture. The harbor environment combined with the sunny coastal climate creates ideal conditions for rapid paint degradation — making mobile detailing essential.",
+    "competition_angle": "Long Beach's diverse neighborhoods — from Belmont Shore luxury to Downtown condos — all benefit from our convenient mobile service.",
+    "service_area_desc": "Belmont Shore, Naples Island, the Arts District, Bixby Knolls, Downtown Long Beach, and the waterfront",
+    "zip": "90802",
+    "why_us_local": "From Queen Mary's shadow to Belmont Shore's surf, we provide mobile detailing across all of Long Beach's diverse neighborhoods."
+  },
+  "Lakewood": {
+    "neighborhoods": [
+      "Lakewood Village",
+      "Southeast Lakewood",
+      "Del Valle Park"
+    ],
+    "landmarks": [
+      "Lakewood Center Mall",
+      "Rancho Los Cerritos",
+      "Lakewood Park"
+    ],
+    "streets": [
+      "Lakewood Blvd",
+      "Del Amo Blvd",
+      "South St",
+      "Carson St"
+    ],
+    "vehicle_profile": "family SUVs, minivans, commuter vehicles, and mid-size sedans",
+    "local_angle": "Lakewood is one of America's first planned communities — a family-oriented city where residents take pride in their homes and their vehicles. Our mobile detailing service fits perfectly into the Lakewood lifestyle of quality suburban living.",
+    "competition_angle": "Lakewood has the Lakewood Center Mall but few premium car wash options nearby. We eliminate the drive entirely.",
+    "service_area_desc": "Lakewood Village, Del Valle Park area, Southeast Lakewood, and all planned community neighborhoods",
+    "zip": "90712",
+    "why_us_local": "Lakewood's family-friendly neighborhoods deserve family-friendly mobile detailing. We come to your driveway and work around your schedule."
+  },
+  "Signal Hill": {
+    "neighborhoods": [
+      "Signal Hill downtown",
+      "Oil wells historic area"
+    ],
+    "landmarks": [
+      "Signal Hill Park (panoramic views)",
+      "Cherry Blossoms neighborhood"
+    ],
+    "streets": [
+      "Cherry Ave",
+      "Willow St",
+      "Spring St",
+      "PCH"
+    ],
+    "vehicle_profile": "young professional vehicles, family cars, and Long Beach area commuters",
+    "local_angle": "Signal Hill sits atop an oil-producing hill with spectacular panoramic views of the entire LA Basin. The hilltop winds, combined with residual petroleum-related air quality, make professional paint decontamination particularly important here.",
+    "competition_angle": "Signal Hill's compact geography means residents often drive to Long Beach for car washes. Our mobile service eliminates that trip.",
+    "service_area_desc": "the hilltop neighborhoods of Signal Hill, Cherry Blossoms area, and the Spring St commercial corridor",
+    "zip": "90755",
+    "why_us_local": "Signal Hill's hilltop location brings unique environmental challenges for paint. We come to your Signal Hill home with specialized decontamination detailing."
+  },
+  "Bellflower": {
+    "neighborhoods": [
+      "Old Town Bellflower",
+      "North Bellflower"
+    ],
+    "landmarks": [
+      "Bellflower Blvd commercial corridor",
+      "Bellflower Civic Center"
+    ],
+    "streets": [
+      "Bellflower Blvd",
+      "Rosecrans Ave",
+      "Lakewood Blvd",
+      "Alondra Blvd"
+    ],
+    "vehicle_profile": "family vehicles, commuter cars, and working-class trucks",
+    "local_angle": "Bellflower is a hardworking suburban community in the Southeast LA corridor. Residents here value reliable service and honest pricing — which is exactly what our mobile detailing provides, right at your Bellflower door.",
+    "competition_angle": "Bellflower has several basic car washes but lacks premium mobile detailing options. We fill that gap.",
+    "service_area_desc": "Old Town Bellflower, North Bellflower, and all neighborhoods along the Bellflower Blvd and Rosecrans Ave corridors",
+    "zip": "90706",
+    "why_us_local": "Bellflower families trust us for honest pricing and exceptional results. We come to your home or business with everything needed for a professional detail."
+  },
+  "Paramount": {
+    "neighborhoods": [
+      "Downtown Paramount",
+      "South Paramount"
+    ],
+    "landmarks": [
+      "Paramount Swap Meet",
+      "Paramount Park"
+    ],
+    "streets": [
+      "Paramount Blvd",
+      "Rosecrans Ave",
+      "Somerset Blvd",
+      "Alondra Blvd"
+    ],
+    "vehicle_profile": "family vehicles, trucks, and commuter cars",
+    "local_angle": "Paramount's working families deserve access to premium vehicle care without the expense of a detail shop. Our competitive mobile pricing makes professional detailing accessible to the entire Paramount community.",
+    "competition_angle": "Paramount's limited premium car care options make our mobile service a standout choice for the community.",
+    "service_area_desc": "Downtown Paramount, South Paramount, and all neighborhoods across the Paramount and Rosecrans corridors",
+    "zip": "90723",
+    "why_us_local": "We bring affordable premium mobile detailing to Paramount — quality car care that working families can access without breaking the budget."
+  },
+  "Downey": {
+    "neighborhoods": [
+      "Downtown Downey",
+      "South Downey",
+      "Stonewood",
+      "Northeast Downey"
+    ],
+    "landmarks": [
+      "Downey Avenue Historic Corridor",
+      "Columbia Memorial Space Center",
+      "Stonewood Center"
+    ],
+    "streets": [
+      "Firestone Blvd",
+      "Downey Ave",
+      "Lakewood Blvd",
+      "Imperial Hwy"
+    ],
+    "vehicle_profile": "family vehicles, classic cars, and suburban commuters",
+    "local_angle": "Downey is the birthplace of the Apollo spacecraft — a city that values precision and quality. Residents here, including many auto enthusiasts with classic cars, appreciate professional detailing that matches their high standards.",
+    "competition_angle": "Downey has traditional car washes but few premium mobile services. Our detailed work matches the city's heritage of aerospace precision.",
+    "service_area_desc": "Downtown Downey, Stonewood, South and Northeast Downey, and the Historic Corridor",
+    "zip": "90240",
+    "why_us_local": "In the city that built spacecraft, precision matters. We bring aerospace-quality attention to detail to every mobile wash in Downey."
+  },
+  "South Gate": {
+    "neighborhoods": [
+      "Hollydale",
+      "South Gate Park area",
+      "Tweedy Mile"
+    ],
+    "landmarks": [
+      "South Gate Park",
+      "Azalea Shopping Center"
+    ],
+    "streets": [
+      "Tweedy Blvd",
+      "Long Beach Ave",
+      "Firestone Blvd",
+      "Southern Ave"
+    ],
+    "vehicle_profile": "family vehicles, trucks, and working-class commuter cars",
+    "local_angle": "South Gate is a proud, working-class community that values hard work and quality. Our mobile detailing service delivers professional results to every South Gate family, making premium car care accessible and convenient.",
+    "competition_angle": "South Gate's community deserves better car care options. Our mobile service brings quality detailing right to your home.",
+    "service_area_desc": "Hollydale, South Gate Park area, the Tweedy Mile commercial corridor, and all South Gate neighborhoods",
+    "zip": "90280",
+    "why_us_local": "South Gate works hard — and so do we. Premium mobile detailing delivered to your South Gate home at competitive prices."
+  },
+  "Huntington Park": {
+    "neighborhoods": [
+      "East Huntington Park",
+      "West Huntington Park",
+      "Pacific Blvd corridor"
+    ],
+    "landmarks": [
+      "Pacific Blvd shopping district",
+      "Salt Lake Park"
+    ],
+    "streets": [
+      "Pacific Blvd",
+      "Gage Ave",
+      "Slauson Ave",
+      "Alameda St"
+    ],
+    "vehicle_profile": "family vehicles, trucks, and community commuter cars",
+    "local_angle": "Huntington Park's vibrant Pacific Blvd commercial corridor is one of the busiest in Southeast LA. Residents here are community-focused and value services that come to them rather than requiring a long drive.",
+    "competition_angle": "Our mobile service in Huntington Park eliminates the need to navigate busy Pacific Blvd traffic to reach a car wash.",
+    "service_area_desc": "the Pacific Blvd commercial corridor, Salt Lake Park area, and all Huntington Park neighborhoods",
+    "zip": "90255",
+    "why_us_local": "Huntington Park's busy community deserves mobile car care. We come to you so you never have to fight Pacific Blvd traffic for a car wash."
+  },
+  "Lynwood": {
+    "neighborhoods": [
+      "Lynwood Park",
+      "Ham Park area"
+    ],
+    "landmarks": [
+      "Lynwood City Hall",
+      "Lynwood Community Center"
+    ],
+    "streets": [
+      "Long Beach Ave",
+      "Atlantic Ave",
+      "Imperial Hwy",
+      "Martin Luther King Jr Blvd"
+    ],
+    "vehicle_profile": "family vehicles, trucks, and commuter cars",
+    "local_angle": "Lynwood is a community that values family and hard work. Our affordable mobile detailing service brings professional results to every Lynwood family without the inconvenience of driving across town.",
+    "competition_angle": "Premium mobile detailing is underrepresented in Lynwood. We fill that gap with fair pricing and professional service.",
+    "service_area_desc": "Lynwood Park, Ham Park area, and all Lynwood residential and commercial neighborhoods",
+    "zip": "90262",
+    "why_us_local": "Lynwood families deserve quality car care at home. We bring professional mobile detailing to your door at prices that respect your budget."
+  },
+  "Compton": {
+    "neighborhoods": [
+      "North Compton",
+      "Sunny Cove",
+      "East Compton"
+    ],
+    "landmarks": [
+      "Compton Creek",
+      "Martin Luther King Jr Park",
+      "Compton Courthouse"
+    ],
+    "streets": [
+      "Compton Blvd",
+      "Long Beach Ave",
+      "Atlantic Ave",
+      "Rosecrans Ave"
+    ],
+    "vehicle_profile": "family vehicles, trucks, and community cars",
+    "local_angle": "Compton is a city with proud roots and a growing community. Residents here are increasingly demanding better services, and our mobile detailing delivers premium quality car care that was previously unavailable locally.",
+    "competition_angle": "Premium mobile detailing has historically been underserved in Compton. We're changing that with professional, fairly priced mobile service.",
+    "service_area_desc": "North and East Compton, Sunny Cove, the Compton Blvd corridor, and all Compton neighborhoods",
+    "zip": "90220",
+    "why_us_local": "We bring premium mobile detailing to Compton — professional quality car care delivered fairly and respectfully to your home."
+  },
+  "Vernon": {
+    "neighborhoods": [
+      "Vernon Industrial District"
+    ],
+    "landmarks": [
+      "Vernon Industrial Park",
+      "Pacific Cold Storage",
+      "Farmer John Slaughterhouse"
+    ],
+    "streets": [
+      "Santa Fe Ave",
+      "Alameda St",
+      "Vernon Ave",
+      "Soto St"
+    ],
+    "vehicle_profile": "commercial fleet trucks, semi-trailers, box trucks, and industrial vehicles",
+    "local_angle": "Vernon is one of the most purely industrial cities in California — a place where fleet maintenance is a daily operational necessity, not a luxury. Our commercial fleet detailing service is designed specifically for Vernon's industrial operators who need their vehicles clean, professional, and road-ready.",
+    "competition_angle": "Vernon has no consumer car washes — it's an industrial city. Our commercial fleet service is purpose-built for Vernon's business community.",
+    "service_area_desc": "Vernon's industrial district, all commercial yards, logistics centers, and fleet operations in the city",
+    "zip": "90058",
+    "why_us_local": "Vernon's industrial operators trust us for on-site commercial fleet washing. We come to your yard and handle everything from semi cabs to box trucks."
+  },
+  "Commerce": {
+    "neighborhoods": [
+      "City of Commerce Industrial District",
+      "Citadel Outlets area"
+    ],
+    "landmarks": [
+      "Citadel Outlets",
+      "Commerce Casino",
+      "Olympic Materials"
+    ],
+    "streets": [
+      "Washington Blvd",
+      "Telegraph Rd",
+      "Garfield Ave",
+      "E Bandini Blvd"
+    ],
+    "vehicle_profile": "commercial vehicles, delivery fleets, casino staff vehicles, and outlet shopper cars",
+    "local_angle": "Commerce is an industrial and commercial hub hosting major logistics operations, the Citadel Outlets, and Commerce Casino. Fleet vehicles here require regular professional cleaning to maintain the professional image businesses demand.",
+    "competition_angle": "Commerce's commercial focus means standard car washes aren't equipped for fleet-level service. Our mobile fleet detailing serves businesses right at their yard.",
+    "service_area_desc": "Commerce's industrial zones, the Citadel Outlets area, and all commercial operations in the city",
+    "zip": "90040",
+    "why_us_local": "Commerce businesses trust us for on-site fleet washing. We handle everything from delivery vans to executive vehicles right at your Commerce facility."
+  },
+  "Santa Fe Springs": {
+    "neighborhoods": [
+      "Santa Fe Springs Industrial Park",
+      "Santa Fe Springs Commerce Center"
+    ],
+    "landmarks": [
+      "Heritage Park",
+      "Santa Fe Springs Swap Meet",
+      "Norwalk-Santa Fe Springs City area"
+    ],
+    "streets": [
+      "Telegraph Rd",
+      "Rosecrans Ave",
+      "Carmenita Rd",
+      "Studebaker Rd"
+    ],
+    "vehicle_profile": "industrial fleet vehicles, semi-trucks, warehouse vehicles, and commercial fleets",
+    "local_angle": "Santa Fe Springs is a key node in the LA County industrial and logistics network, with major warehousing and distribution operations. Fleet vehicles here need regular professional cleaning to maintain corporate standards and DOT compliance.",
+    "competition_angle": "Santa Fe Springs's purely commercial character means our mobile fleet service is the practical choice for all vehicle care needs.",
+    "service_area_desc": "Santa Fe Springs Industrial Park, all warehouse and distribution centers, and commercial yards",
+    "zip": "90670",
+    "why_us_local": "We specialize in on-site fleet detailing for Santa Fe Springs distribution centers and industrial yards — cleaning your entire fleet without disrupting operations."
+  },
+  "Alhambra": {
+    "neighborhoods": [
+      "Monterey Park adjacent",
+      "Downtown Alhambra",
+      "North Alhambra"
+    ],
+    "landmarks": [
+      "Almansor Park",
+      "Alhambra Place",
+      "San Gabriel Valley Freeway corridor"
+    ],
+    "streets": [
+      "Valley Blvd",
+      "Main St",
+      "Atlantic Blvd",
+      "Garfield Ave"
+    ],
+    "vehicle_profile": "Asian-American community vehicles, family sedans, SUVs, and luxury imports",
+    "local_angle": "Alhambra is the western gateway to the San Gabriel Valley and one of California's most vibrant Asian-American communities. Residents here have high standards for vehicle maintenance and appreciate professional, meticulous mobile detailing.",
+    "competition_angle": "Alhambra's car-conscious community appreciates quality detailing. Our mobile service brings that quality directly to your Alhambra home.",
+    "service_area_desc": "Downtown Alhambra, North Alhambra, and all neighborhoods along Valley Blvd and Main St",
+    "zip": "91801",
+    "why_us_local": "Alhambra's community knows quality when they see it. We deliver meticulous mobile detailing to your door — the professional standard the San Gabriel Valley deserves."
+  },
+  "Monterey Park": {
+    "neighborhoods": [
+      "Atlantic Blvd corridor",
+      "Garvey Ave corridor",
+      "North Monterey Park"
+    ],
+    "landmarks": [
+      "Atlantic Times Square",
+      "Barnes Park",
+      "Langley Senior Center"
+    ],
+    "streets": [
+      "Atlantic Blvd",
+      "Garvey Ave",
+      "Garfield Ave",
+      "Potrero Grande Dr"
+    ],
+    "vehicle_profile": "luxury Asian imports, family sedans, and SUVs",
+    "local_angle": "Monterey Park is often called the 'Chinese Beverly Hills' — home to a prosperous community with high standards for quality and service. Vehicle care is taken seriously here, and our mobile detailing matches those elevated expectations.",
+    "competition_angle": "Monterey Park's discerning community expects premium service. Our mobile detailing provides the professional quality this community demands.",
+    "service_area_desc": "Atlantic Blvd and Garvey Ave corridors, North Monterey Park, and all Monterey Park neighborhoods",
+    "zip": "91754",
+    "why_us_local": "Called the 'Chinese Beverly Hills', Monterey Park deserves Beverly Hills-quality mobile detailing. We deliver exactly that, at your door."
+  },
+  "Whittier": {
+    "neighborhoods": [
+      "Uptown Whittier",
+      "South Whittier",
+      "East Whittier",
+      "Penn Park"
+    ],
+    "landmarks": [
+      "Whittier College",
+      "Whittier Narrows Recreation Area",
+      "Uptown Whittier shops"
+    ],
+    "streets": [
+      "Whittier Blvd",
+      "Greenleaf Ave",
+      "Hadley St",
+      "Philadelphia St"
+    ],
+    "vehicle_profile": "college community vehicles, family SUVs, and suburban commuter cars",
+    "local_angle": "Whittier is a classic Southern California suburb with a strong college community (Whittier College) and family-oriented neighborhoods. Residents here value reliability and quality in every service — including how they care for their vehicles.",
+    "competition_angle": "Whittier is far enough from major car wash clusters that mobile service is genuinely more convenient for most residents.",
+    "service_area_desc": "Uptown Whittier, South and East Whittier, Penn Park, and all Whittier neighborhoods",
+    "zip": "90601",
+    "why_us_local": "From Whittier College to the family neighborhoods of East Whittier, we provide mobile detailing that fits every Whittier lifestyle and budget."
+  },
+  "Montebello": {
+    "neighborhoods": [
+      "Montebello Town Center area",
+      "South Montebello",
+      "Wilcox area"
+    ],
+    "landmarks": [
+      "Montebello Town Center",
+      "Montebello Golf Course",
+      "Montebello Hills"
+    ],
+    "streets": [
+      "Whittier Blvd",
+      "Beverly Blvd",
+      "Garfield Ave",
+      "Wilcox Ave"
+    ],
+    "vehicle_profile": "family vehicles, SUVs, and Southeast LA commuter cars",
+    "local_angle": "Montebello's hillside community enjoys sweeping views and a suburban quality of life that residents take pride in. That pride extends to their vehicles — and our mobile detailing delivers professional results without requiring a trip off the hill.",
+    "competition_angle": "Montebello's hillside location means local car wash options are limited. Our mobile service comes up to you.",
+    "service_area_desc": "Montebello Town Center, South Montebello, the Montebello Hills residential area, and all Montebello neighborhoods",
+    "zip": "90640",
+    "why_us_local": "Montebello's community pride extends to their vehicles. We deliver professional mobile detailing throughout Montebello — hills and all."
+  },
+  "Norwalk": {
+    "neighborhoods": [
+      "Norwalk Village",
+      "South Norwalk",
+      "East Norwalk",
+      "Heritage Village"
+    ],
+    "landmarks": [
+      "Norwalk Transit Hub",
+      "Cerritos College",
+      "Norwalk Civic Center"
+    ],
+    "streets": [
+      "Norwalk Blvd",
+      "Pioneer Blvd",
+      "Firestone Blvd",
+      "Rosecrans Ave"
+    ],
+    "vehicle_profile": "family vehicles, commuter cars, and Southeast LA everyday vehicles",
+    "local_angle": "Norwalk is a major Southeast LA hub connecting the I-5, I-605, and SR-91 corridors. Commuter vehicles here accumulate freeway dust, road grime, and brake fallout faster than average — making regular professional detailing a smart investment.",
+    "competition_angle": "Norwalk's vast residential footprint means many residents are far from a quality car wash. We come to you.",
+    "service_area_desc": "Norwalk Village, South and East Norwalk, Heritage Village, and all Norwalk neighborhoods near the transit hub",
+    "zip": "90650",
+    "why_us_local": "Norwalk's commuter community benefits most from mobile detailing — we come to you so your weekend isn't spent waiting at a car wash."
+  }
+}

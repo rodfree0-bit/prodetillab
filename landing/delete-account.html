@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Account | Pro Detail Lab</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <!-- Icon Fonts -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --accent: #818cf8;
+            --bg-dark: #0f172a;
+            --surface-dark: #1e293b;
+            --text-white: #f8fafc;
+            --text-slate: #94a3b8;
+            --danger: #ef4444;
+            --success: #22c55e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-image:
+                radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(79, 70, 229, 0.1) 0%, transparent 50%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px border rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .logo {
+            margin-bottom: 30px;
+        }
+
+        .logo img {
+            height: 60px;
+            object-fit: contain;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        p {
+            color: var(--text-slate);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-slate);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+            margin-left: 4px;
+        }
+
+        input {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 14px 16px;
+            color: white;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(15, 23, 42, 0.8);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 20px -5px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            color: var(--success);
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        #confirmation-step {
+            display: none;
+        }
+
+        #final-step {
+            display: none;
+        }
+
+        .warning-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 16px;
+            border-radius: 12px;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .warning-box p {
+            color: #fca5a5;
+            font-size: 13px;
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+
+        .loader {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .footer-note {
+            margin-top: 30px;
+            font-size: 12px;
+            color: var(--text-slate);
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="logoasset.png?v=3" alt="Pro Detail Lab">
+        </div>
+
+        <!-- Step 1: Login -->
+        <div id="login-step">
+            <h1>Delete Your Account</h1>
+            <p>To request account deletion, please verify your identity by logging in with your email and password.</p>
+
+            <div id="login-error" class="error-message"></div>
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="email" placeholder="name@example.com">
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="••••••••">
+            </div>
+
+            <button id="btn-login" class="btn btn-primary">
+                <span class="loader"></span>
+                <span>Continue</span>
+            </button>
+        </div>
+
+        <!-- Step 2: Confirmation -->
+        <div id="confirmation-step">
+            <h1 style="color: var(--danger);">Final Confirmation</h1>
+            <p>You are about to permanently delete your account and all associated data.</p>
+
+            <div class="warning-box">
+                <p><strong>⚠️ Warning:</strong> This action cannot be undone. You will lose:</p>
+                <ul
+                    style="color: #fca5a5; font-size: 13px; margin-top: 10px; margin-left: 20px; text-align: left; list-style-type: disc;">
+                    <li>Your profile information</li>
+                    <li>Order history & receipts</li>
+                    <li>Saved vehicles & addresses</li>
+                    <li>Loyalty points & rewards</li>
+                </ul>
+            </div>
+
+            <div id="delete-error" class="error-message"></div>
+
+            <button id="btn-delete" class="btn btn-danger">
+                <span class="loader"></span>
+                <span class="material-symbols-outlined">delete_forever</span>
+                <span>Permanently Delete My Account</span>
+            </button>
+
+            <button id="btn-cancel" class="btn" style="background: transparent; color: var(--text-slate);">
+                Cancel
+            </button>
+        </div>
+
+        <!-- Step 3: Success -->
+        <div id="final-step">
+            <div class="w-16 h-16 rounded-full bg-green-500/20 text-green-500 flex items-center justify-center mb-4 mx-auto"
+                style="width: 64px; height: 64px; border-radius: 50%; background: rgba(34, 197, 94, 0.1); color: var(--success); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                <span class="material-symbols-outlined" style="font-size: 32px;">check_circle</span>
+            </div>
+            <h1>Account Deleted</h1>
+            <p>Your account and all associated data have been permanently removed from our systems. Thank you for using
+                Pro Detail Lab.</p>
+            <a href="index.html" class="btn btn-primary">Back to Home</a>
+        </div>
+
+        <div class="footer-note">
+            &copy; 2026 Pro Detail Lab: On-Demand Detail. All rights reserved.
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, deleteUser } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCPPR8D8Jk1hMWR2IHBCxSG7u5S3XKnSsk",
+            authDomain: "my-carwashapp-e6aba.firebaseapp.com",
+            projectId: "my-carwashapp-e6aba",
+            storageBucket: "my-carwashapp-e6aba.firebasestorage.app",
+            messagingSenderId: "1095794498344",
+            appId: "1:1095794498344:web:515d51f8f2561ad7a84e1d"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Elements
+        const loginStep = document.getElementById('login-step');
+        const confirmationStep = document.getElementById('confirmation-step');
+        const finalStep = document.getElementById('final-step');
+
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('btn-login');
+        const deleteBtn = document.getElementById('btn-delete');
+        const cancelBtn = document.getElementById('btn-cancel');
+
+        const loginError = document.getElementById('login-error');
+        const deleteError = document.getElementById('delete-error');
+
+        // Login Handler
+        loginBtn.addEventListener('click', async () => {
+            const email = emailInput.value;
+            const password = passwordInput.value;
+
+            if (!email || !password) {
+                showError(loginError, "Please enter both email and password.");
+                return;
+            }
+
+            setLoading(loginBtn, true);
+            loginError.style.display = 'none';
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                loginStep.style.display = 'none';
+                confirmationStep.style.display = 'block';
+            } catch (error) {
+                console.error(error);
+                let msg = "Failed to login. Please check your credentials.";
+                if (error.code === 'auth/invalid-credential') msg = "Incorrect email or password.";
+                if (error.code === 'auth/user-not-found') msg = "No account found with this email.";
+                showError(loginError, msg);
+            } finally {
+                setLoading(loginBtn, false);
+            }
+        });
+
+        // Delete Handler
+        deleteBtn.addEventListener('click', async () => {
+            const user = auth.currentUser;
+            if (!user) {
+                window.location.reload();
+                return;
+            }
+
+            setLoading(deleteBtn, true);
+            deleteError.style.display = 'none';
+
+            try {
+                // 1. Delete Firestore data
+                await deleteDoc(doc(db, 'users', user.uid));
+
+                // 2. Delete Auth user
+                await deleteUser(user);
+
+                confirmationStep.style.display = 'none';
+                finalStep.style.display = 'block';
+            } catch (error) {
+                console.error(error);
+                let msg = "An error occurred while deleting your account.";
+                if (error.code === 'auth/requires-recent-login') {
+                    msg = "For security reasons, please refresh and try again immediately.";
+                }
+                showError(deleteError, msg);
+            } finally {
+                setLoading(deleteBtn, false);
+            }
+        });
+
+        // Cancel Handler
+        cancelBtn.addEventListener('click', () => {
+            window.location.replace('index.html');
+        });
+
+        // Helpers
+        function showError(el, msg) {
+            el.textContent = msg;
+            el.style.display = 'block';
+        }
+
+        function setLoading(btn, isLoading) {
+            const loader = btn.querySelector('.loader');
+            const icon = btn.querySelector('.material-symbols-outlined');
+            const text = btn.querySelector('span:not(.loader):not(.material-symbols-outlined)');
+
+            if (isLoading) {
+                btn.disabled = true;
+                if (loader) loader.style.display = 'inline-block';
+                if (icon) icon.style.display = 'none';
+                text.style.opacity = '0.5';
+            } else {
+                btn.disabled = false;
+                if (loader) loader.style.display = 'none';
+                if (icon) icon.style.display = 'inline-block';
+                text.style.opacity = '1';
+            }
+        }
+    </script>
+</body>
+
+</html>
+
+

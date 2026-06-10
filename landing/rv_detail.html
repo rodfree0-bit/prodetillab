@@ -1,0 +1,515 @@
+<!-- v1.1.0 - Service Isolation Update -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional RV Detailing App & Motorhome Care Los Angeles | Pro Detail Lab</title>
+    <meta name="description" content="Expert mobile RV detailing app service in Los Angeles. We specialize in exterior oxidation removal, premium wax, and luxury interior cleaning for all classes of motorhomes and trailers.">
+    <link rel="canonical" href="https://prodetaillab.com/rv_detail">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://prodetaillab.com/rv_detail">
+    <meta property="og:title" content="Professional RV Detailing & Motorhome Care Los Angeles | Pro Detail Lab">
+    <meta property="og:description" content="Expert mobile RV detailing app service in Los Angeles. We specialize in exterior oxidation removal, premium wax, and luxury interior cleaning for all classes of motorhomes and trailers.">
+    <meta property="og:image" content="https://prodetaillab.com/logo-og.webp" />
+    <!-- Premium Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+    <!-- Link to main styles for consistency -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        /* Toned down palette for realistic look */
+        :root {
+            --rv-deep: #0f172a;
+            --rv-slate: #1e293b;
+            --rv-accent: #3b82f6;
+        }
+
+        .hero-rv {
+            position: relative;
+            background: linear-gradient(rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.95)), url('assets/clean_rv_bg.png');
+            background-size: cover;
+            background-position: center;
+            height: clamp(50vh, 70vh, 800px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 4/3;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item .label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            padding: 1.25rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .rv-card {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .rv-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--rv-accent);
+        }
+
+        .rv-tag {
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--rv-accent);
+            margin-bottom: 1rem;
+        }
+
+        .rv-price-text {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin: 1rem 0;
+            min-height: 2.2em; /* Robustness for translation */
+        }
+
+        .glass-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+            flex-grow: 1;
+        }
+
+        .glass-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .glass-list .material-symbols-outlined {
+            color: var(--rv-accent);
+            font-size: 1.15rem;
+            font-variation-settings: 'FILL' 1;
+            margin-top: 2px;
+        }
+
+        /* SEO Cities Section */
+        .cities-section {
+            padding: 6rem 0;
+            background: rgba(15, 23, 42, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .cities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .city-tag {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .city-tag:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: white;
+            border-color: var(--rv-accent);
+        }
+
+        @media (max-width: 768px) {
+            .hero-rv { height: 60vh; }
+            .hero-title { font-size: 2.5rem !important; }
+            .rv-card { padding: 1.5rem; }
+            .grid-form { grid-template-columns: 1fr !important; }
+        }
+    </style>
+</head>
+<body class="bg-dark text-white">
+    <nav class="navbar scrolled">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <img src="logo.webp" alt="Pro Detail Lab" width="38" height="38">
+                <span translate="no">Pr<svg class="flask-o" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 0.9em; height: 0.9em; display: inline-block; vertical-align: middle; margin-left: -0.05em; margin-right: -0.05em; color: #00f0ff; filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.5));"><line x1="12" y1="3" x2="12" y2="10" /><line x1="9" y1="3" x2="15" y2="3" /><path d="M12 10C8.5 10 7 13 7 16.5C7 19.5 9.2 21 12 21C14.8 21 17 19.5 17 16.5C17 13 15.5 10 12 10Z" /><path d="M9 16.5C10 16 11 17 12 16.5C13 16 14 17 15 16.5" stroke-width="1.5" opacity="0.8" /></svg><strong>Detail</strong> Lab</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="btn-hero-outline" style="padding: 0.4rem 1.1rem; font-size: 0.85rem;">
+                    <span class="material-symbols-outlined" style="font-size: 1.1rem;">arrow_back</span>
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-rv">
+        <div class="container hero-content">
+            <span class="hero-badge" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white;">
+                Showroom Quality Guaranteed
+            </span>
+            <h1 class="hero-title" style="font-size: clamp(2.5rem, 6vw, 4.5rem);">
+                Professional <br><span class="gradient-text">RV Detailing</span>
+            </h1>
+                <div class="flex flex-wrap justify-center gap-4 mt-8">
+                    <a href="#quote" class="btn-hero" style="min-width: 200px;">
+                        <span class="material-symbols-outlined" style="margin-right: 8px;">request_quote</span>
+                        Get RV Quote
+                    </a>
+                </div>
+                <!-- Integrated Call Option -->
+                <div class="hero-phone-cta" style="margin-top: 2rem; text-align: center; width: 100%;">
+                    <p style="font-size: 1.15rem; color: rgba(255,255,255,0.7); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Inter', sans-serif; margin: 0;">
+                        <span class="material-symbols-outlined" translate="no" style="font-size: 1.3rem; color: #3b82f6; vertical-align: middle;">phone_in_talk</span>
+                        <span>Call to Book: <a href="tel:+13103403489" style="color: #fff; text-decoration: none; font-weight: 800; border-bottom: 2px dashed #3b82f6; padding-bottom: 2px; transition: all 0.2s;" onmouseover="this.style.color='#60a5fa'; this.style.borderBottomStyle='solid';" onmouseout="this.style.color='#fff'; this.style.borderBottomStyle='dashed';">+1 (310) 340-3489</a></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container py-20">
+
+
+        <!-- Service Packages -->
+        <div class="section-header" style="margin-top: 8rem;">
+            <span class="section-tag">Tiered Packages</span>
+            <h2>Professional <span class="gradient-text">Detailing Options</span></h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+            <!-- P1 -->
+            <div class="rv-card">
+                <span class="rv-tag">Basic Care</span>
+                <h3 class="text-xl font-bold">RV Quick Detail</h3>
+                <p class="rv-price-text">Quote Based on Length</p>
+                <ul class="glass-list">
+                    <li><span class="material-symbols-outlined">check</span> Exterior Snowy Foam hand wash</li>
+                    <li><span class="material-symbols-outlined">check</span> Deep wheel & wheel-well cleaning</li>
+                    <li><span class="material-symbols-outlined">check</span> Tire & trim conditioning</li>
+                    <li><span class="material-symbols-outlined">check</span> Exterior window & glass clarity</li>
+                </ul>
+                <a href="#rv-quote" class="btn-hero w-full justify-center">Request Quote</a>
+            </div>
+
+            <!-- P2 -->
+            <div class="rv-card" style="border-color: var(--rv-accent);">
+                <span class="rv-tag">Most Popular</span>
+                <h3 class="text-xl font-bold">RV Deluxe Detail</h3>
+                <p class="rv-price-text">Premium Protection Choice</p>
+                <ul class="glass-list">
+                    <li><span class="material-symbols-outlined">check</span> All Quick Detail services included</li>
+                    <li><span class="material-symbols-outlined">check</span> High-durability wax with UV protection</li>
+                    <li><span class="material-symbols-outlined">check</span> Deep roof cleaning & sealant application</li>
+                    <li><span class="material-symbols-outlined">check</span> Exterior plastic & rubber restoration</li>
+                </ul>
+                <a href="#rv-quote" class="btn-hero w-full justify-center">Request Quote</a>
+            </div>
+
+            <!-- P3 -->
+            <div class="rv-card">
+                <span class="rv-tag">The Best</span>
+                <h3 class="text-xl font-bold">Onyx Ultra RV Detail</h3>
+                <p class="rv-price-text">Total Restoration Package</p>
+                <ul class="glass-list">
+                    <li><span class="material-symbols-outlined">check</span> Heavy oxidation & stain removal</li>
+                    <li><span class="material-symbols-outlined">check</span> Multi-stage polish for mirror finish</li>
+                    <li><span class="material-symbols-outlined">check</span> 3-Month ceramic sealant layer</li>
+                    <li><span class="material-symbols-outlined">check</span> Precision metal & chrome polishing</li>
+                </ul>
+                <a href="#rv-quote" class="btn-hero w-full justify-center">Request Quote</a>
+            </div>
+        </div>
+
+        <!-- Quote Form Section -->
+        <div id="quote" class="section-header" style="margin-top: 8rem;">
+            <span class="section-tag" style="background: rgba(59, 130, 246, 0.1); color: var(--rv-accent); border-color: rgba(59, 130, 246, 0.2);">Get a Quote</span>
+            <h2>Request a <span class="gradient-text">Custom Proposal</span></h2>
+            <p>Tell us about your RV and we'll send a detailed proposal in under 24 hours.</p>
+        </div>
+
+        <div class="rv-card" style="max-width: 800px; margin: 0 auto; background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255, 255, 255, 0.05);">
+            <form id="rvQuoteForm" class="grid gap-6">
+                <div class="grid-form" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div class="form-group">
+                        <label style="display: block; margin-bottom: 0.5rem; color: #94a3b8; font-size: 0.85rem;">Full Name *</label>
+                        <input type="text" id="rvName" required style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 0.8rem 1rem; color: white;" placeholder="e.g. John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label style="display: block; margin-bottom: 0.5rem; color: #94a3b8; font-size: 0.85rem;">Phone Number *</label>
+                        <input type="tel" id="rvPhone" required style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 0.8rem 1rem; color: white;" placeholder="(310) 000-0000">
+                    </div>
+                </div>
+
+                <div class="grid-form" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div class="form-group">
+                        <label style="display: block; margin-bottom: 0.5rem; color: #94a3b8; font-size: 0.85rem;">City / Location *</label>
+                        <input type="text" id="rvLocation" required placeholder="e.g. Santa Monica, Beverly Hills..." style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 0.8rem 1rem; color: white;">
+                    </div>
+                    <div class="form-group">
+                        <label style="display: block; margin-bottom: 0.5rem; color: #94a3b8; font-size: 0.85rem;">Email Address</label>
+                        <input type="email" id="rvEmail" style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 0.8rem 1rem; color: white;" placeholder="john@example.com">
+                    </div>
+                </div>
+
+                <div class="grid-form" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div class="form-group">
+                        <label style="display: block; margin-bottom: 0.5rem; color: #94a3b8; font-size: 0.85rem;">RV Model *</label>
+                        <input type="text" id="rvModel" required placeholder="e.g. Winnebago, Airstream..." style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 0.8rem 1rem; color: white;">
+                    </div>
+                    <div class="form-group">
+                        <label style="display: block; margin-bottom: 0.5rem; color: #94a3b8; font-size: 0.85rem;">Measurement / Length (Feet)</label>
+                        <input type="number" id="rvLength" placeholder="e.g. 25, 40..." style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 0.8rem 1rem; color: white;">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 0.5rem; color: #94a3b8; font-size: 0.85rem;">Package of Interest</label>
+                    <select id="rvService" style="width: 100%; background: #1e293b; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 0.8rem 1rem; color: white;">
+                        <option value="Quick Detail">RV Quick Detail</option>
+                        <option value="Deluxe Detail">RV Deluxe Detail</option>
+                        <option value="Onyx Ultra">Onyx Ultra RV Detail</option>
+                        <option value="Custom">Other / General Inquiry</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 0.5rem; color: #94a3b8; font-size: 0.85rem;">Additional Details</label>
+                    <textarea id="rvMessage" rows="3" style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 0.8rem 1rem; color: white; resize: none;" placeholder="Tell us more about your vehicle's condition..."></textarea>
+                </div>
+
+                <button type="submit" id="submitRvBtn" class="btn-hero" style="width: 100%; margin-top: 1rem; justify-content: center;">
+                    <span id="rvBtnText">Send Quote Request</span>
+                    <span id="rvBtnLoading" style="display: none; align-items: center; gap: 8px;">
+                        <span class="material-symbols-outlined animate-spin" style="font-size: 1.2rem;">progress_activity</span> Sending...
+                    </span>
+                </button>
+                <div id="rvSuccess" style="display: none; margin-top: 1.5rem; padding: 1rem; background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.2); border-radius: 12px; text-align: center; color: #4ade80;">
+                    <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">check_circle</span>
+                    Request sent successfully. We'll contact you soon!
+                </div>
+            </form>
+        </div>
+
+        <div class="cta-box text-center" style="margin-top: 6rem; background: rgba(255,255,255,0.02); border-radius: 30px; padding: clamp(2rem, 5vw, 4rem);">
+            <h2 class="text-3xl font-bold mb-4">Book your service today</h2>
+            <p class="opacity-60 mb-8 max-w-xl mx-auto">Our expert team comes directly to your location or storage facility with all necessary professional equipment.</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#rv-quote" class="btn-hero">
+                    Request Online Quote
+                </a>
+            </div>
+        </div>
+        <!-- AI Daily SEO Expert Tips -->
+        <section class="seo-tips-section py-20" style="background: rgba(15, 23, 42, 0.3); margin-top: 4rem;">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag" style="background: rgba(99, 102, 241, 0.1); color: #818cf8; border-color: rgba(99, 102, 241, 0.2);">Pro RV Insights</span>
+                    <h2>Today's <span class="gradient-text">RV Expert Insight</span></h2>
+                    <p>Specialized motorhome and trailer maintenance tips compiled by our detailing experts.</p>
+                </div>
+                <div id="seoTipsGrid" class="tips-grid">
+                    <!-- Loaded dynamically via script.js -->
+                </div>
+                <div class="footer-download" style="margin-top: 3rem; display: flex; justify-content: center; gap: 1rem;">
+                    <a href="https://apps.apple.com/us/app/my-carwash-on-demand-detail/id6739758453" target="_blank">
+                        <img src="assets/download-app-store.svg" alt="Download on App Store" width="160">
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.rodrigo.mycarwash.app" target="_blank">
+                        <img src="assets/download-google-play.svg" alt="Get it on Google Play" width="160">
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SEO Cities Section -->
+    <section class="cities-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Coverage</span>
+                <h2>Service Areas in <span class="gradient-text">Los Angeles</span></h2>
+                <p>We provide mobile RV detailing at your location in all the following cities and neighborhoods.</p>
+            </div>
+            <div class="cities-grid">
+                <div class="city-tag">San Pedro</div>
+                <div class="city-tag">Rancho Palos Verdes</div>
+                <div class="city-tag">Palos Verdes Estates</div>
+                <div class="city-tag">Rolling Hills</div>
+                <div class="city-tag">Rolling Hills Estates</div>
+                <div class="city-tag">Torrance</div>
+                <div class="city-tag">Redondo Beach</div>
+                <div class="city-tag">Hermosa Beach</div>
+                <div class="city-tag">Manhattan Beach</div>
+                <div class="city-tag">El Segundo</div>
+                <div class="city-tag">Westchester</div>
+                <div class="city-tag">Playa del Rey</div>
+                <div class="city-tag">Marina del Rey</div>
+                <div class="city-tag">Venice</div>
+                <div class="city-tag">Santa Monica</div>
+                <div class="city-tag">Pacific Palisades</div>
+                <div class="city-tag">Brentwood</div>
+                <div class="city-tag">Bel Air</div>
+                <div class="city-tag">Beverly Hills</div>
+                <div class="city-tag">West Hollywood</div>
+                <div class="city-tag">Culver City</div>
+                <div class="city-tag">Mar Vista</div>
+                <div class="city-tag">Palms</div>
+                <div class="city-tag">Century City</div>
+                <div class="city-tag">Westwood</div>
+                <div class="city-tag">Hollywood</div>
+                <div class="city-tag">Silver Lake</div>
+                <div class="city-tag">Echo Park</div>
+                <div class="city-tag">Downtown Los Angeles</div>
+                <div class="city-tag">Inglewood</div>
+                <div class="city-tag">Hawthorne</div>
+                <div class="city-tag">Gardena</div>
+                <div class="city-tag">Lawndale</div>
+                <div class="city-tag">Carson</div>
+                <div class="city-tag">Lomita</div>
+                <div class="city-tag">Harbor City</div>
+                <div class="city-tag">Wilmington</div>
+                <div class="city-tag">Long Beach</div>
+                <div class="city-tag">Lakewood</div>
+                <div class="city-tag">Signal Hill</div>
+                <div class="city-tag">Bellflower</div>
+                <div class="city-tag">Paramount</div>
+                <div class="city-tag">Downey</div>
+                <div class="city-tag">South Gate</div>
+                <div class="city-tag">Huntington Park</div>
+                <div class="city-tag">Lynwood</div>
+                <div class="city-tag">Compton</div>
+                <div class="city-tag">Vernon</div>
+                <div class="city-tag">Commerce</div>
+                <div class="city-tag">Santa Fe Springs</div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer py-12 border-t border-white/5 bg-black/50">
+        <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 2rem;">
+            <div class="footer-agent-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 1.5rem; width: 100%; max-width: 320px; text-align: left;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--gradient); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                        <span class="material-symbols-outlined" style="color: white; font-size: 24px;">person</span>
+                    </div>
+                    <div>
+                        <div style="font-weight: 700; font-size: 0.95rem; color: var(--white);">Rodrigo Montoya</div>
+                        <div style="font-size: 0.75rem; color: var(--primary-light); text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em;">Authorized Agent</div><div style="font-size: 0.85rem; color: var(--gray-light); margin-top: 0.2rem;">+1 (310) 340-3489</div>
+                    </div>
+                </div>
+                <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 1rem; line-height: 1.4;">
+                    Ready to protect your investment? Fill out the form above for a custom proposal within 24 hours.
+                </div>
+            </div>
+            <div class="text-center opacity-40 text-sm">
+                <p>© 2026 Pro Detail Lab. Los Angeles, CA. Mobile Detailing Experts.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import {
+            getFirestore, collection, addDoc, updateDoc, doc, getDoc,
+            onSnapshot, serverTimestamp, query, orderBy, getDocs, limit, where
+        } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBiPHCELzpPDGjXIBZKUMqHKLcjpKCXAd4",
+            authDomain: "my-carwashapp-e6aba.firebaseapp.com",
+            projectId: "my-carwashapp-e6aba",
+            storageBucket: "my-carwashapp-e6aba.firebasestorage.app",
+            messagingSenderId: "1095794498344",
+            appId: "1:1095794498344:web:a74ee23bf82d7a6da84e1d"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.db = db;
+        window.firestoreFunctions = {
+            collection, addDoc, updateDoc, doc, getDoc,
+            onSnapshot, serverTimestamp, query, orderBy, getDocs, limit, where
+        };
+
+        window.firebaseReady = true;
+        window.dispatchEvent(new Event('firebaseReady'));
+    </script>
+
+    <script>
+        function loadMainScript() {
+            if (window.mainScriptLoaded) return;
+            window.mainScriptLoaded = true;
+            const script = document.createElement('script');
+            script.src = 'script.js?v=' + Date.now();
+            document.body.appendChild(script);
+        }
+        
+        if (window.firebaseReady) {
+            loadMainScript();
+        } else {
+            window.addEventListener('firebaseReady', loadMainScript);
+            // Fallback: load anyway if firebase takes too long or fails
+            setTimeout(loadMainScript, 3000);
+        }
+    </script>
+</body>
+
+</html>
+
+
+

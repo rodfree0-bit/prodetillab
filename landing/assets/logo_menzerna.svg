@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" role="img" aria-label="Menzerna">
+  <!-- Menzerna wordmark — stylized official font recreation -->
+  <rect width="320" height="80" fill="none"/>
+  <!-- Red accent bar -->
+  <rect x="0" y="58" width="320" height="5" fill="#E30613" rx="1"/>
+  <!-- Main wordmark -->
+  <text x="4" y="50" font-family="'Arial Black','Impact',sans-serif" font-weight="900" font-size="38" fill="#ffffff" letter-spacing="-1">MENZERNA</text>
+  <!-- Tagline -->
+  <text x="5" y="72" font-family="'Arial',sans-serif" font-size="9" fill="rgba(255,255,255,0.45)" letter-spacing="3.5">PREMIUM COMPOUNDS</text>
+</svg>

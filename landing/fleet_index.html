@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commercial Fleet Detailing App & Semi-Truck Care Los Angeles | Pro Detail Lab</title>
+    <meta name="description" content="Scale your business image with our professional fleet detailing. Specialized on-site service for semi-trucks, box trucks, and commercial vans across the Los Angeles metro area.">
+    <link rel="canonical" href="https://prodetaillab.com/fleet_index" />
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/png" href="../logoasset.png?v=5" />
+    <meta name="theme-color" content="#000000">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://prodetaillab.com/fleet_index" />
+    <meta property="og:title" content="Commercial Fleet & Truck Detailing in Los Angeles" />
+    <meta property="og:description" content="Scale your business image with our professional fleet detailing. Specialized on-site service for semi-trucks, box trucks, and commercial vans across the Los Angeles metro area.">
+    <meta property="og:image" content="https://prodetaillab.com/logoasset.png?v=5" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../promo.css">
+
+    <!-- Structured Data (JSON-LD) for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Pro Detail Lab - Fleet Division",
+      "image": "https://prodetaillab.com/logoasset.png?v=5",
+      "@id": "https://prodetaillab.com/fleet_index#localbusiness",
+      "url": "https://prodetaillab.com/fleet_index",
+      "priceRange": "$$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Los Angeles",
+        "addressRegion": "CA",
+        "addressCountry": "US"
+      },
+      "areaServed": ["San Pedro", "Rancho Palos Verdes", "Palos Verdes Estates", "Rolling Hills", "Rolling Hills Estates", "Torrance", "Redondo Beach", "Hermosa Beach", "Manhattan Beach", "El Segundo", "Westchester", "Playa del Rey", "Marina del Rey", "Venice", "Santa Monica", "Pacific Palisades", "Brentwood", "Bel Air", "Beverly Hills", "West Hollywood", "Culver City", "Mar Vista", "Palms", "Century City", "Westwood", "Hollywood", "Silver Lake", "Echo Park", "Downtown Los Angeles", "Inglewood", "Hawthorne", "Gardena", "Lawndale", "Carson", "Lomita", "Harbor City", "Wilmington", "Long Beach", "Lakewood", "Signal Hill", "Bellflower", "Paramount", "Downey", "South Gate", "Huntington Park", "Lynwood", "Compton", "Vernon", "Commerce", "Santa Fe Springs", "Alhambra", "Monterey Park", "Whittier", "Montebello", "Norwalk"],
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "opens": "08:00",
+        "closes": "20:00"
+      }
+    }
+    </script>
+    <style>
+        /* Fallback to ensure cards are visible if JS fails to trigger animation */
+        .service-card { opacity: 1 !important; transform: none !important; }
+        .gallery-item { opacity: 1 !important; transform: none !important; }
+    </style>
+</head>
+
+<body class="fleet-page">
+    <!-- Ambient atmosphere -->
+    <div class="ambient-light light-1"></div>
+    <div class="ambient-light light-2"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <img src="../logoasset.png?v=5" alt="Pro Detail Lab">
+                    <span translate="no">Pr<svg class="flask-o" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 0.9em; height: 0.9em; display: inline-block; vertical-align: middle; margin-left: -0.05em; margin-right: -0.05em; color: #00f0ff; filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.5));"><line x1="12" y1="3" x2="12" y2="10" /><line x1="9" y1="3" x2="15" y2="3" /><path d="M12 10C8.5 10 7 13 7 16.5C7 19.5 9.2 21 12 21C14.8 21 17 19.5 17 16.5C17 13 15.5 10 12 10Z" /><path d="M9 16.5C10 16 11 17 12 16.5C13 16 14 17 15 16.5" stroke-width="1.5" opacity="0.8" /></svg><strong>Detail</strong> Lab</span>
+                </div>
+                <div class="nav-links" id="navLinks">
+                    <a href="#services">Fleet Services</a>
+                    <a href="#quote-top">Request Quote</a>
+
+                    <a href="blog" class="nav-blog">Blog</a>
+                    <a href="#contact">Contact</a>
+                    <a href="https://apps.apple.com/us/app/my-carwash-on-demand-detail/id6739758453" class="nav-cta-btn" translate="no" target="_blank">Download App</a>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+                    <span class="material-symbols-outlined" translate="no">menu</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===================== HERO - FLEET FOCUSED ===================== -->
+    <section class="hero fleet-hero" id="home">
+        <div class="hero-particles" id="heroParticles"></div>
+        <div class="hero-bg-glow"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="material-symbols-outlined" translate="no">local_shipping</span>
+                    Commercial Fleet Detailing in Los Angeles
+                </div>
+                <h1 class="hero-title">
+                    Professional <span class="gradient-text-gold">Truck &amp; Fleet Detailing</span> 
+                    <br><span style="font-size: 0.6em; font-weight: 400; opacity: 0.9; display: block; margin-top: 0.5rem;">On-Site Service in Los Angeles</span>
+                </h1>
+                <p class="hero-subtitle">
+                    We specialize in heavy-duty detailing for <strong>Semi-Trucks, Box Trucks, and Commercial Fleets</strong>. 
+                    Premium on-site service at your yard or office across the Los Angeles area.
+                </p>
+                <div class="hero-cta" style="margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 1rem;">
+                    <a href="#quote-top" class="btn-hero" style="flex: 1; min-width: 200px; justify-content: center;">
+                        <span class="material-symbols-outlined" translate="no">local_shipping</span>
+                        Truck Fleet Quote
+                    </a>
+                    <a href="../index.html" class="btn-hero-outline" style="flex: 1; min-width: 200px; justify-content: center;">
+                        <span class="material-symbols-outlined" translate="no">directions_car</span>
+                        Go to Main Site
+                    </a>
+                </div>
+                <!-- Integrated Call Option -->
+                <div class="hero-phone-cta" style="margin-top: 2rem; text-align: center; width: 100%;">
+                    <p style="font-size: 1.15rem; color: rgba(255,255,255,0.7); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Inter', sans-serif; margin: 0;">
+                        <span class="material-symbols-outlined" translate="no" style="font-size: 1.3rem; color: var(--primary); vertical-align: middle;">phone_in_talk</span>
+                        <span>Call to Book: <a href="tel:+13103403489" style="color: #fff; text-decoration: none; font-weight: 800; border-bottom: 2px dashed var(--primary); padding-bottom: 2px; transition: all 0.2s;" onmouseover="this.style.color='var(--primary-light)'; this.style.borderBottomStyle='solid';" onmouseout="this.style.color='#fff'; this.style.borderBottomStyle='dashed';">+1 (310) 340-3489</a></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== MAIN QUOTE FORM - MOVED TO TOP ===================== -->
+    <section class="quote-section" id="quote-top">
+        <div class="container">
+            <div class="quote-wrapper">
+                <div class="quote-left">
+                    <div class="section-tag section-tag-gold">Fleet Specialists</div>
+                    <h2>Tailored Proposals for<br>Your <span class="gradient-text-gold">Business</span></h2>
+                    <p>Tell us about your vehicles and we'll provide a custom maintenance plan that keeps your fleet looking sharp and your drivers proud.</p>
+                    <div class="quote-perks">
+                        <div class="perk-item">
+                            <span class="material-symbols-outlined" translate="no">bolt</span>
+                            <span>Fast response within 24 hours</span>
+                        </div>
+                        <div class="perk-item">
+                            <span class="material-symbols-outlined" translate="no">percent</span>
+                            <span>Volume pricing for 3+ vehicles</span>
+                        </div>
+                        <div class="perk-item">
+                            <span class="material-symbols-outlined" translate="no">handshake</span>
+                            <span>Recurring maintenance contracts</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="quote-form-card">
+                    <form id="truckQuoteForm" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="qName">Your Name *</label>
+                                <input type="text" id="qName" placeholder="e.g. John Martinez" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="qCompany">Company Name</label>
+                                <input type="text" id="qCompany" placeholder="e.g. Los Angeles Logistics">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="qPhone">Phone Number *</label>
+                                <input type="tel" id="qPhone" placeholder="(310) 555-0100" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="qEmail">Email Address</label>
+                                <input type="email" id="qEmail" placeholder="service@company.com">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="qVehicleCount">Number of Vehicles *</label>
+                                <select id="qVehicleCount" required>
+                                    <option value="">Select quantity</option>
+                                    <option value="1">1 Vehicle</option>
+                                    <option value="2-5">2–5 Vehicles</option>
+                                    <option value="6-15">6–15 Vehicles</option>
+                                    <option value="16-50">16–50 Vehicles</option>
+                                    <option value="50+">50+ Vehicles</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="qVehicleType">Vehicle Type *</label>
+                                <select id="qVehicleType" required>
+                                    <option value="">Select type</option>
+                                    <option value="semi-truck">Semi / 18-Wheeler</option>
+                                    <option value="box-truck">Box Truck</option>
+                                    <option value="van">Van / Sprinter</option>
+                                    <option value="bus">Bus / Coach</option>
+                                    <option value="rv">Luxury RV / Motorhome</option>
+                                    <option value="mixed-fleet">Mixed Fleet</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="qService">Service Interested In</label>
+                            <select id="qService">
+                                <option value="">Select a service</option>
+                                <option value="maintenance-wash">Maintenance Wash (Regular)</option>
+                                <option value="full-detail">Full Interior & Exterior Detail</option>
+                                <option value="recurring">Recurring Contract (Weekly / Monthly)</option>
+                                <option value="de-identification">Fleet De-Identification / Logo Removal</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="qLocation">Service Location *</label>
+                            <input type="text" id="qLocation"
+                                value="Los Angeles, CA" placeholder="City, State or Zip Code" required>
+                        </div>
+                        <button type="submit" class="btn-submit" id="submitQuoteBtn">
+                            <span id="submitBtnText">Send My Quote Request</span>
+                        </button>
+                    </form>
+                    <div id="quoteSuccess" class="quote-success" style="display:none;">
+                        <span class="material-symbols-outlined success-icon">check_circle</span>
+                        <h3>Request Sent!</h3>
+                        <p>We'll contact you shortly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== FLEET SERVICES ===================== -->
+    <section class="services fleet-services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Commercial Expertise</div>
+                <h2>Specialized <span class="gradient-text-gold">Fleet Packages</span></h2>
+                <p>Heavy-duty detailing require specialized equipment and techniques. We are the experts Los Angeles businesses trust.</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card featured visible">
+                    <div class="service-icon-wrap gold">
+                        <span class="material-symbols-outlined" translate="no">local_shipping</span>
+                    </div>
+                    <h3>Semi-Truck Detailing</h3>
+                    <p>Complete cab restoration and exterior decontamination. We remove road grime, grease, and carbon buildup.</p>
+                    <ul class="service-list">
+                        <li>De-greasing & Wheel Polishing</li>
+                        <li>High-Pressure Chassis Wash</li>
+                        <li>Interior Cab Deep Cleaning</li>
+                        <li>Aluminum & Chrome Restoration</li>
+                    </ul>
+                </div>
+
+                <div class="service-card featured visible">
+                    <div class="service-icon-wrap gold">
+                        <span class="material-symbols-outlined" translate="no">rv_hookup</span>
+                    </div>
+                    <h3>Luxury RV Maintenance</h3>
+                    <p>Preserve the investment of your motorhome with premium foam washes and specialized sealants.</p>
+                    <ul class="service-list">
+                        <li>Roof Cleaning & Inspection</li>
+                        <li>Oxidation Removal</li>
+                        <li>Uv-Protective Wax/Ceramic</li>
+                        <li>Tire & Seal Rejuvenation</li>
+                    </ul>
+                </div>
+
+                <div class="service-card featured visible">
+                    <div class="service-icon-wrap gold">
+                        <span class="material-symbols-outlined" translate="no">garage</span>
+                    </div>
+                    <h3>Commercial Fleet Care</h3>
+                    <p>Scalable maintenance programs for vans, box trucks, and company cars in Los Angeles.</p>
+                    <ul class="service-list">
+                        <li>Centralized Billing Options</li>
+                        <li>Monthly Maintenance Cycles</li>
+                        <li>Employee Discount Programs</li>
+                        <li>Bulk Volume Pricing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- {{RECENT_WORK_PLACEHOLDER}} -->
+
+    <!-- ===================== SEO EXPERT TIPS ===================== -->
+    <section class="seo-tips-section" id="expert-tips">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Daily Expert Insight</div>
+                <h2>Pro Detailing Tips for <span class="gradient-text-gold">Greater Los Angeles</span></h2>
+                <p>Maintain your commercial fleet's value with professional daily insights tailored for Southern California businesses.</p>
+            </div>
+            <div class="tips-container">
+                <div id="seoTipsGrid">
+                    <!-- Loaded via script.js from Firebase -->
+                    <div class="tip-card">
+                        <div class="tip-tag">Loading Tips...</div>
+                        <h3>Fleet Care Wisdom</h3>
+                        <p>Connecting to our daily knowledge bank for the best commercial vehicle care...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; align-items: start;">
+                <div class="footer-agent-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 1.5rem; max-width: 320px;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--gradient); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                            <span class="material-symbols-outlined" style="color: white; font-size: 24px;">person</span>
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; font-size: 0.95rem; color: var(--white);">Rodrigo Montoya</div>
+                            <div style="font-size: 0.75rem; color: var(--primary-light); text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em;">Authorized Agent</div>
+                            <a href="tel:+13103403489" style="font-size: 0.85rem; color: var(--gray-light); margin-top: 0.2rem; text-decoration: none; display: block; font-weight: 700;">+1 (310) 340-3489</a>
+                        </div>
+                    </div>
+                    <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 1rem; line-height: 1.4;">
+                        Need a custom proposal for your business? Fill out our specialized form above for volume pricing.
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="footer-download" style="margin-bottom: 1.5rem; display: flex; gap: 1rem;">
+                        <a href="https://apps.apple.com/us/app/my-carwash-on-demand-detail/id6739758453" target="_blank">
+                            <img src="assets/download-app-store.svg" alt="Download on App Store" width="140">
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.rodrigo.mycarwash.app" target="_blank">
+                            <img src="assets/download-google-play.svg" alt="Get it on Google Play" width="140">
+                        </a>
+                    </div>
+                    <p>&copy; 2026 Pro Detail Lab. Commercial Fleet Division. Serving Industrial Los Angeles.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyBiPHCELzpPDGjXIBZKUMqHKLcjpKCXAd4",
+            authDomain: "my-carwashapp-e6aba.firebaseapp.com",
+            projectId: "my-carwashapp-e6aba",
+            storageBucket: "my-carwashapp-e6aba.firebasestorage.app",
+            messagingSenderId: "1095794498344",
+            appId: "1:1095794498344:web:a74ee23bf82d7a6da84e1d"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Simple Quote Form logic
+        const form = document.getElementById('truckQuoteForm');
+        if (form) {
+            form.onsubmit = async (e) => {
+                e.preventDefault();
+                const btn = document.getElementById('submitQuoteBtn');
+                btn.disabled = true;
+                btn.innerText = 'Sending...';
+
+                try {
+                    await addDoc(collection(db, 'fleet_quotes'), {
+                        name: document.getElementById('qName').value,
+                        company: document.getElementById('qCompany').value,
+                        phone: document.getElementById('qPhone').value,
+                        email: document.getElementById('qEmail').value,
+                        count: document.getElementById('qVehicleCount').value,
+                        type: document.getElementById('qVehicleType').value,
+                        service: document.getElementById('qService').value,
+                        location: document.getElementById('qLocation').value,
+                        createdAt: serverTimestamp()
+                    });
+                    form.style.display = 'none';
+                    document.getElementById('quoteSuccess').style.display = 'block';
+                } catch (err) {
+                    console.error(err);
+                    alert('Error sending quote. Please check your connection and try again.');
+                    btn.disabled = false;
+                    btn.innerText = 'Send My Quote Request';
+                }
+            };
+        }
+    </script>
+    <script>
+        function loadMainScript() {
+            if (window.mainScriptLoaded) return;
+            window.mainScriptLoaded = true;
+            const script = document.createElement('script');
+            script.src = '/script.js?v=' + Date.now();
+            document.body.appendChild(script);
+        }
+        
+        // Load as soon as possible
+        if (document.readyState === 'loading') {
+            window.addEventListener('DOMContentLoaded', loadMainScript);
+        } else {
+            loadMainScript();
+        }
+    </script>
+    <script>
+        // Minimal script for mobile menu
+        document.getElementById('mobileMenuBtn').onclick = () => {
+            document.getElementById('navLinks').classList.toggle('active');
+        };
+    </script>
+</body>
+</html>
+
+
+

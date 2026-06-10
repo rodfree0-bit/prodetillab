@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | Premium Mobile Car Wash & Detailing</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        .policy-container {
+            max-width: 800px;
+            margin: 120px auto 60px;
+            padding: 40px 20px;
+            color: #333;
+            line-height: 1.6;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .policy-container h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+        }
+
+        .policy-container h2 {
+            font-size: 1.5rem;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .policy-container p {
+            margin-bottom: 20px;
+            color: var(--text-gray);
+        }
+
+        .policy-container ul {
+            margin-left: 20px;
+            margin-bottom: 25px;
+            color: var(--text-gray);
+        }
+
+        .policy-container li {
+            margin-bottom: 10px;
+        }
+    </style>
+    <script>
+        // Handle the "Download" nav buttons specifically
+        document.querySelectorAll('a[href="#download"]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                // Smart OS Detection
+                const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+                // iOS detection
+                if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                    window.open('https://apps.apple.com/us/app/my-carwash-on-demand-detail/id6759268463', '_blank');
+                    return;
+                }
+
+                // Android detection
+                if (/android/i.test(userAgent)) {
+                    window.open('https://play.google.com/store/apps/my-carwash-app', '_blank');
+                    return;
+                }
+
+                // Desktop or other: Scroll to the download section
+                const heroCtaSection = document.querySelector('.hero-download-links') || document.querySelector('.cta-section');
+                if (heroCtaSection) {
+                    heroCtaSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <!-- Navigation (solid dark background like when scrolled) -->
+    <nav class="navbar" style="background: var(--text-dark); box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <img src="logo.webp" alt="Pro Detail Lab" width="38" height="38">
+                    <span style="color: white;" translate="no">Pro <strong>Detail</strong> Lab</span>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html" style="color: #ddd;">Home</a>
+                    <a href="index.html#services" style="color: #ddd;">Services</a>
+                    <a href="index.html#how-it-works" style="color: #ddd;">How It Works</a>
+                    <a href="blog" style="color: #ddd;">Blog</a>
+                    <a href="index.html#contact" style="color: #ddd;">Contact</a>
+                    <a href="https://prodetaillab.com/" class="btn-primary">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="policy-container">
+        <h1>Privacy Policy</h1>
+        <p><strong>Last updated: February 2025</strong></p>
+
+        <p>Thank you for choosing Premium Mobile Car Wash & Detailing / Pro Detail Lab ("Company", "we", "us", "our").
+            We are committed to protecting your personal information and your right to privacy. If you have any
+            questions or concerns about this privacy notice, or our practices with regards to your personal information,
+            please contact us.</p>
+
+        <h2>1. Information We Collect</h2>
+        <p>We collect personal information that you voluntarily provide to us when you register on the App, express an
+            interest in obtaining information about us or our products and Services, when you participate in activities
+            on the App or otherwise when you contact us.</p>
+        <p>The personal information we collect may include the following:</p>
+        <ul>
+            <li><strong>Name and Contact Data:</strong> Name, email address, phone number.</li>
+            <li><strong>Credentials:</strong> Passwords and similar security information used for authentication and
+                account access.</li>
+            <li><strong>Payment Data:</strong> We collect only the data necessary to verify payment success. Your full
+                credit or debit card information is never stored on our servers. All sensitive payment details are
+                handled exclusively by <strong>Stripe</strong>. Stripe is certified as a PCI Level 1 Service Provider,
+                the most stringent level of certification available in the payments industry.</li>
+            <li><strong>Location Data:</strong> We request access or permission to track location-based information from
+                your mobile device, either continuously or while you are using our App, to provide location-based
+                services matching you with washers and calculating ETAs. You can change your preferences in your device
+                settings.</li>
+        </ul>
+
+        <h2>2. How We Use Your Information</h2>
+        <p>We use personal information collected via our App for a variety of business purposes described below:</p>
+        <ul>
+            <li>To facilitate account creation and logon process securely.</li>
+            <li>To fulfill and manage your orders and washing services directly to your location.</li>
+            <li>To deliver and facilitate delivery of services to the user using your location information.</li>
+            <li>To send administrative information to you, such as changes to our terms, conditions, and policies.</li>
+            <li>To respond to user inquiries and offer support to users.</li>
+        </ul>
+
+        <h2>3. Background Location (For Washers/Providers)</h2>
+        <p>If you use our App as a service provider (a "Washer"), we collect background location data even when the app
+            is closed or not in use. This is strictly necessary to assign tasks efficiently based on proximity, to track
+            arrival times for the customer's peace of mind, and to ensure security. The tracking is active only when you
+            choose to go "Online" in the app.</p>
+
+        <h2>4. Will Your Information Be Shared With Anyone?</h2>
+        <p>We only share information with your consent, to comply with laws, to provide you with services, to protect
+            your rights, or to fulfill business obligations.</p>
+        <ul>
+            <li><strong>Business Partners:</strong> We may share your location and contact information with assigned
+                Washers to fulfill the car wash service.</li>
+            <li><strong>Third-Party Vendors:</strong> We may share data with vendors that perform services for us
+                (payment processing, data analysis, email delivery, hosting services).</li>
+        </ul>
+
+        <h2>5. Data Retention</h2>
+        <p>We will only keep your personal information for as long as it is necessary for the purposes set out in this
+            privacy notice, unless a longer retention period is required or permitted by law. Users can request account
+            deletion (and data purging) directly from within the application's settings menu.</p>
+
+        <h2>6. Account Deletion</h2>
+        <p>Users have full control over their account data. You can delete your account and all associated personal data
+            from our systems completely by navigating to the "Profile" or "Settings" section of the App and selecting
+            "Delete Account". All linked user data, payment traces, and previous order histories attached to that user
+            will be removed or anonymized.</p>
+
+        <h2>7. Minors</h2>
+        <p>We do not knowingly solicit data from or market to children under 18 years of age. By using the App, you
+            represent that you are at least 18 or that you are the parent or guardian of such a minor and consent to
+            such minor dependent’s use of the App.</p>
+
+        <h2>8. Contact Us</h2>
+        <p>If you have questions or comments about this notice, you may email us at support@prodetaillab.com</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" style="padding-top: 40px; border-top: 1px solid #1f2937;">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Pro Detail Lab. All rights reserved.</p>
+                <div style="margin-top: 15px; display: flex; justify-content: center; gap: 20px;">
+                    <a href="index.html"
+                        style="color: var(--text-gray); text-decoration: none; font-size: 14px;">Home</a>
+                    <a href="privacy.html"
+                        style="color: var(--text-gray); text-decoration: none; font-size: 14px;">Privacy Policy</a>
+                    <a href="terms.html" style="color: var(--text-gray); text-decoration: none; font-size: 14px;">Terms
+                        of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
+
+

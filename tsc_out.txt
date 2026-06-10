@@ -1,0 +1,1 @@
+components/washer/AvailableOrders.tsx(45,94): error TS2345: Argument of type '"no_orders"' is not assignable to parameter of type '"client" | "address" | "filter" | "success" | "error" | "all" | "search" | "description" | "date" | "password" | "time" | "min" | "jobs" | "waiting" | "orders" | "team" | "clients" | ... 393 more ... | "tier_diamond_desc"'.

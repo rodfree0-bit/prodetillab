@@ -1,0 +1,1833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog, Products & Our Story | Pro Detail Lab</title>
+    <meta name="description" content="Discover the premium detailing products we use, view our gallery of work, and learn who we are and why we are Los Angeles' premier detailing service.">
+    <link rel="canonical" href="https://prodetaillab.com/blog">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://prodetaillab.com/blog">
+    <meta property="og:title" content="Blog, Products & Our Story | Pro Detail Lab">
+    <meta property="og:description" content="Discover the premium detailing products we use, view our gallery of work, and learn who we are and why we are Los Angeles' premier detailing service.">
+    <meta property="og:image" content="https://prodetaillab.com/logo-og.webp" />
+
+    <!-- Premium Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+    <!-- Main Stylesheet Link -->
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* Isolated Custom styles for the new premium Blog layout */
+        .blog-custom-body {
+            background: #070a13;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .luxe-hero {
+            position: relative;
+            padding: 180px 0 80px;
+            text-align: center;
+            background: linear-gradient(rgba(7, 10, 19, 0.75), #070a13), url('gallery-snow-foam.jpg') no-repeat center center;
+            background-size: cover;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .luxe-hero-glow {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 40%, rgba(37, 99, 235, 0.15), transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.1), transparent 50%),
+                radial-gradient(circle at 50% 100%, rgba(56, 189, 248, 0.1), transparent 40%);
+            pointer-events: none;
+        }
+
+        .luxe-hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .luxe-hero p {
+            color: #94a3b8;
+            font-size: clamp(1.05rem, 2vw, 1.25rem);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* --- PRODUCT CAROUSEL / SLIDER --- */
+        .carousel-section {
+            padding: 6rem 0;
+            background: #070a13;
+        }
+
+        .carousel-container {
+            position: relative;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .carousel-wrapper {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            gap: 2rem;
+            padding: 2rem 0;
+            scrollbar-width: none; /* Hide scrollbar Firefox */
+            -ms-overflow-style: none; /* Hide scrollbar IE/Edge */
+        }
+
+        .carousel-wrapper::-webkit-scrollbar {
+            display: none; /* Hide scrollbar Chrome/Safari */
+        }
+
+        .carousel-slide {
+            flex: 0 0 100%;
+            scroll-snap-align: center;
+            background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.1), rgba(15, 23, 42, 0.95));
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            border-radius: 24px;
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 3rem;
+            align-items: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            min-height: 400px;
+        }
+
+        .slide-image-placeholder {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #4b5563;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-image-placeholder span {
+            font-size: 48px;
+            color: rgba(59, 130, 246, 0.4);
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-image-placeholder p {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .slide-content h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .slide-content p {
+            color: #94a3b8;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .slide-tag {
+            display: inline-block;
+            background: rgba(37, 99, 235, 0.15);
+            color: #60a5fa;
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            padding: 0.35rem 0.85rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        /* Carousel Navigation */
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .carousel-arrow:hover {
+            background: #2563eb;
+            border-color: #2563eb;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-arrow.prev { left: -25px; }
+        .carousel-arrow.next { right: -25px; }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 2rem;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: #2563eb;
+            transform: scale(1.3);
+        }
+
+        /* --- PHOTO CAROUSEL GALLERY --- */
+        .gallery-section {
+            padding: 5rem 0 4rem;
+            background: #0b1120;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Carousel track */
+        .photo-carousel-wrap {
+            position: relative;
+            margin-top: 3rem;
+            overflow: hidden;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.07);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+            aspect-ratio: 16/9;
+            max-height: 540px;
+            cursor: pointer;
+        }
+
+        .photo-carousel-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.55s cubic-bezier(0.77,0,0.18,1);
+            will-change: transform;
+        }
+
+        .photo-carousel-slide {
+            flex: 0 0 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+
+
+        /* label overlay — sits above the plate censor bar */
+        .carousel-slide-overlay {
+            position: absolute;
+            bottom: 22%;
+            left: 0; right: 0;
+            padding: 1rem 2rem;
+            background: linear-gradient(to top, rgba(7,10,19,0.7) 0%, transparent 100%);
+            z-index: 5;
+            pointer-events: none;
+        }
+        .carousel-slide-overlay span {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.95);
+            text-shadow: 0 1px 6px rgba(0,0,0,0.8);
+        }
+
+        /* carousel arrows */
+        .c-arrow {
+            position: absolute;
+            top: 50%; transform: translateY(-50%);
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            background: rgba(10,15,30,0.75);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(8px);
+        }
+        .c-arrow:hover { background: #2563eb; border-color: #2563eb; transform: translateY(-50%) scale(1.08); }
+        .c-arrow.c-prev { left: 1.2rem; }
+        .c-arrow.c-next { right: 1.2rem; }
+
+        /* dots */
+        .carousel-dots-row {
+            display: flex; justify-content: center; gap: 6px;
+            margin-top: 1.4rem;
+        }
+        .c-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: rgba(255,255,255,0.18);
+            cursor: pointer; transition: all 0.3s ease;
+            border: none; padding: 0;
+        }
+        .c-dot.active { background: #2563eb; transform: scale(1.4); }
+
+        /* counter badge */
+        .carousel-counter {
+            position: absolute;
+            top: 1.2rem; right: 1.4rem;
+            background: rgba(0,0,0,0.55);
+            backdrop-filter: blur(8px);
+            color: rgba(255,255,255,0.8);
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 0.3rem 0.75rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.1);
+            z-index: 10;
+            letter-spacing: 0.05em;
+        }
+
+        /* open gallery button */
+        .open-gallery-btn {
+            display: flex; align-items: center; gap: 0.6rem;
+            margin: 2rem auto 0;
+            padding: 0.9rem 2.2rem;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(37,99,235,0.35);
+            letter-spacing: 0.02em;
+        }
+        .open-gallery-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 32px rgba(37,99,235,0.5);
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+
+        /* ===== FULL-PAGE GALLERY MODAL ===== */
+        .full-gallery-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: #070a13;
+            overflow-y: auto;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .full-gallery-modal.open {
+            display: block;
+            opacity: 1;
+        }
+
+        .full-gallery-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 2rem;
+            background: rgba(7,10,19,0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .full-gallery-header h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #fff;
+            margin: 0;
+        }
+        .full-gallery-header span {
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+        .close-gallery-btn {
+            display: flex; align-items: center; gap: 0.4rem;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .close-gallery-btn:hover { background: #ef4444; border-color: #ef4444; }
+
+        .full-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1rem;
+            padding: 1.5rem 1.5rem 4rem;
+        }
+
+        .fg-item {
+            position: relative;
+            aspect-ratio: 4/3;
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .fg-item img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .fg-item:hover img { transform: scale(1.06); }
+
+        .fg-item-label {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 0.8rem 1rem;
+            background: linear-gradient(to top, rgba(7,10,19,0.92), transparent);
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+        .fg-item:hover .fg-item-label { opacity: 1; }
+        .fg-item-label p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
+        /* gallery grid old (keep for JS) */
+        .gallery-grid { display: none; }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 4/3;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+
+
+        .gallery-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(7, 10, 19, 0.95), rgba(7, 10, 19, 0.3) 70%, transparent);
+            transform: translateY(10px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 3;
+        }
+
+        .gallery-item:hover .gallery-info {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .gallery-info h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.25rem;
+        }
+
+        .gallery-info p {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin: 0;
+        }
+
+        /* --- PREMIUM LIGHTBOX --- */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            inset: 0;
+            background: rgba(3, 7, 18, 0.96);
+            backdrop-filter: blur(16px);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 10001;
+        }
+
+        .lightbox-close:hover {
+            color: #ffffff;
+            transform: scale(1.1);
+        }
+
+        .lightbox-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-size: 2.5rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            z-index: 10001;
+            user-select: none;
+        }
+
+        .lightbox-arrow:hover {
+            background: #2563eb;
+            border-color: #2563eb;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .lightbox-arrow.prev {
+            left: 2rem;
+        }
+
+        .lightbox-arrow.next {
+            right: 2rem;
+        }
+
+        .lightbox-content-wrapper {
+            position: relative;
+            max-width: 80%;
+            max-height: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: opacity 0.15s ease, transform 0.15s ease;
+        }
+
+        .lightbox-caption {
+            margin-top: 1.5rem;
+            color: #e2e8f0;
+            font-size: 1.1rem;
+            text-align: center;
+            max-width: 600px;
+            line-height: 1.6;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        @media (max-width: 768px) {
+            .lightbox-arrow {
+                width: 45px;
+                height: 45px;
+                font-size: 1.8rem;
+            }
+            .lightbox-arrow.prev { left: 1rem; }
+            .lightbox-arrow.next { right: 1rem; }
+            .lightbox-close {
+                top: 1rem;
+                right: 1rem;
+                font-size: 2rem;
+            }
+            .lightbox-content-wrapper {
+                max-width: 90%;
+            }
+        }
+
+        /* --- BLOG ARTICLES SECTION --- */
+        .blog-articles-section {
+            padding: 6rem 0;
+            background: #070a13;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3.5rem;
+        }
+
+        .blog-card {
+            background: radial-gradient(circle at top left, rgba(30, 41, 59, 0.4), rgba(15, 23, 42, 0.9));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
+        }
+
+        .blog-card-image {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .blog-card-body {
+            padding: 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-card-category {
+            background: rgba(37, 99, 235, 0.15);
+            color: #60a5fa;
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-block;
+        }
+
+        .blog-card-readtime {
+            font-size: 0.8rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .blog-card-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            transition: color 0.2s ease;
+        }
+
+        .blog-card:hover .blog-card-title {
+            color: #60a5fa;
+        }
+
+        .blog-card-excerpt {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .blog-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .blog-card-author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .blog-card-author img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .blog-card-author span {
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
+        .blog-card-link {
+            color: #60a5fa;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* --- ARTICLE MODAL --- */
+        .article-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            inset: 0;
+            background: rgba(3, 7, 18, 0.96);
+            backdrop-filter: blur(16px);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 2rem;
+        }
+
+        .article-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .article-modal-content {
+            background: #0b1120;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 28px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            scrollbar-width: thin;
+        }
+
+        .article-modal-header-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .article-modal-body {
+            padding: 3rem;
+        }
+
+        .article-modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.2s ease;
+        }
+
+        .article-modal-close:hover {
+            background: #ef4444;
+            border-color: #ef4444;
+            transform: scale(1.1);
+        }
+
+        .article-modal-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-modal-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .article-modal-text {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            letter-spacing: 0.01em;
+        }
+
+        .article-modal-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .article-modal-text strong {
+            color: #ffffff;
+        }
+
+        .article-modal-text h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin: 2.5rem 0 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .article-modal {
+                padding: 1rem;
+            }
+            .article-modal-body {
+                padding: 2rem 1.5rem;
+            }
+            .article-modal-title {
+                font-size: 1.8rem;
+            }
+            .article-modal-header-img {
+                height: 200px;
+            }
+        }
+
+        /* --- WHO WE ARE (AT THE BOTTOM) --- */
+        .story-section {
+            padding: 8rem 0;
+            background: #070a13;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .story-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .story-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .story-header h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .story-content {
+            font-size: 1.1rem;
+            line-height: 1.85;
+            color: #cbd5e1;
+        }
+
+        .story-content p {
+            margin-bottom: 2rem;
+        }
+
+        .story-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            margin: 3.5rem 0;
+        }
+
+        .story-feat-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .story-feat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            color: #60a5fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .story-feat-text h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.4rem;
+        }
+
+        .story-feat-text p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #94a3b8;
+            margin: 0;
+        }
+
+        /* --- BRAND DETAILED LOGOS (CLEAN STATIC GRID) --- */
+        /* --- BRAND SCROLLING MARQUEE (INFINITE LOOP) --- */
+        .brand-section {
+            padding: 2.5rem 0 0 0;
+            background: #0b1120;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .brand-ticker-container {
+            display: flex;
+            width: 100%;
+            overflow: hidden;
+            background: #ffffff;
+            padding: 2rem 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .brand-ticker {
+            display: flex;
+            align-items: center;
+            gap: 6rem;
+            animation: marquee 40s linear infinite;
+            white-space: nowrap;
+        }
+
+        /* Mobile Responsive Overrides */
+        @media (max-width: 991px) {
+            .carousel-slide {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem;
+            }
+            .slide-image-placeholder {
+                aspect-ratio: 16/9;
+            }
+            .story-features {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .carousel-arrow {
+                width: 40px;
+                height: 40px;
+            }
+            .carousel-arrow.prev { left: -10px; }
+            .carousel-arrow.next { right: -10px; }
+        }
+        
+        .brand-logo {
+            max-height: 64px;
+            max-width: 180px;
+            width: auto;
+            height: auto;
+            opacity: 0.85;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            object-fit: contain;
+            flex-shrink: 0;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .brand-logo:hover {
+            opacity: 1 !important;
+            transform: scale(1.08);
+        }
+    </style>
+</head>
+<body class="blog-custom-body">
+
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <img src="logo.webp" alt="Pro Detail Lab" width="38" height="38">
+                    <span translate="no">Pro <strong>Detail</strong> Lab</span>
+                </a>
+                <div class="nav-links" id="navLinks">
+                    <a href="index.html#services">Services</a>
+                    <a href="index.html#addons">Add-ons</a>
+                    <a href="index.html#how-it-works">How It Works</a>
+                    <a href="rv_detail" class="nav-rv">RV Detailing</a>
+                    <a href="index.html#trucks" class="nav-trucks">Fleets & Trucks</a>
+                    <a href="blog" class="nav-blog active">Blog</a>
+                    <a href="index.html#contact" id="contactNavLink">Contact</a>
+                    <a href="index.html#download" class="nav-cta-btn" translate="no">Download</a>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+                    <span class="material-symbols-outlined" translate="no">menu</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="luxe-hero">
+        <div class="luxe-hero-glow"></div>
+        <div class="container" style="position: relative; z-index: 2;">
+            <span class="section-tag" style="background: rgba(37, 99, 235, 0.15); color: #60a5fa; border: 1px solid rgba(37, 99, 235, 0.3);">The Detailing Journal</span>
+            <h1>Snowy Detailing <br><span class="gradient-text">Journal & Guides</span></h1>
+            <p>
+                Your ultimate resource for professional car care advice, industry secrets, and the science of showroom detailing, straight from Los Angeles' certified specialists.
+            </p>
+        </div>
+    </header>
+
+    <!-- Dedicated Detailing Journal (Blog) Section -->
+    <section class="blog-articles-section" id="blog-articles">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag" style="background: rgba(37, 99, 235, 0.15); color: #60a5fa; border: 1px solid rgba(37, 99, 235, 0.3);">Detailing Journal</span>
+                <h2>Expert Detailing <span class="gradient-text">Guides & Insights</span></h2>
+                <p>Learn the science behind professional auto care, paint protection secrets, and maintenance tips directly from our certified specialists.</p>
+            </div>
+
+            <div class="blog-grid">
+                <!-- Card 1: Two-Step Foam -->
+                <article class="blog-card" onclick="openArticle('touchless-wash')">
+                    <img class="blog-card-image" src="gallery-snow-foam.jpg" alt="Touchless Car Wash Foam">
+                    <div class="blog-card-body">
+                        <div class="blog-card-meta">
+                            <span class="blog-card-category">Paint Care</span>
+                            <span class="blog-card-readtime">4 min read</span>
+                        </div>
+                        <h3 class="blog-card-title">The Science of Touchless Car Washing: Swirl Prevention</h3>
+                        <p class="blog-card-excerpt">Discover why traditional sponge washes destroy your clear coat and how our two-step touchless active foam safely encapsulates dirt before hand contact.</p>
+                        <div class="blog-card-footer">
+                            <div class="blog-card-author">
+                                <img src="https://ui-avatars.com/api/?name=Snowy+Team&background=020617&color=60a5fa" alt="Snowy Detailing Team">
+                                <span>Snowy Detailing Team</span>
+                            </div>
+                            <span class="blog-card-link">Read Article <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_forward</span></span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 2: Leather Care -->
+                <article class="blog-card" onclick="openArticle('leather-care')">
+                    <img class="blog-card-image" src="gallery-interior.jpg" alt="Leather Seat Detailing">
+                    <div class="blog-card-body">
+                        <div class="blog-card-meta">
+                            <span class="blog-card-category">Interior Tips</span>
+                            <span class="blog-card-readtime">5 min read</span>
+                        </div>
+                        <h3 class="blog-card-title">How to Protect Leather Seats in the Southern California Sun</h3>
+                        <p class="blog-card-excerpt">High temperatures and intense UV rays cause leather seats to dry, fade, and crack. Learn the proper way to hydrate leather with pH-balanced conditioners.</p>
+                        <div class="blog-card-footer">
+                            <div class="blog-card-author">
+                                <img src="https://ui-avatars.com/api/?name=Snowy+Team&background=020617&color=60a5fa" alt="Snowy Detailing Team">
+                                <span>Snowy Detailing Team</span>
+                            </div>
+                            <span class="blog-card-link">Read Article <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_forward</span></span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 3: SiO2 vs Wax -->
+                <article class="blog-card" onclick="openArticle('ceramic-vs-wax')">
+                    <img class="blog-card-image" src="assets/gallery_tesla.jpg" alt="Ceramic Coating and Sealants">
+                    <div class="blog-card-body">
+                        <div class="blog-card-meta">
+                            <span class="blog-card-category">Ceramic & Gloss</span>
+                            <span class="blog-card-readtime">6 min read</span>
+                        </div>
+                        <h3 class="blog-card-title">SiO2 Ceramic Spray Sealants vs. Traditional Car Wax</h3>
+                        <p class="blog-card-excerpt">Traditional waxes melt in LA heat. Find out how SiO2 (silicon dioxide) technology bonds at a molecular level to create durable, hydrophobic gloss barriers.</p>
+                        <div class="blog-card-footer">
+                            <div class="blog-card-author">
+                                <img src="https://ui-avatars.com/api/?name=Snowy+Team&background=020617&color=60a5fa" alt="Snowy Detailing Team">
+                                <span>Snowy Detailing Team</span>
+                            </div>
+                            <span class="blog-card-link">Read Article <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_forward</span></span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section: Carousel + Full-Gallery Button -->
+    <section class="gallery-section" id="blog-gallery">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Photo Showrooms</span>
+                <h2>Action Detailing <span class="gradient-text">Gallery</span></h2>
+                <p>Resultados reales de nuestro trabajo en Los Angeles.</p>
+            </div>
+
+            <!-- Photo Carousel -->
+            <div class="photo-carousel-wrap" id="photoCarouselWrap">
+                <div class="carousel-counter" id="carouselCounter">1 / 59</div>
+                <div class="photo-carousel-track" id="carouselTrack">
+                    <!-- slides injected by JS -->
+                </div>
+                <button class="c-arrow c-prev material-symbols-outlined" id="cPrev">chevron_left</button>
+                <button class="c-arrow c-next material-symbols-outlined" id="cNext">chevron_right</button>
+            </div>
+
+            <!-- Dot indicators (first 12) -->
+            <div class="carousel-dots-row" id="carouselDots"></div>
+
+            <!-- Open Full Gallery Button -->
+            <div style="display:flex; justify-content:center;">
+                <button class="open-gallery-btn" id="openGalleryBtn" onclick="openFullGallery()">
+                    <span class="material-symbols-outlined" style="font-size:1.2rem;">photo_library</span>
+                    View Full Gallery (<span id="openGalleryCount">59</span> photos)
+                </button>
+            </div>
+
+            <!-- Hidden grid for JS compatibility -->
+            <div class="gallery-grid" id="galleryGrid" style="display:none;"></div>
+        </div>
+    </section>
+
+    <!-- ===== FULL-PAGE GALLERY MODAL ===== -->
+    <div class="full-gallery-modal" id="fullGalleryModal">
+        <div class="full-gallery-header">
+            <div>
+                <h3>Full Gallery</h3>
+                <span id="fgPhotoCount">59 photos · Pro Detail Lab · Los Angeles</span>
+            </div>
+            <button class="close-gallery-btn" onclick="closeFullGallery()">
+                <span class="material-symbols-outlined" style="font-size:1rem;">close</span>
+                Close
+            </button>
+        </div>
+        <div class="full-gallery-grid" id="fullGalleryGrid">
+            <!-- populated by JS -->
+        </div>
+    </div>
+
+    <!-- Who We Are Section -->
+    <section class="story-section" id="quienes-somos">
+        <div class="story-container">
+            <div class="story-header">
+                <span class="section-tag" style="background: rgba(99, 102, 241, 0.1); color: #818cf8; border-color: rgba(99, 102, 241, 0.2);">Who We Are</span>
+                <h2>A Decade of Detailing <span class="gradient-text">Excellence</span></h2>
+            </div>
+
+            <div class="story-content reveal-blur visible">
+                <p>
+                    For over <strong>10 years</strong>, our mission has been simple yet uncompromising: to provide Los Angeles with the absolute finest automotive detailing quality, delivered with ultimate convenience. Following the official launch of our mobile application in <strong>May</strong>, we have successfully bridged the gap between cutting-edge on-demand technology and elite, showroom-grade craftsmanship.
+                </p>
+                
+                <p>
+                    We are not a high-volume, rapid car wash. We are an app dedicated purely to **quality and premium detailing**. This relentless focus on excellence is why our prices reflect a premium standard compared to basic washes. We invest heavily in our crew, employing **highly trained, certified detailing specialists** who treat every vehicle as their own. For your absolute peace of mind, we are backed by **comprehensive liability insurance**, taking complete responsibility for your vehicle from start to finish.
+                </p>
+
+                <div class="story-features">
+                    <!-- F1 -->
+                    <div class="story-feat-item">
+                        <div class="story-feat-icon">
+                            <span class="material-symbols-outlined">electric_car</span>
+                        </div>
+                        <div class="story-feat-text">
+                            <h4>100% Autonomous Units</h4>
+                            <p>Completely independent of the client's water and electrical utilities. We bring our own deionized water and quiet power.</p>
+                        </div>
+                    </div>
+
+                    <!-- F2 -->
+                    <div class="story-feat-item">
+                        <div class="story-feat-icon">
+                            <span class="material-symbols-outlined">eco</span>
+                        </div>
+                        <div class="story-feat-text">
+                            <h4>Waterless Detail Option</h4>
+                            <p>Saves water and complies with runoff rules, allowing us to wash inside luxury high-rises and condo parkings.</p>
+                        </div>
+                    </div>
+
+                    <!-- F3 -->
+                    <div class="story-feat-item">
+                        <div class="story-feat-icon">
+                            <span class="material-symbols-outlined">soap</span>
+                        </div>
+                        <div class="story-feat-text">
+                            <h4>Two-Step Wash System</h4>
+                            <p>A touchless pre-soak foam phase encapsulates dirt to ensure a scratch-free wash without brushes.</p>
+                        </div>
+                    </div>
+
+                    <!-- F4 -->
+                    <div class="story-feat-item">
+                        <div class="story-feat-icon">
+                            <span class="material-symbols-outlined">verified_user</span>
+                        </div>
+                        <div class="story-feat-text">
+                            <h4>Ceramic Friendly & Safe</h4>
+                            <p>We use pH-neutral chemicals that clean thoroughly without degrading coatings, waxes, or sealants.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailing Brands Infinite Ticker / Scroller -->
+    <section class="brand-section">
+        <div style="text-align:center; margin-bottom: 1.5rem;">
+            <span class="section-tag" style="background: rgba(37,99,235,0.1); color: #60a5fa; border: 1px solid rgba(37,99,235,0.2); font-size:0.7rem; letter-spacing:0.12em;">PRODUCTS WE USE</span>
+        </div>
+        <div class="brand-ticker-container">
+            <div class="brand-ticker">
+                <!-- List 1 — Detailing Brands -->
+                <img class="brand-logo" src="assets/logo_menzerna.png" alt="Menzerna">
+                <img class="brand-logo" src="assets/logo_rupes.png" alt="Rupes">
+                <img class="brand-logo" src="assets/logo_gyeon.png" alt="Gyeon Quartz">
+                <img class="brand-logo" src="assets/logo_kochchemie.png" alt="Koch-Chemie">
+                <img class="brand-logo" src="assets/logo_chemicalguys.png" alt="Chemical Guys">
+                <img class="brand-logo" src="assets/logo_psdetail.png" alt="P&amp;S Detail Products">
+                <img class="brand-logo" src="assets/logo_gtechniq.png" alt="Gtechniq">
+                <img class="brand-logo" src="assets/logo_chemx.png" alt="Chem-X">
+                <img class="brand-logo" src="assets/logo_adams.png" alt="Adam's Polishes">
+                <img class="brand-logo" src="assets/logo_meguiars.png" alt="Meguiar's">
+                <img class="brand-logo" src="assets/logo_vonixx.png" alt="Vonixx">
+
+                <!-- List 2 (Duplicated for seamless infinite loop) -->
+                <img class="brand-logo" src="assets/logo_menzerna.png" alt="Menzerna">
+                <img class="brand-logo" src="assets/logo_rupes.png" alt="Rupes">
+                <img class="brand-logo" src="assets/logo_gyeon.png" alt="Gyeon Quartz">
+                <img class="brand-logo" src="assets/logo_kochchemie.png" alt="Koch-Chemie">
+                <img class="brand-logo" src="assets/logo_chemicalguys.png" alt="Chemical Guys">
+                <img class="brand-logo" src="assets/logo_psdetail.png" alt="P&amp;S Detail Products">
+                <img class="brand-logo" src="assets/logo_gtechniq.png" alt="Gtechniq">
+                <img class="brand-logo" src="assets/logo_chemx.png" alt="Chem-X">
+                <img class="brand-logo" src="assets/logo_adams.png" alt="Adam's Polishes">
+                <img class="brand-logo" src="assets/logo_meguiars.png" alt="Meguiar's">
+                <img class="brand-logo" src="assets/logo_vonixx.png" alt="Vonixx">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" style="padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); background: #0a0f1a;">
+        <div class="container">
+            <div style="text-align: center; color: #94a3b8;">
+                <p>&copy; 2026 Pro Detail Lab. All rights reserved. Serving Greater Los Angeles.</p>
+                <div style="margin-top: 15px; display: flex; justify-content: center; gap: 20px;">
+                    <a href="index.html" style="color: #6366f1; text-decoration: none;">Home</a>
+                    <a href="privacy.html" style="color: #6366f1; text-decoration: none;">Privacy Policy</a>
+                    <a href="terms.html" style="color: #6366f1; text-decoration: none;">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Premium Lightbox Modal -->
+    <div id="galleryLightbox" class="lightbox-modal">
+        <span class="lightbox-close material-symbols-outlined">close</span>
+        <button class="lightbox-arrow prev material-symbols-outlined">chevron_left</button>
+        <div class="lightbox-content-wrapper">
+            <img id="lightboxImage" class="lightbox-img" src="" alt="">
+            <div id="lightboxCaption" class="lightbox-caption"></div>
+        </div>
+        <button class="lightbox-arrow next material-symbols-outlined">chevron_right</button>
+    </div>
+
+    <!-- Premium Article Reader Modal -->
+    <div id="articleModal" class="article-modal">
+        <div class="article-modal-content">
+            <span class="article-modal-close material-symbols-outlined" onclick="closeArticle()">close</span>
+            <img id="articleModalImg" class="article-modal-header-img" src="" alt="Article Banner">
+            <div class="article-modal-body">
+                <div style="margin-bottom: 1.5rem;">
+                    <span id="articleModalCategory" class="blog-card-category"></span>
+                    <span id="articleModalReadtime" class="blog-card-readtime" style="margin-left: 1rem;"></span>
+                </div>
+                <h2 id="articleModalTitle" class="article-modal-title"></h2>
+                
+                <div class="article-modal-meta">
+                    <img src="https://ui-avatars.com/api/?name=Snowy+Team&background=020617&color=60a5fa" alt="Snowy Detailing Team" style="width: 40px; height: 40px; border-radius: 50%;">
+                    <div>
+                        <div style="color: #ffffff; font-weight: 700; font-size: 0.95rem;">Snowy Detailing Team</div>
+                        <div style="color: #64748b; font-size: 0.8rem;">Certified Specialists</div>
+                    </div>
+                </div>
+
+                <div id="articleModalText" class="article-modal-text">
+                    <!-- Dynamic Content Injected Here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase + Gallery Script (consolidated single module) -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import {
+            getFirestore, collection, addDoc, updateDoc, doc, getDoc,
+            onSnapshot, serverTimestamp, query, orderBy, getDocs, limit, where
+        } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBiPHCELzpPDGjXIBZKUMqHKLcjpKCXAd4",
+            authDomain: "my-carwashapp-e6aba.firebaseapp.com",
+            projectId: "my-carwashapp-e6aba",
+            storageBucket: "my-carwashapp-e6aba.firebasestorage.app",
+            messagingSenderId: "1095794498344",
+            appId: "1:1095794498344:web:a74ee23bf82d7a6da84e1d"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Expose for script.js compatibility
+        window.db = db;
+        window.firestoreFunctions = {
+            collection, addDoc, updateDoc, doc, getDoc,
+            onSnapshot, serverTimestamp, query, orderBy, getDocs, limit, where
+        };
+
+        // --- Gallery Lightbox Logic ---
+        const galleryGrid = document.getElementById("galleryGrid");
+        const lightbox = document.getElementById("galleryLightbox");
+        const lightboxImg = document.getElementById("lightboxImage");
+        const lightboxCaption = document.getElementById("lightboxCaption");
+        const closeBtn = lightbox.querySelector(".lightbox-close");
+        const prevBtn = lightbox.querySelector(".lightbox-arrow.prev");
+        const nextBtn = lightbox.querySelector(".lightbox-arrow.next");
+
+        let galleryImages = [];
+        let currentIndex = 0;
+
+        const showImage = (index) => {
+            if (index < 0 || index >= galleryImages.length) return;
+            currentIndex = index;
+            const item = galleryImages[currentIndex];
+            lightboxImg.style.opacity = "0";
+            lightboxImg.style.transform = "scale(0.95)";
+            setTimeout(() => {
+                lightboxImg.src = item.src;
+                lightboxImg.alt = item.title;
+                lightboxCaption.innerHTML = `<strong>${item.title}</strong><br>${item.desc}`;
+                lightboxImg.style.opacity = "1";
+                lightboxImg.style.transform = "scale(1)";
+            }, 150);
+        };
+
+        const openLightbox = (index) => {
+            lightbox.classList.add("active");
+            document.body.style.overflow = "hidden";
+            showImage(index);
+        };
+
+        const closeLightbox = () => {
+            lightbox.classList.remove("active");
+            document.body.style.overflow = "";
+        };
+
+        closeBtn.addEventListener("click", closeLightbox);
+        prevBtn.addEventListener("click", () => {
+            showImage(currentIndex - 1 < 0 ? galleryImages.length - 1 : currentIndex - 1);
+        });
+        nextBtn.addEventListener("click", () => {
+            showImage(currentIndex + 1 >= galleryImages.length ? 0 : currentIndex + 1);
+        });
+        lightbox.addEventListener("click", (e) => { if (e.target === lightbox) closeLightbox(); });
+        document.addEventListener("keydown", (e) => {
+            if (!lightbox.classList.contains("active")) return;
+            if (e.key === "ArrowLeft") showImage(currentIndex - 1 < 0 ? galleryImages.length - 1 : currentIndex - 1);
+            if (e.key === "ArrowRight") showImage(currentIndex + 1 >= galleryImages.length ? 0 : currentIndex + 1);
+            if (e.key === "Escape") closeLightbox();
+        });
+
+        const rebuildGalleryImageIndex = () => {
+            galleryImages = [];
+            galleryGrid.querySelectorAll(".gallery-item").forEach((item, idx) => {
+                const img = item.querySelector("img");
+                const h4 = item.querySelector("h4");
+                const p = item.querySelector("p");
+                galleryImages.push({
+                    src: img ? img.src : "",
+                    title: h4 ? h4.textContent : "",
+                    desc: p ? p.textContent : ""
+                });
+                item.onclick = null;
+                item.addEventListener("click", () => openLightbox(idx));
+            });
+        };
+
+        // ============================================================
+        // LOCAL PHOTO GALLERY — 61 photos from assets/gallery_processed
+        // These are always shown. Firestore posts are appended on top.
+        // ============================================================
+        const localPhotos = [];
+
+        // Build gallery HTML from local photos (no-op)
+        const buildLocalGallery = () => "";
+
+        // --- Load Gallery: Load all photos from Firestore published_posts collection ---
+        const loadGallery = async () => {
+            galleryGrid.innerHTML = "";
+            try {
+                const postsRef = collection(db, 'published_posts');
+                const q = query(postsRef, orderBy('publishedAt', 'desc'));
+                
+                // Real-time synchronization
+                onSnapshot(q, (snap) => {
+                    galleryGrid.innerHTML = "";
+                    if (!snap.empty) {
+                        let firestoreHtml = "";
+                        snap.forEach(docSnap => {
+                            const post = docSnap.data();
+                            if (post.photos && post.photos.length > 0) {
+                                const photoUrl = post.photos[0];
+                                const title = post.vehicle || post.service || "Detailing Result";
+                                const locationText = post.location ? ` · ${post.location}` : "";
+                                const desc = post.caption || `${post.service || ''}${locationText}`;
+                                firestoreHtml += `
+                                    <div class="gallery-item">
+                                        <img src="${photoUrl}" alt="${title}" loading="lazy">
+                                        <div class="gallery-info">
+                                            <h4>${title}</h4>
+                                            <p>${desc}</p>
+                                        </div>
+                                    </div>`;
+                            }
+                        });
+                        galleryGrid.innerHTML = firestoreHtml;
+                        rebuildGalleryImageIndex();
+                    } else {
+                        galleryGrid.innerHTML = '<div style="color: #64748b; text-align: center; padding: 3rem; grid-column: 1/-1;">No photos in the gallery.</div>';
+                    }
+                }, (err) => {
+                    console.warn("Could not sync Firestore gallery posts:", err);
+                });
+            } catch (err) {
+                console.warn("Could not load Firestore gallery posts:", err);
+            }
+        };
+
+        // Run gallery load immediately
+        loadGallery();
+
+        // Fire ready event for script.js
+        window.firebaseReady = true;
+        window.dispatchEvent(new Event('firebaseReady'));
+    </script>
+
+    <!-- Blog Article Reader Logic -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const articleData = {
+                'touchless-wash': {
+                    title: "The Science of Touchless Car Washing: Swirl Prevention",
+                    category: "Paint Care",
+                    readtime: "4 min read",
+                    image: "gallery-snow-foam.jpg",
+                    text: `
+                        <p>Have you ever noticed fine, web-like scratches on your car's paint when looking at it under direct sunlight? In the detailing industry, these are known as <strong>swirl marks</strong>, and they are almost always caused by improper washing techniques.</p>
+                        <p>Traditional car washes—and even well-meaning hand washes with a sponge and bucket—frequently press abrasive dirt and road grit directly against the clear coat. As the sponge is moved in circular motions, these tiny particles act like sandpaper, carving microscopic grooves into the paint. Over time, these grooves scatter light, dulling your car's reflection and making the paint look faded.</p>
+                        
+                        <h3>The Touchless Presoak Phase</h3>
+                        <p>To eliminate this risk, our process begins with an advanced <strong>two-step touchless active foam</strong> phase. We apply a thick layer of high-cling snow foam that is formulated with specialized surfactants. These surfactants bond with traffic film, mud, and abrasive grit at a chemical level, encapsulating the dirt and lifting it away from the surface of the paint.</p>
+                        <p>By letting the foam dwell for several minutes, we allow gravity to carry the encapsulated grit downward. When we rinse the foam off, up to 90% of the loose dirt is removed without a single brush, mitt, or sponge ever touching the vehicle. Only then do we proceed to a ultra-soft microfiber wash for the remaining fine dust, ensuring a completely scratch-free result.</p>
+
+                        <h3>Why Brushless is Non-Negotiable</h3>
+                        <p>Many automated car washes use high-speed spinning brushes made of nylon or cloth. Even if the wash claims to be "soft cloth," those cloths slap against hundreds of dirty cars every day, holding onto metallic brake dust and dirt particles. Going through these washes is the fastest way to ruin a custom paint job or degrade a ceramic coating. A professional touchless foam presoak is the only way to preserve a showroom shine.</p>
+                    `
+                },
+                'leather-care': {
+                    title: "How to Protect Leather Seats in the Southern California Sun",
+                    category: "Interior Tips",
+                    readtime: "5 min read",
+                    image: "gallery-interior.jpg",
+                    text: `
+                        <p>Los Angeles is famous for its sunny days, but that beautiful sunshine is the absolute worst enemy of your car's leather interior. High temperatures inside a parked vehicle, combined with intense ultraviolet (UV) radiation, will rapidly damage leather seats if they are left unprotected.</p>
+                        <p>Leather is an organic material, containing natural oils that keep it supple, flexible, and soft. When exposed to heat, these oils evaporate, causing the leather fibers to tighten, dry out, and lose their elasticity. Over time, this drying leads to unsightly creases, fading, stiffening, and eventually deep cracks that are expensive to repair.</p>
+
+                        <h3>The Greasy Residue Myth</h3>
+                        <p>Many off-the-shelf leather products rely on cheap silicone oils or petroleum distillates to create a temporary shine. However, these products do not actually hydrate the leather. Instead, they leave a slick, greasy residue that sits on top of the seats, attracting dirt, dust, and body oils. More importantly, these greasy coatings amplify heat from the sun, accelerating the drying process they were meant to prevent.</p>
+                        
+                        <h3>Our pH-Balanced Conditioning Process</h3>
+                        <p>We treat leather seats using professional-grade, pH-balanced conditioning creams. First, the leather is gently cleaned with a mild, pH-neutral cleaner to open the pores of the hide and remove surface dirt. We then massage in high-quality conditioners enriched with vitamin E and premium UV blockers.</p>
+                        <p>These conditioners absorb completely into the leather, restoring its natural moisture from the inside out. The seat is left with a dry, soft, natural matte finish—just like the day it left the factory—along with a durable shield that blocks UV rays and resists cracking for months.</p>
+                    `
+                },
+                'ceramic-vs-wax': {
+                    title: "SiO2 Ceramic Spray Sealants vs. Traditional Car Wax",
+                    category: "Ceramic & Gloss",
+                    readtime: "6 min read",
+                    image: "assets/gallery_tesla.jpg",
+                    text: `
+                        <p>For decades, carnauba paste wax was the gold standard for paint protection. Derived from Brazilian palm leaves, carnauba wax produces a warm, deep glow that car enthusiasts love. However, in modern automotive care—especially in Southern California's climate—traditional wax is rapidly becoming obsolete.</p>
+                        <p>Carnauba wax has a relatively low melting point, typically starting to break down at around 180°F. While that might sound high, the surface temperature of a dark-colored car parked in the LA sun can easily exceed 160°F. At these temperatures, carnauba wax softens, allowing industrial fallout, dirt, and acid rain to embed directly into the protective layer. Within 4 to 6 weeks, the wax has completely washed away.</p>
+
+                        <h3>The Molecular Bond of SiO2</h3>
+                        <p>To overcome these limitations, we use <strong>SiO2 (Silicon Dioxide) Ceramic Spray Sealants</strong>. Rather than simply sitting on top of the clear coat like wax, SiO2 sealants utilize silica nanotechnology to bond with the paint at a molecular level.</p>
+                        <p>This creates a semi-permanent, glass-like barrier that is incredibly hard and heat-resistant. It fills in microscopic imperfections in the clear coat, creating a perfectly flat surface that reflects light with unmatched optical clarity and gloss.</p>
+
+                        <h3>Hydrophobic Performance</h3>
+                        <p>One of the most impressive benefits of SiO2 ceramic protection is its extreme <strong>hydrophobic property</strong>. The ceramic barrier reduces the surface tension of the paint, causing water to immediately bead up and roll off, carrying surface dust and light dirt with it. This self-cleaning effect keeps your car looking clean significantly longer and makes subsequent washes much easier.</p>
+                    `
+                }
+            };
+
+            const modal = document.getElementById("articleModal");
+            const modalImg = document.getElementById("articleModalImg");
+            const modalCategory = document.getElementById("articleModalCategory");
+            const modalReadtime = document.getElementById("articleModalReadtime");
+            const modalTitle = document.getElementById("articleModalTitle");
+            const modalText = document.getElementById("articleModalText");
+
+            window.openArticle = (id) => {
+                const article = articleData[id];
+                if (!article) return;
+                
+                modalImg.src = article.image;
+                modalCategory.textContent = article.category;
+                modalReadtime.textContent = article.readtime;
+                modalTitle.textContent = article.title;
+                modalText.innerHTML = article.text;
+                
+                modal.classList.add("active");
+                document.body.style.overflow = "hidden";
+            };
+
+            window.closeArticle = () => {
+                modal.classList.remove("active");
+                document.body.style.overflow = "";
+            };
+
+            modal.addEventListener("click", (e) => {
+                if (e.target === modal) {
+                    window.closeArticle();
+                }
+            });
+        });
+    </script>
+
+    <!-- ===== CAROUSEL + FULL GALLERY JS ===== -->
+    <script>
+    (function() {
+        const photos = [
+            { src: "assets/gallery_processed/20240307_165135.jpg",    label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/20240308_173506.jpg",    label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/20260124_164651.jpg",    label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/E8B41AA1-D505-4ABE-926B-612F3634D9DE.jpg", label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_0200.jpg",  label: "Exterior Wash & Detail" },
+            { src: "assets/gallery_processed/IMG_0201.jpg",  label: "Exterior Wash & Detail" },
+            { src: "assets/gallery_processed/IMG_0206.jpg",  label: "Ceramic Spray Sealant" },
+            { src: "assets/gallery_processed/IMG_0207.jpg",  label: "Ceramic Spray Sealant" },
+            { src: "assets/gallery_processed/IMG_0209.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_0259.jpg",  label: "Interior Deep Clean" },
+            { src: "assets/gallery_processed/IMG_0312.jpg",  label: "Exterior Wash & Detail" },
+            { src: "assets/gallery_processed/IMG_0313.jpg",  label: "Exterior Wash & Detail" },
+            { src: "assets/gallery_processed/IMG_0317.jpg",  label: "Paint Correction" },
+            { src: "assets/gallery_processed/IMG_0321.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_0322.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_0557.jpg",  label: "Snow Foam Pre-Soak" },
+            { src: "assets/gallery_processed/IMG_0558.jpg",  label: "Snow Foam Pre-Soak" },
+            { src: "assets/gallery_processed/IMG_0559.jpg",  label: "Snow Foam Pre-Soak" },
+            { src: "assets/gallery_processed/IMG_0560.jpg",  label: "Snow Foam Pre-Soak" },
+            { src: "assets/gallery_processed/IMG_0594.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_0627.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_0743.jpg",  label: "Wheel Iron Decontamination" },
+            { src: "assets/gallery_processed/IMG_0744.jpg",  label: "Wheel Iron Decontamination" },
+            { src: "assets/gallery_processed/IMG_0745.jpg",  label: "Wheel Iron Decontamination" },
+            { src: "assets/gallery_processed/IMG_0746.jpg",  label: "Wheel Iron Decontamination" },
+            { src: "assets/gallery_processed/IMG_0897.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_0899.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_0902.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_0904.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_1025.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_1436-EDIT.jpg", label: "Multi-Stage Paint Correction" },
+            { src: "assets/gallery_processed/IMG_1437.jpg",  label: "Multi-Stage Paint Correction" },
+            { src: "assets/gallery_processed/IMG_1456.jpg",  label: "Interior Deep Clean & Steam" },
+            { src: "assets/gallery_processed/IMG_1457.jpg",  label: "Interior Deep Clean & Steam" },
+            { src: "assets/gallery_processed/IMG_1458.jpg",  label: "Interior Deep Clean & Steam" },
+            { src: "assets/gallery_processed/IMG_3559.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_3565.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_3568.jpg",  label: "Hand Wash & Clay Bar" },
+            { src: "assets/gallery_processed/IMG_3569.jpg",  label: "Hand Wash & Clay Bar" },
+            { src: "assets/gallery_processed/IMG_3570.jpg",  label: "Hand Wash & Clay Bar" },
+            { src: "assets/gallery_processed/IMG_3572.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_3573.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_3576.jpg",  label: "Ceramic Coating Application" },
+            { src: "assets/gallery_processed/IMG_3577.jpg",  label: "Ceramic Coating Application" },
+            { src: "assets/gallery_processed/IMG_5069.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_5070.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_5087.jpg",  label: "Active Foam Pre-Soak" },
+            { src: "assets/gallery_processed/IMG_5088.jpg",  label: "Active Foam Pre-Soak" },
+            { src: "assets/gallery_processed/IMG_5089.jpg",  label: "Active Foam Pre-Soak" },
+            { src: "assets/gallery_processed/IMG_5090.jpg",  label: "Active Foam Pre-Soak" },
+            { src: "assets/gallery_processed/IMG_5179.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_5181.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_5203.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_5204.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_5207.jpg",  label: "Premium Interior Cleaning" },
+            { src: "assets/gallery_processed/IMG_5208.jpg",  label: "Premium Interior Cleaning" },
+            { src: "assets/gallery_processed/IMG_5211.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_5212.jpg",  label: "Premium Detailing · LA" },
+            { src: "assets/gallery_processed/IMG_5327.jpg",  label: "Premium Detailing · LA" }
+        ];
+
+        let current = 0;
+        let autoTimer = null;
+        const DOTS_SHOWN = 12;
+
+        /* ---- Build carousel ---- */
+        function initCarousel() {
+            const track   = document.getElementById('carouselTrack');
+            const dotsRow = document.getElementById('carouselDots');
+            const counter = document.getElementById('carouselCounter');
+            if (!track) return;
+
+            // Build slides
+            photos.forEach((p, i) => {
+                const slide = document.createElement('div');
+                slide.className = 'photo-carousel-slide';
+                slide.innerHTML = `<img src="${p.src}" alt="${p.label}" loading="${i < 3 ? 'eager' : 'lazy'}">
+                    <div class="carousel-slide-overlay"><span>${p.label}</span></div>`;
+                track.appendChild(slide);
+            });
+
+            // Build dots (first DOTS_SHOWN only — rest would crowd mobile)
+            for (let i = 0; i < Math.min(DOTS_SHOWN, photos.length); i++) {
+                const dot = document.createElement('button');
+                dot.className = 'c-dot' + (i === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', `Photo ${i+1}`);
+                dot.addEventListener('click', () => goTo(i));
+                dotsRow.appendChild(dot);
+            }
+
+            counter.textContent = `1 / ${photos.length}`;
+
+            // Arrows
+            document.getElementById('cPrev').addEventListener('click', e => { e.stopPropagation(); goTo(current - 1); resetAuto(); });
+            document.getElementById('cNext').addEventListener('click', e => { e.stopPropagation(); goTo(current + 1); resetAuto(); });
+
+            // Click on carousel → open full gallery at that photo
+            document.getElementById('photoCarouselWrap').addEventListener('click', (e) => {
+                if (e.target.classList.contains('c-arrow') || e.target.closest('.c-arrow')) return;
+                openFullGallery(current);
+            });
+
+            // Touch / swipe
+            let touchStartX = 0;
+            track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+            track.addEventListener('touchend', e => {
+                const dx = e.changedTouches[0].clientX - touchStartX;
+                if (Math.abs(dx) > 40) { goTo(dx < 0 ? current + 1 : current - 1); resetAuto(); }
+            });
+
+            startAuto();
+        }
+
+        function goTo(idx) {
+            const total = photos.length;
+            current = ((idx % total) + total) % total;
+            document.getElementById('carouselTrack').style.transform = `translateX(-${current * 100}%)`;
+            document.getElementById('carouselCounter').textContent = `${current + 1} / ${total}`;
+            // update dots
+            document.querySelectorAll('.c-dot').forEach((d, i) => d.classList.toggle('active', i === current % DOTS_SHOWN));
+        }
+
+        function startAuto() {
+            autoTimer = setInterval(() => goTo(current + 1), 4500);
+        }
+
+        function resetAuto() {
+            clearInterval(autoTimer);
+            startAuto();
+        }
+
+        /* ---- Full-page gallery ---- */
+        window.openFullGallery = function(startIdx) {
+            const modal = document.getElementById('fullGalleryModal');
+            const grid  = document.getElementById('fullGalleryGrid');
+            // Populate only once (avoiding comment node issues with children length check)
+            if (grid.children.length === 0) {
+                photos.forEach((p, i) => {
+                    const item = document.createElement('div');
+                    item.className = 'fg-item';
+                    item.innerHTML = `<img src="${p.src}" alt="${p.label}">
+                        <div class="fg-item-label"><p>${p.label}</p></div>`;
+                    item.addEventListener('click', () => {
+                        // Jump carousel to this photo and close
+                        goTo(i);
+                        closeFullGallery();
+                    });
+                    grid.appendChild(item);
+                });
+            }
+            modal.style.display = 'block';
+            requestAnimationFrame(() => modal.classList.add('open'));
+            document.body.style.overflow = 'hidden';
+            // scroll to photo if index given
+            if (typeof startIdx === 'number') {
+                const items = grid.querySelectorAll('.fg-item');
+                if (items[startIdx]) setTimeout(() => items[startIdx].scrollIntoView({ behavior: 'smooth', block: 'center' }), 200);
+            }
+        };
+
+        window.closeFullGallery = function() {
+            const modal = document.getElementById('fullGalleryModal');
+            modal.classList.remove('open');
+            setTimeout(() => { modal.style.display = 'none'; }, 300);
+            document.body.style.overflow = '';
+        };
+
+        // ESC key closes gallery
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeFullGallery();
+        });
+
+        async function startApp() {
+            // 1. Sync photos from Firestore
+            if (window.db && window.firestoreFunctions) {
+                try {
+                    const { collection, query, orderBy, getDocs } = window.firestoreFunctions;
+                    const postsRef = collection(window.db, 'published_posts');
+                    const q = query(postsRef, orderBy('publishedAt', 'desc'));
+                    const snap = await getDocs(q);
+                    if (!snap.empty) {
+                        const dynamicPhotos = [];
+                        snap.forEach(docSnap => {
+                            const post = docSnap.data();
+                            if (post.photos && post.photos.length > 0) {
+                                dynamicPhotos.push({
+                                    src: post.photos[0],
+                                    label: post.vehicle || post.service || "Premium Detailing"
+                                });
+                            }
+                        });
+                        // Prepend dynamic photos to the static photos array
+                        photos.unshift(...dynamicPhotos);
+                    }
+                } catch (err) {
+                    console.warn("Could not sync Firestore photos:", err);
+                }
+            }
+
+            // Update counter texts dynamically
+            const openCountEl = document.getElementById('openGalleryCount');
+            const fgCountEl = document.getElementById('fgPhotoCount');
+            if (openCountEl) openCountEl.textContent = photos.length;
+            if (fgCountEl) fgCountEl.textContent = `${photos.length} photos · Pro Detail Lab · Los Angeles`;
+
+            // 2. Initialize Carousel
+            initCarousel();
+        }
+
+        if (window.firebaseReady) {
+            startApp();
+        } else {
+            window.addEventListener('firebaseReady', startApp);
+        }
+    })();
+    </script>
+
+    <!-- Mobile Menu & Support Script Trigger -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Support menu trigger
+            function loadMainScript() {
+                if (window.mainScriptLoaded) return;
+                window.mainScriptLoaded = true;
+                const script = document.createElement('script');
+                script.src = 'script.js?v=' + Date.now();
+                document.body.appendChild(script);
+            }
+            
+            if (window.firebaseReady) {
+                loadMainScript();
+            } else {
+                window.addEventListener('firebaseReady', loadMainScript);
+                setTimeout(loadMainScript, 3000);
+            }
+        });
+    </script>
+
+</body>
+</html>

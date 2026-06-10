@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyCarwash App - Brand Assets Studio</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Outfit:wght@800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --cyan: #22d3f5;
+            --navy: #040816;
+            --white: #ffffff;
+        }
+
+        body {
+            background: #111;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            margin: 0;
+        }
+
+        .studio-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            margin: 0;
+            background: linear-gradient(90deg, #fff, var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            font-size: 14px;
+            opacity: 0.6;
+            margin-top: 5px;
+        }
+
+        /* ━━━ T-SHIRT ARTWORK CANVAS ━━━ */
+        .art-canvas {
+            width: 1000px;
+            height: 1200px;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+            box-shadow: 0 0 100px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .tshirt-text {
+            font-size: 80px;
+            font-weight: 800;
+            font-style: italic;
+            margin-bottom: 40px;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .tshirt-logo {
+            width: 600px;
+            height: auto;
+            margin-bottom: 50px;
+            filter: drop-shadow(0 0 30px rgba(34, 211, 245, 0.2));
+        }
+
+        .tshirt-badges {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .tshirt-badges img {
+            height: 80px;
+            border-radius: 12px;
+        }
+
+        /* ━━━ CONTROLS ━━━ */
+        .controls {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .btn {
+            background: var(--cyan);
+            color: #000;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 18px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 10px 20px rgba(34, 211, 245, 0.3);
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(34, 211, 245, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--cyan);
+            border: 2px solid var(--cyan);
+            box-shadow: none;
+        }
+
+        @media print {
+            body {
+                background: #000 !important;
+                padding: 0;
+                margin: 0;
+            }
+
+            .controls,
+            .studio-header,
+            p.subtitle {
+                display: none !important;
+            }
+
+            .art-canvas {
+                width: 100%;
+                height: 100vh;
+                box-shadow: none;
+                margin: 0;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="studio-header">
+        <h1>T-Shirt Design Studio</h1>
+        <p class="subtitle">Diseño final listo para impresión (1000x1200px)</p>
+    </div>
+
+    <!-- T-SHIRT DESIGN -->
+    <div class="art-canvas" id="tshirtArt">
+        <div class="tshirt-text">Pro Detail Lab</div>
+        <img src="assets/logo.png" alt="YOUR LOGO" class="tshirt-logo">
+        <div class="tshirt-badges">
+            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                alt="Google Play">
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="btn" onclick="window.print()">Descargar para Impresión (PDF)</button>
+        <button class="btn btn-outline" onclick="window.scrollTo({top:0, behavior:'smooth'})">Vista Previa</button>
+    </div>
+
+</body>
+
+</html>

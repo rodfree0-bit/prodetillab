@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 80" role="img" aria-label="3D Car Care">
+  <rect width="260" height="80" fill="none"/>
+  <!-- Bold 3D numeral in vibrant brand green -->
+  <text x="4" y="52" font-family="'Outfit','Arial Black','Impact',sans-serif" font-weight="900" font-size="52" fill="#00A651">3D</text>
+  <!-- CAR CARE / DETAILED text stack in professional colors -->
+  <text x="80" y="34" font-family="'Outfit','Arial Black',sans-serif" font-weight="900" font-size="18" fill="#ffffff" letter-spacing="1">CAR CARE</text>
+  <rect x="80" y="40" width="135" height="2.5" fill="#00A651" rx="1"/>
+  <text x="80" y="58" font-family="'Inter',sans-serif" font-weight="700" font-size="9" fill="#00A651" letter-spacing="3">PROFESSIONAL</text>
+</svg>

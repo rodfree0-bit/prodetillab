@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" role="img" aria-label="Jescar">
+  <rect width="220" height="80" fill="none"/>
+  <!-- J accent shape -->
+  <rect x="4" y="8" width="6" height="38" rx="3" fill="#2196F3"/>
+  <rect x="4" y="40" width="18" height="6" rx="3" fill="#2196F3"/>
+  <!-- JESCAR wordmark -->
+  <text x="30" y="42" font-family="'Arial Black','Arial',sans-serif" font-weight="900" font-size="32" fill="#ffffff" letter-spacing="-0.5">JESCAR</text>
+  <!-- Tagline -->
+  <text x="31" y="60" font-family="'Arial',sans-serif" font-size="9" fill="rgba(33,150,243,0.7)" letter-spacing="2.5">FINISHING PRODUCTS</text>
+</svg>

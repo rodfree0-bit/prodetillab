@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" role="img" aria-label="Malco Products">
+  <rect width="220" height="80" fill="none"/>
+  <!-- M geometric accent -->
+  <path d="M6,42 L6,14 L18,28 L30,14 L30,42" fill="none" stroke="#D4A017" stroke-width="3.5" stroke-linejoin="round"/>
+  <!-- MALCO wordmark -->
+  <text x="42" y="40" font-family="'Arial Black','Impact',sans-serif" font-weight="900" font-size="32" fill="#ffffff" letter-spacing="1">MALCO</text>
+  <!-- PRODUCTS subtext -->
+  <text x="43" y="57" font-family="'Arial',sans-serif" font-weight="600" font-size="9.5" fill="#D4A017" letter-spacing="3.5">PRODUCTS</text>
+</svg>
