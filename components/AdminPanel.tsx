@@ -117,7 +117,7 @@ const Nav = ({ active, navigate }: { active: AdminScreenEnum, navigate: any }) =
     );
 
     return (
-        <div className="relative">
+        <div className="relative shrink-0" style={{ height: `calc(env(safe-area-inset-bottom) + 60px)` }}>
             {/* More Menu Backdrop & Sheet */}
             {showMore && (
                 <>
@@ -167,7 +167,7 @@ const Nav = ({ active, navigate }: { active: AdminScreenEnum, navigate: any }) =
             )}
 
             {/* Bottom Tab Bar */}
-            <div className="sticky bottom-0 bg-[#0c0c0e] border-t border-white/10 p-2 flex justify-around z-20" style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 12px)' }}>
+            <div className="fixed bottom-0 left-0 right-0 bg-[#0c0c0e] border-t border-white/10 p-2 flex justify-around z-20" style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 12px)' }}>
                 <div className="flex justify-around w-full max-w-lg mx-auto">
                     {mainTabs.map(item => {
                         const isActive = active === item.s;
@@ -283,7 +283,7 @@ export const AdminScreens: React.FC<AdminProps> = ({
     const [dashboardTab, setDashboardTab] = useState<'live' | 'history'>('live');
     const [teamTab, setTeamTab] = useState<'active' | 'pending'>('active');
     const [selectedWasherId, setSelectedWasherId] = useState<string>('');
-
+    const [washerETAs, setWasherETAs] = useState<Record<string, { remainingMin: number; travelMin: number; etaStr: string; loading: boolean }>>({});
 
     // Confirmation Modal State
     const [confirmModal, setConfirmModal] = useState<{
@@ -496,6 +496,52 @@ export const AdminScreens: React.FC<AdminProps> = ({
 
 
     const washers = team.filter(m => m.role === 'washer');
+
+    const computeWasherETAs = async (destAddress: string) => {
+        setWasherETAs(Object.fromEntries(washers.map(w => [w.id, { remainingMin: 0, travelMin: 0, etaStr: '', loading: true }])));
+        for (const washer of washers) {
+            const activeOrder = orders.find(o => o.washerId === washer.id && ['In Progress', 'En Route', 'Assigned'].includes(o.status));
+            let remainingMin = 0;
+            if (activeOrder) {
+                if (activeOrder.inProgressAt && activeOrder.totalServiceDuration) {
+                    remainingMin = Math.max(0, Math.round(activeOrder.totalServiceDuration - (Date.now() - activeOrder.inProgressAt) / 60000));
+                } else if (activeOrder.totalServiceDuration) {
+                    remainingMin = activeOrder.totalServiceDuration;
+                }
+            }
+            let travelMin = 0;
+            const washerDoc = team.find(t => t.id === washer.id) as any;
+            const originLat: number | null = washerDoc?.currentLocation?.latitude ?? (activeOrder as any)?.washerLocation?.lat ?? null;
+            const originLng: number | null = washerDoc?.currentLocation?.longitude ?? (activeOrder as any)?.washerLocation?.lng ?? null;
+            if (originLat !== null && originLng !== null && (window as any).google?.maps) {
+                try {
+                    const result = await new Promise<any>((resolve, reject) => {
+                        new (window as any).google.maps.DistanceMatrixService().getDistanceMatrix({
+                            origins: [new (window as any).google.maps.LatLng(originLat, originLng)],
+                            destinations: [destAddress],
+                            travelMode: 'DRIVING',
+                        }, (res: any, status: any) => status === 'OK' ? resolve(res) : reject(status));
+                    });
+                    const el = result?.rows?.[0]?.elements?.[0];
+                    if (el?.status === 'OK') travelMin = Math.round(el.duration.value / 60);
+                } catch (_e) { /* fallback: 0 */ }
+            }
+            const totalMin = remainingMin + travelMin;
+            const etaStr = totalMin > 0
+                ? new Date(Date.now() + totalMin * 60000).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })
+                : '';
+            setWasherETAs(prev => ({ ...prev, [washer.id]: { remainingMin, travelMin, etaStr, loading: false } }));
+        }
+    };
+
+    React.useEffect(() => {
+        if (assigningOrderId) {
+            const o = orders.find(x => x.id === assigningOrderId);
+            if (o?.address) computeWasherETAs(o.address);
+        } else {
+            setWasherETAs({});
+        }
+    }, [assigningOrderId]);
 
     // Payroll State
     const [payrollTab, setPayrollTab] = useState<'pending' | 'history'>('pending');
@@ -880,7 +926,18 @@ export const AdminScreens: React.FC<AdminProps> = ({
     };
     const handleSaveEdit = () => {
         if (editingOrder) {
-            updateOrder(editingOrder.id, { status: editingOrder.status, washerId: editingOrder.washerId, date: editingOrder.date, time: editingOrder.time, price: editingOrder.price });
+            updateOrder(editingOrder.id, {
+                status: editingOrder.status,
+                washerId: editingOrder.washerId,
+                date: editingOrder.date,
+                time: editingOrder.time,
+                price: editingOrder.price,
+                address: (editingOrder as any).address,
+                vehicle: (editingOrder as any).vehicle,
+                vehicleType: (editingOrder as any).vehicleType,
+                service: (editingOrder as any).service,
+                notes: (editingOrder as any).notes,
+            });
 
             // Notify Client of Status Change
             const client = clients.find(c => c.name === editingOrder.clientName); // Ideally use ID, but for now name matching or we fetch full order object
@@ -936,76 +993,229 @@ export const AdminScreens: React.FC<AdminProps> = ({
     }, []);
 
     // Desktop Navigation Sidebar
-    const DesktopSidebar = () => (
-        <div className="w-64 bg-surface-dark border-r border-white/10 flex flex-col h-full shrink-0">
-            <div className="p-6">
-                <div className="flex items-center gap-3 mb-4">
-                    <img src="/logo.png" alt="Logo" className="w-10 h-10 object-contain drop-shadow-md" />
-                    <div>
-                        <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">Admin Panel</h1>
-                        <p className="text-[10px] text-slate-400 mt-0.5 uppercase tracking-widest font-black">Car Wash Manager</p>
-                    </div>
-                </div>
-            </div>
-
-            <nav className="flex-1 px-4 space-y-2 overflow-y-auto">
-                {[
+    const DesktopSidebar = () => {
+        const isFinanceActive = FINANCE_SCREENS.includes(screen as any);
+        const sections = [
+            {
+                label: 'MAIN',
+                items: [
                     { s: AdminScreenEnum.ADMIN_DASHBOARD, i: 'grid_view', l: 'Dashboard' },
-                    { s: AdminScreenEnum.ADMIN_TEAM, i: 'group', l: 'Team Management' },
+                ]
+            },
+            {
+                label: 'PEOPLE',
+                items: [
+                    { s: AdminScreenEnum.ADMIN_TEAM, i: 'group', l: 'Team Management', badgeFn: () => { const c = washerApplications?.length || 0; return c > 0 ? c : null; } },
                     { s: AdminScreenEnum.ADMIN_CLIENTS, i: 'person', l: 'Client Base' },
+                ]
+            },
+            {
+                label: 'BUSINESS',
+                items: [
                     { s: AdminScreenEnum.ADMIN_PRICING, i: 'sell', l: 'Services & Pricing' },
                     { s: AdminScreenEnum.ADMIN_DISCOUNTS, i: 'local_offer', l: 'Discount Codes' },
-                    { s: AdminScreenEnum.ADMIN_QUOTES, i: 'local_shipping', l: 'Flotas' },
-                    { s: AdminScreenEnum.ADMIN_ANALYTICS, i: 'monitoring', l: 'Analytics & Reports' },
-                    { s: AdminScreenEnum.ADMIN_FINANCIAL_REPORTS, i: 'payments', l: 'Finanzas' },
-                    { s: AdminScreenEnum.ADMIN_SERVICE_AREA, i: 'location_on', l: 'Service Area' },
-                    { s: AdminScreenEnum.ADMIN_ISSUES, i: 'support_agent', l: 'Support Tickets' },
-                    { s: AdminScreenEnum.ADMIN_SOCIAL, i: 'share', l: 'Social Media' },
+                    { s: AdminScreenEnum.ADMIN_QUOTES, i: 'local_shipping', l: 'Flotas', badgeFn: () => { const c = quotes.filter(q => q.status === 'new').length; return c > 0 ? c : null; } },
+                ]
+            },
+            {
+                label: 'INSIGHTS',
+                items: [
+                    { s: AdminScreenEnum.ADMIN_ANALYTICS, i: 'monitoring', l: 'Analytics' },
+                    { s: AdminScreenEnum.ADMIN_FINANCIAL_REPORTS, i: 'account_balance_wallet', l: 'Finanzas' },
+                ]
+            },
+            {
+                label: 'MARKETING',
+                items: [
                     { s: AdminScreenEnum.ADMIN_LANDING_GALLERY, i: 'photo_library', l: 'Landing Gallery' },
+                    { s: AdminScreenEnum.ADMIN_SOCIAL, i: 'share', l: 'Social Media' },
+                ]
+            },
+            {
+                label: 'SETTINGS',
+                items: [
+                    { s: AdminScreenEnum.ADMIN_SERVICE_AREA, i: 'location_on', l: 'Service Area' },
+                    { s: AdminScreenEnum.ADMIN_ISSUES, i: 'support_agent', l: 'Support Tickets', badgeFn: () => { const c = supportTickets.filter(t => t.status === 'open' && t.unreadByAdmin > 0).length; return c > 0 ? c : null; } },
                     { s: AdminScreenEnum.ADMIN_SETTINGS, i: 'settings', l: 'Configuration' },
-                ].map(item => {
-                    const isFinanceActive = FINANCE_SCREENS.includes(screen as any);
-                    const isActive = screen === item.s || 
-                        (item.s === AdminScreenEnum.ADMIN_FINANCIAL_REPORTS && isFinanceActive);
-                    return (
-                        <button
-                            key={item.s}
-                            onClick={() => navigate(item.s)}
-                            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${isActive
-                                ? 'bg-gradient-to-r from-primary to-blue-600 text-white font-bold shadow-lg shadow-primary/30 border border-white/10 scale-[1.02]'
-                                : 'text-slate-400 hover:bg-white/10 hover:text-white hover:translate-x-1'
-                                }`}
-                        >
-                            <div className={`p-2 rounded-lg transition-colors ${isActive ? 'bg-white/20' : 'bg-white/5'}`}>
-                                <span className="material-symbols-outlined block">{item.i}</span>
-                            </div>
-                            <span className="text-sm tracking-wide flex-1 text-left">{item.l}</span>
-                            {item.s === AdminScreenEnum.ADMIN_QUOTES && (() => {
-                                const count = quotes.filter(q => q.status === 'new').length;
-                                return count > 0 ? (
-                                    <span className="bg-primary text-black text-[10px] font-black px-2 py-0.5 rounded-full shadow-sm shadow-primary/20">
-                                        {count}
-                                    </span>
-                                ) : null;
-                            })()}
-                            {item.s === AdminScreenEnum.ADMIN_ISSUES && (() => {
-                                const count = supportTickets.filter(t => t.status === 'open' && t.unreadByAdmin > 0).length;
-                                return count > 0 ? (
-                                    <span className="bg-red-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full shadow-sm shadow-red-500/20">
-                                        {count}
-                                    </span>
-                                ) : null;
-                            })()}
-                        </button>
-                    );
-                })}
-            </nav>
+                ]
+            },
+        ];
 
-            <div className="p-4 border-t border-white/10">
-                <UserMenu user={{ name: currentUser.name, email: currentUser.email, avatar: currentUser.avatar, role: 'admin' }} onLogout={logout} />
+        return (
+            <div className="w-64 bg-[#09090b] border-r border-white/[0.06] flex flex-col h-full shrink-0">
+                {/* Header */}
+                <div className="px-4 py-5 border-b border-white/[0.06] flex items-center gap-3">
+                    <img
+                        src="/logo.webp"
+                        onError={(e: any) => { e.target.src = '/logo.png'; }}
+                        alt="Logo"
+                        className="w-9 h-9 object-contain rounded-xl"
+                    />
+                    <div>
+                        <p className="text-[13px] font-bold text-white leading-none tracking-tight">Pro Detail Lab</p>
+                        <div className="flex items-center gap-1.5 mt-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-green-400 block shrink-0" />
+                            <p className="text-[9px] text-slate-600 uppercase tracking-[0.18em]">Admin Panel</p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Navigation */}
+                <nav className="flex-1 overflow-y-auto py-3 px-2 space-y-3">
+                    {sections.map(section => (
+                        <div key={section.label}>
+                            <p className="text-[9px] font-bold tracking-[0.18em] text-slate-700 px-3 mb-1 uppercase">{section.label}</p>
+                            <div className="space-y-0.5">
+                                {(section.items as any[]).map((item: any) => {
+                                    const isActive = screen === item.s ||
+                                        (item.s === AdminScreenEnum.ADMIN_FINANCIAL_REPORTS && isFinanceActive);
+                                    const badge = item.badgeFn?.();
+                                    return (
+                                        <button
+                                            key={item.s}
+                                            onClick={() => navigate(item.s)}
+                                            className={`w-full flex items-center gap-2.5 px-3 py-[7px] rounded-lg transition-all duration-150 group ${
+                                                isActive
+                                                    ? 'bg-white/[0.06]'
+                                                    : 'hover:bg-white/[0.03]'
+                                            }`}
+                                        >
+                                            <span className={`material-symbols-outlined text-[16px] transition-colors shrink-0 ${isActive ? 'text-white' : 'text-slate-600 group-hover:text-slate-400'}`}>{item.i}</span>
+                                            <span className={`text-[12.5px] flex-1 text-left tracking-[-0.01em] ${isActive ? 'font-medium text-white' : 'font-normal text-slate-500 group-hover:text-slate-300'}`}>{item.l}</span>
+                                            {badge !== null && badge !== undefined && (
+                                                <span className="bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full min-w-[16px] text-center leading-none">{badge}</span>
+                                            )}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    ))}
+                </nav>
+
+                {/* Footer user */}
+                <div className="px-3 py-3 border-t border-white/[0.06] flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-black font-bold text-[11px] shrink-0 overflow-hidden">
+                        {currentUser.avatar
+                            ? <img src={currentUser.avatar} alt="" className="w-full h-full object-cover" />
+                            : (currentUser.name || '?').split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2)}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                        <p className="text-[12px] font-medium text-white truncate leading-none mb-0.5">{currentUser.name}</p>
+                        <p className="text-[10px] text-slate-600 truncate leading-none">{currentUser.email}</p>
+                    </div>
+                    <button
+                        onClick={logout}
+                        title="Log Out"
+                        className="w-7 h-7 flex items-center justify-center rounded-lg text-slate-600 hover:text-red-400 hover:bg-red-500/10 transition-all shrink-0"
+                    >
+                        <span className="material-symbols-outlined text-[16px]">logout</span>
+                    </button>
+                </div>
+            </div>
+        );
+    };
+
+    // ─── TOPBAR ────────────────────────────────────────────────────────────────
+    const TopBarBell = () => {
+        const getTs = (d: any) => parseSafeDate(d).getTime();
+        const now = Date.now();
+        const ONE_DAY = 86400000;
+        const lastViewed = parseInt(localStorage.getItem('adminLastViewedNotifications') || '0');
+        const allN = [
+            ...orders.filter(o => o.status === 'Pending').map(o => ({
+                id: o.id, type: 'order', title: 'New Order', subtitle: `From ${o.clientName}`,
+                ts: getTs((o as any).createdAt || o.date), icon: 'add_shopping_cart', data: o,
+                c: 'text-blue-400', bg: 'bg-blue-500/10'
+            })),
+            ...orders.filter(o => o.rating && o.rating < 3 && o.status === 'Completed').map(o => ({
+                id: o.id, type: 'rating', title: 'Low Rating', subtitle: `${o.rating}★ — #${o.id.slice(0,6)}`,
+                ts: getTs((o as any).completedAt || 0), icon: 'star_half', data: o,
+                c: 'text-red-400', bg: 'bg-red-500/10'
+            })),
+            ...(issues || []).filter(i => i.status === 'Open').map(i => ({
+                id: i.id, type: 'issue', title: 'Support Ticket', subtitle: (i as any).subject,
+                ts: (i as any).timestamp, icon: 'report_problem', data: i,
+                c: 'text-amber-400', bg: 'bg-amber-500/10'
+            })),
+            ...supportTickets.filter(t => t.status === 'open' && t.unreadByAdmin > 0).map(t => ({
+                id: t.id, type: 'ticket', title: 'New Message', subtitle: `${t.userName || 'User'}: ${t.unreadByAdmin} unread`,
+                ts: t.lastMessageAt?.seconds ? t.lastMessageAt.seconds * 1000 : Date.now(),
+                icon: 'chat', data: t, c: 'text-primary', bg: 'bg-primary/10'
+            }))
+        ];
+        const recent = allN.filter(n => (now - n.ts) < ONE_DAY).sort((a, b) => b.ts - a.ts);
+        const unread = recent.filter(n => n.ts > lastViewed).length;
+        return (
+            <div className="relative">
+                <button
+                    onClick={() => {
+                        if (!showNotifications) localStorage.setItem('adminLastViewedNotifications', Date.now().toString());
+                        setShowNotifications(!showNotifications);
+                    }}
+                    className={`relative w-8 h-8 flex items-center justify-center rounded-lg transition-all ${showNotifications ? 'bg-primary/15 text-primary' : 'text-slate-500 hover:text-slate-300 hover:bg-white/[0.05]'}`}
+                >
+                    <span className="material-symbols-outlined text-[18px]">notifications</span>
+                    {unread > 0 && (
+                        <span className="absolute -top-0.5 -right-0.5 min-w-[15px] h-[15px] bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center px-0.5 leading-none">
+                            {unread > 9 ? '9+' : unread}
+                        </span>
+                    )}
+                </button>
+                {showNotifications && (
+                    <>
+                        <div className="fixed inset-0 z-[100]" onClick={() => setShowNotifications(false)} />
+                        <div className="absolute right-0 top-[calc(100%+6px)] w-72 bg-[#141418] border border-white/[0.08] rounded-xl shadow-2xl z-[101] overflow-hidden">
+                            <div className="px-4 py-3 border-b border-white/[0.06] flex justify-between items-center">
+                                <span className="text-[13px] font-semibold text-white">Notifications</span>
+                                <button onClick={() => setShowNotifications(false)} className="text-slate-600 hover:text-white"><span className="material-symbols-outlined text-[15px]">close</span></button>
+                            </div>
+                            <div className="max-h-80 overflow-y-auto">
+                                {recent.map(n => (
+                                    <button key={`${n.type}-${n.id}`} onClick={() => {
+                                        if (n.type === 'order' || n.type === 'rating') { navigate(AdminScreenEnum.ADMIN_DASHBOARD); setViewingOrderDetails(n.data as Order); }
+                                        if (n.type === 'issue' || n.type === 'ticket') navigate(AdminScreenEnum.ADMIN_ISSUES);
+                                        setShowNotifications(false);
+                                    }} className="w-full text-left px-4 py-3 border-b border-white/[0.04] hover:bg-white/[0.03] flex gap-3 transition-colors">
+                                        <div className={`w-8 h-8 rounded-lg ${n.bg} flex items-center justify-center shrink-0 mt-0.5`}>
+                                            <span className={`material-symbols-outlined ${n.c} text-[15px]`}>{n.icon}</span>
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                            <div className="flex justify-between items-start gap-1">
+                                                <p className="text-[12px] font-semibold text-white leading-tight">{n.title}</p>
+                                                {n.ts > lastViewed && <span className="w-1.5 h-1.5 bg-primary rounded-full shrink-0 mt-1" />}
+                                            </div>
+                                            <p className="text-[11px] text-slate-500 truncate mt-0.5">{n.subtitle}</p>
+                                        </div>
+                                    </button>
+                                ))}
+                                {recent.length === 0 && (
+                                    <div className="py-8 text-center">
+                                        <span className="material-symbols-outlined text-slate-700 text-3xl block mb-1">notifications_off</span>
+                                        <p className="text-[12px] text-slate-600">No recent notifications</p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </>
+                )}
+            </div>
+        );
+    };
+
+    const TopBar = ({ title, subtitle, children }: { title: string; subtitle?: string; children?: React.ReactNode }) => (
+        <div className="h-[52px] px-5 border-b border-white/[0.06] bg-[#0a0a0c] flex items-center gap-3 shrink-0">
+            <div className="flex-1 min-w-0">
+                <span className="text-[14px] font-semibold text-white">{title}</span>
+                {subtitle && <span className="text-[12px] text-slate-600 ml-2.5">{subtitle}</span>}
+            </div>
+            <div className="flex items-center gap-1 shrink-0">
+                {children}
+                <TopBarBell />
             </div>
         </div>
     );
+    // ──────────────────────────────────────────────────────────────────────────
 
     const FinanceTabs = ({ activeTab, navigate }: { activeTab: AdminScreenEnum, navigate: any }) => {
         const tabs = [
@@ -1078,8 +1288,22 @@ export const AdminScreens: React.FC<AdminProps> = ({
                 {isDesktop && <DesktopSidebar />}
 
                 <div className="flex-1 flex flex-col h-full overflow-hidden">
+                    {isDesktop && (
+                        <TopBar
+                            title="Dashboard"
+                            subtitle={new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+                        >
+                            <button
+                                onClick={() => navigate(AdminScreenEnum.ADMIN_SETTINGS)}
+                                className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-500 hover:text-slate-300 hover:bg-white/[0.05] transition-all"
+                                title="Settings"
+                            >
+                                <span className="material-symbols-outlined text-[17px]">settings</span>
+                            </button>
+                        </TopBar>
+                    )}
                     <div className="flex-1 overflow-y-auto p-4 space-y-6">
-                        <header className="flex justify-between items-center">
+                        {!isDesktop && (<header className="flex justify-between items-center">
                             <div>
                                 <h1 className="text-2xl font-bold">Dashboard</h1>
                                 <p className="text-slate-400 text-sm">{new Date().toDateString()}</p>
@@ -1262,115 +1486,222 @@ export const AdminScreens: React.FC<AdminProps> = ({
                                 </button>
                                 <UserMenu user={{ name: currentUser.name, email: currentUser.email, avatar: currentUser.avatar, role: 'admin' }} onLogout={logout} />
                             </div>
-                        </header>
+                        </header>)}
 
-                        <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
-                            {/* 1. Daily Revenue -> Analytics */}
-                            <button onClick={() => navigate(AdminScreenEnum.ADMIN_ANALYTICS)} className="col-span-1 bg-surface-dark/40 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-white/5 text-left hover:border-primary/40 hover:bg-surface-dark/60 transition-all group shadow-xl hover:shadow-primary/10 hover:-translate-y-1">
-                                <div className="flex justify-between items-start mb-3 sm:mb-4">
-                                    <div className="p-2 rounded-xl bg-green-500/10 group-hover:bg-green-500/20 transition-colors">
-                                        <span className="material-symbols-outlined text-green-400 block text-lg sm:text-xl">attach_money</span>
-                                    </div>
-                                    <span className="text-slate-500 text-[9px] sm:text-[10px] uppercase font-bold tracking-wider">{i18n.t('daily_sales')}</span>
+                        <div className="grid grid-cols-2 lg:grid-cols-5 gap-2.5">
+                            {/* 1. Daily Revenue */}
+                            <button onClick={() => navigate(AdminScreenEnum.ADMIN_ANALYTICS)} className="col-span-1 group relative bg-[#0f0f11] p-5 rounded-xl border border-white/[0.07] text-left hover:border-white/[0.15] hover:bg-white/[0.02] transition-colors overflow-hidden">
+                                <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-green-400/70 to-transparent" />
+                                <div className="flex items-center gap-1.5 mb-4">
+                                    <span className="material-symbols-outlined text-green-400 text-[17px]">attach_money</span>
+                                    <span className="text-[9px] font-bold text-slate-600 uppercase tracking-[0.18em]">{i18n.t('daily_sales')}</span>
                                 </div>
-                                <div className="text-2xl sm:text-3xl font-black text-white mb-1">${dailyStats.revenue.toFixed(0)}</div>
-                                <div className="text-[9px] sm:text-[10px] text-slate-500 flex items-center gap-1">
-                                    <span className="text-green-400 font-bold">↑ 12%</span> vs yesterday
-                                </div>
+                                <p className="text-[28px] sm:text-[32px] font-bold text-white leading-none mb-1.5">${dailyStats.revenue.toFixed(0)}</p>
+                                <p className="text-[11px] text-slate-600"><span className="text-green-400 font-medium">↑ 12%</span> vs yesterday</p>
                             </button>
 
-                            {/* 2. Washer Pay -> Payroll/Team */}
-                            <button onClick={() => navigate(AdminScreenEnum.ADMIN_PAYROLL)} className="col-span-1 bg-surface-dark/40 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-white/5 text-left hover:border-teal-400/40 hover:bg-surface-dark/60 transition-all group shadow-xl hover:shadow-teal-400/10 hover:-translate-y-1">
-                                <div className="flex justify-between items-start mb-3 sm:mb-4">
-                                    <div className="p-2 rounded-xl bg-teal-500/10 group-hover:bg-teal-500/20 transition-colors">
-                                        <span className="material-symbols-outlined text-teal-400 block text-lg sm:text-xl">payments</span>
-                                    </div>
-                                    <span className="text-slate-500 text-[9px] sm:text-[10px] uppercase font-bold tracking-wider">{i18n.t('washer_pay')}</span>
+                            {/* 2. Washer Pay */}
+                            <button onClick={() => navigate(AdminScreenEnum.ADMIN_PAYROLL)} className="col-span-1 group relative bg-[#0f0f11] p-5 rounded-xl border border-white/[0.07] text-left hover:border-white/[0.15] hover:bg-white/[0.02] transition-colors overflow-hidden">
+                                <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-teal-400/70 to-transparent" />
+                                <div className="flex items-center gap-1.5 mb-4">
+                                    <span className="material-symbols-outlined text-teal-400 text-[17px]">payments</span>
+                                    <span className="text-[9px] font-bold text-slate-600 uppercase tracking-[0.18em]">{i18n.t('washer_pay')}</span>
                                 </div>
-                                <div className="text-2xl sm:text-3xl font-black text-white mb-1">${dailyStats.washerPay.toFixed(0)}</div>
-                                <div className="text-[9px] sm:text-[10px] text-slate-500 flex items-center gap-1">
-                                    <span className="text-teal-400 font-bold">Active</span> Payroll week
-                                </div>
+                                <p className="text-[28px] sm:text-[32px] font-bold text-white leading-none mb-1.5">${dailyStats.washerPay.toFixed(0)}</p>
+                                <p className="text-[11px] text-slate-600"><span className="text-teal-400 font-medium">Active</span> payroll week</p>
                             </button>
 
-                            {/* 3. New Clients -> Clients List */}
-                            <button onClick={() => navigate(AdminScreenEnum.ADMIN_CLIENTS)} className="col-span-1 bg-surface-dark/40 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-white/5 text-left hover:border-blue-400/40 hover:bg-surface-dark/60 transition-all group shadow-xl hover:shadow-blue-400/10 hover:-translate-y-1">
-                                <div className="flex justify-between items-start mb-3 sm:mb-4">
-                                    <div className="p-2 rounded-xl bg-blue-500/10 group-hover:bg-blue-500/20 transition-colors">
-                                        <span className="material-symbols-outlined text-blue-400 block text-lg sm:text-xl">group_add</span>
-                                    </div>
-                                    <span className="text-slate-500 text-[9px] sm:text-[10px] uppercase font-bold tracking-wider">{i18n.t('clients')}</span>
+                            {/* 3. Clients */}
+                            <button onClick={() => navigate(AdminScreenEnum.ADMIN_CLIENTS)} className="col-span-1 group relative bg-[#0f0f11] p-5 rounded-xl border border-white/[0.07] text-left hover:border-white/[0.15] hover:bg-white/[0.02] transition-colors overflow-hidden">
+                                <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-blue-400/70 to-transparent" />
+                                <div className="flex items-center gap-1.5 mb-4">
+                                    <span className="material-symbols-outlined text-blue-400 text-[17px]">group_add</span>
+                                    <span className="text-[9px] font-bold text-slate-600 uppercase tracking-[0.18em]">{i18n.t('clients')}</span>
                                 </div>
-                                <div className="text-2xl sm:text-3xl font-black text-white mb-1">{clients.length}</div>
-                                <div className="text-[9px] sm:text-[10px] text-slate-500 flex items-center gap-1">
-                                    <span className="text-blue-400 font-bold">+{Math.floor(clients.length * 0.05)}</span> this month
-                                </div>
+                                <p className="text-[28px] sm:text-[32px] font-bold text-white leading-none mb-1.5">{clients.length}</p>
+                                <p className="text-[11px] text-slate-600"><span className="text-blue-400 font-medium">+{Math.floor(clients.length * 0.05)}</span> this month</p>
                             </button>
 
-                            {/* 4. Active Washers -> Team */}
-                            <button onClick={() => navigate(AdminScreenEnum.ADMIN_TEAM)} className="col-span-1 bg-surface-dark/40 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-white/5 text-left hover:border-purple-400/40 hover:bg-surface-dark/60 transition-all group shadow-xl hover:shadow-purple-400/10 hover:-translate-y-1">
-                                <div className="flex justify-between items-start mb-3 sm:mb-4">
-                                    <div className="p-2 rounded-xl bg-purple-500/10 group-hover:bg-purple-500/20 transition-colors">
-                                        <span className="material-symbols-outlined text-purple-400 block text-lg sm:text-xl">engineering</span>
-                                    </div>
-                                    <span className="text-slate-500 text-[9px] sm:text-[10px] uppercase font-bold tracking-wider">{i18n.t('team')}</span>
+                            {/* 4. Active Washers */}
+                            <button onClick={() => navigate(AdminScreenEnum.ADMIN_TEAM)} className="col-span-1 group relative bg-[#0f0f11] p-5 rounded-xl border border-white/[0.07] text-left hover:border-white/[0.15] hover:bg-white/[0.02] transition-colors overflow-hidden">
+                                <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-purple-400/70 to-transparent" />
+                                <div className="flex items-center gap-1.5 mb-4">
+                                    <span className="material-symbols-outlined text-purple-400 text-[17px]">engineering</span>
+                                    <span className="text-[9px] font-bold text-slate-600 uppercase tracking-[0.18em]">{i18n.t('team')}</span>
                                 </div>
-                                <div className="text-2xl sm:text-3xl font-black text-white mb-1">{dailyStats.activeWashers}</div>
-                                <div className="text-[9px] sm:text-[10px] text-slate-500 flex items-center gap-1">
-                                    <span className="text-purple-400 font-bold">Online</span> now
-                                </div>
+                                <p className="text-[28px] sm:text-[32px] font-bold text-white leading-none mb-1.5">{dailyStats.activeWashers}</p>
+                                <p className="text-[11px] text-slate-600"><span className="text-purple-400 font-medium">Online</span> now</p>
                             </button>
 
-                            {/* 5. Avg Rating -> History/Reviews */}
-                            <button onClick={() => navigate(AdminScreenEnum.ADMIN_ANALYTICS)} className="col-span-2 lg:col-span-1 bg-surface-dark/40 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-white/5 text-left hover:border-yellow-400/40 hover:bg-surface-dark/60 transition-all group shadow-xl hover:shadow-yellow-400/10 hover:-translate-y-1">
-                                <div className="flex justify-between items-start mb-3 sm:mb-4">
-                                    <div className="p-2 rounded-xl bg-yellow-500/10 group-hover:bg-yellow-500/20 transition-colors">
-                                        <span className="material-symbols-outlined text-yellow-400 block text-lg sm:text-xl">star</span>
-                                    </div>
-                                    <span className="text-slate-500 text-[9px] sm:text-[10px] uppercase font-bold tracking-wider">{i18n.t('avg_rating')}</span>
+                            {/* 5. Avg Rating */}
+                            <button onClick={() => navigate(AdminScreenEnum.ADMIN_ANALYTICS)} className="col-span-2 lg:col-span-1 group relative bg-[#0f0f11] p-5 rounded-xl border border-white/[0.07] text-left hover:border-white/[0.15] hover:bg-white/[0.02] transition-colors overflow-hidden">
+                                <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-yellow-400/70 to-transparent" />
+                                <div className="flex items-center gap-1.5 mb-4">
+                                    <span className="material-symbols-outlined text-yellow-400 text-[17px]">star</span>
+                                    <span className="text-[9px] font-bold text-slate-600 uppercase tracking-[0.18em]">{i18n.t('avg_rating')}</span>
                                 </div>
-                                <div className="text-2xl sm:text-3xl font-black text-white mb-1">
+                                <p className="text-[28px] sm:text-[32px] font-bold text-white leading-none mb-1.5">
                                     {(() => {
                                         const ratedOrders = orders.filter(o => o.rating && o.rating > 0);
                                         if (ratedOrders.length === 0) return '0.0';
                                         const avgRating = ratedOrders.reduce((acc, o) => acc + (o.rating || 0), 0) / ratedOrders.length;
                                         return avgRating.toFixed(1);
                                     })()}
-                                </div>
-                                <div className="text-[9px] sm:text-[10px] text-slate-500 flex items-center gap-1">
-                                    <span className="text-yellow-400 font-bold">Excellent</span> status
-                                </div>
+                                </p>
+                                <p className="text-[11px] text-slate-600"><span className="text-yellow-400 font-medium">Excellent</span> status</p>
                             </button>
                         </div>
 
+                        {/* ── ACTIVE JOBS MONITOR ── */}
+                        {(() => {
+                            const activeJobs = orders.filter(o => o.status === 'In Progress');
+                            if (activeJobs.length === 0) return null;
+                            const now = Date.now();
+                            return (
+                                <div className="rounded-xl border border-white/[0.06] overflow-hidden">
+                                    <div className="px-4 py-3 border-b border-white/[0.04] flex items-center gap-2.5">
+                                        <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse block shrink-0" />
+                                        <span className="text-[13px] font-semibold text-white">Active Jobs</span>
+                                        <span className="text-[11px] text-slate-600 ml-1">{activeJobs.length} in progress</span>
+                                        <span className="ml-auto text-[9px] text-slate-600 uppercase tracking-[0.15em]">Live</span>
+                                    </div>
+                                    <div className="divide-y divide-white/[0.03]">
+                                        {activeJobs.map(order => {
+                                            const washer = team.find(t => t.id === order.washerId);
+                                            const dur = (order as any).totalServiceDuration || 60;
+                                            const startAt = (order as any).inProgressAt || (now - 30 * 60000);
+                                            const elapsed = Math.max(0, (now - startAt) / 60000);
+                                            const remaining = Math.max(0, dur - elapsed);
+                                            const pct = Math.min(100, (elapsed / dur) * 100);
+                                            const isOvertime = elapsed > dur;
+                                            const barColor = isOvertime ? 'bg-red-500' : remaining <= 10 ? 'bg-yellow-500' : 'bg-green-500';
+                                            return (
+                                                <div key={order.id} className="px-4 py-3 hover:bg-white/[0.02] transition-colors cursor-pointer" onClick={() => setViewingOrderDetails(order)}>
+                                                    <div className="flex items-center gap-3 mb-2">
+                                                        {washer?.avatar && <img src={washer.avatar} className="w-7 h-7 rounded-lg object-cover shrink-0" alt="" />}
+                                                        <div className="flex-1 min-w-0">
+                                                            <div className="flex items-baseline gap-2 flex-wrap">
+                                                                <span className="text-[12px] font-semibold text-white">{washer?.name || 'Unassigned'}</span>
+                                                                <span className="text-[10px] text-slate-500">→</span>
+                                                                <span className="text-[12px] text-slate-400">{order.clientName}</span>
+                                                                <span className="text-[10px] text-slate-600 ml-auto">#{order.id.slice(0, 6).toUpperCase()}</span>
+                                                            </div>
+                                                            <div className="text-[10px] text-slate-600 mt-0.5">{(order as any).service || (order as any).packageName} • {order.address?.split(',')[0]}</div>
+                                                        </div>
+                                                        <div className={`text-right shrink-0 ${isOvertime ? 'text-red-400' : remaining <= 10 ? 'text-yellow-400' : 'text-slate-400'}`}>
+                                                            <div className="text-[13px] font-bold leading-none">
+                                                                {isOvertime ? '+' + Math.round(elapsed - dur) : Math.round(remaining)}
+                                                                <span className="text-[9px] font-normal ml-0.5">min</span>
+                                                            </div>
+                                                            <div className="text-[9px] uppercase tracking-wider mt-0.5">{isOvertime ? 'Overtime' : 'Remaining'}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="h-[3px] bg-white/[0.05] rounded-full overflow-hidden">
+                                                        <div className={`h-full rounded-full transition-all ${barColor}`} style={{ width: isOvertime ? '100%' : `${pct}%` }} />
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            );
+                        })()}
+
+                        {/* ── BAD REVIEWS ALERT ── */}
+                        {(() => {
+                            const badReviews = orders.filter(o =>
+                                o.status === 'Completed' &&
+                                ((o.clientRating && o.clientRating <= 2) || (o.rating && o.rating <= 2)) &&
+                                (o.clientReview || (o as any).review)
+                            ).sort((a, b) => (b.completedAt || 0) - (a.completedAt || 0)).slice(0, 5);
+
+                            if (badReviews.length === 0) return null;
+
+                            return (
+                                <div className="mb-2 rounded-2xl border border-red-500/20 bg-red-500/[0.04] overflow-hidden">
+                                    <div className="flex items-center gap-2.5 px-4 py-3 border-b border-red-500/10">
+                                        <div className="w-7 h-7 rounded-lg bg-red-500/15 flex items-center justify-center shrink-0">
+                                            <span className="material-symbols-outlined text-red-400 text-[17px]">warning</span>
+                                        </div>
+                                        <div className="flex-1">
+                                            <p className="text-[11px] font-bold text-red-400 uppercase tracking-widest">Reseñas negativas</p>
+                                            <p className="text-[10px] text-slate-500">{badReviews.length} reseña{badReviews.length > 1 ? 's' : ''} con 1–2 estrellas</p>
+                                        </div>
+                                        <button
+                                            onClick={() => navigate(AdminScreenEnum.ADMIN_ANALYTICS)}
+                                            className="text-[10px] text-red-400/70 hover:text-red-400 font-semibold uppercase tracking-wider"
+                                        >
+                                            Ver todas →
+                                        </button>
+                                    </div>
+                                    <div className="divide-y divide-red-500/[0.07]">
+                                        {badReviews.map(order => {
+                                            const stars = order.clientRating || order.rating || 0;
+                                            const reviewText = order.clientReview || (order as any).review || '';
+                                            const washer = team.find(t => t.id === order.washerId);
+                                            return (
+                                                <button
+                                                    key={order.id}
+                                                    className="w-full text-left px-4 py-3 hover:bg-red-500/[0.04] transition-colors group"
+                                                    onClick={() => setViewingOrderDetails(order)}
+                                                >
+                                                    <div className="flex items-start gap-3">
+                                                        <div className="shrink-0 mt-0.5 flex gap-0.5">
+                                                            {[1,2,3,4,5].map(i => (
+                                                                <span key={i} className={`material-symbols-outlined text-[13px] ${i <= stars ? 'text-red-400' : 'text-white/10'}`}>star</span>
+                                                            ))}
+                                                        </div>
+                                                        <div className="flex-1 min-w-0">
+                                                            <div className="flex items-baseline gap-2 flex-wrap">
+                                                                <span className="text-[12px] font-semibold text-white truncate">{order.clientName}</span>
+                                                                {washer && (
+                                                                    <span className="text-[10px] text-slate-500">→ washer: <span className="text-slate-400">{washer.name}</span></span>
+                                                                )}
+                                                                <span className="text-[10px] text-slate-600 ml-auto">#{order.id.slice(0,6).toUpperCase()}</span>
+                                                            </div>
+                                                            {reviewText && (
+                                                                <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed line-clamp-2">"{reviewText}"</p>
+                                                            )}
+                                                        </div>
+                                                        <span className="material-symbols-outlined text-[14px] text-slate-600 group-hover:text-slate-400 shrink-0 mt-0.5">chevron_right</span>
+                                                    </div>
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            );
+                        })()}
+
                         <div>
-                            <div className="flex flex-col gap-4 mb-4">
-                                <div className="flex justify-between items-center">
-                                    <h2 className="font-bold text-lg">Live Orders</h2>
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4">
+                                <div className="flex items-baseline gap-2 shrink-0">
+                                    <h2 className="text-[15px] font-semibold text-white">Live Orders</h2>
+                                    <span className="text-[11px] text-slate-600">{filteredOrders.length}</span>
                                 </div>
 
-                                <div className="flex flex-col sm:flex-row gap-3 justify-between items-center">
+                                <div className="flex flex-1 flex-col sm:flex-row gap-2.5 sm:items-center">
                                     {/* Search Input */}
-                                    <div className="relative w-full sm:w-64">
-                                        <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+                                    <div className="relative sm:w-56">
+                                        <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-600 text-[15px]">search</span>
                                         <input
                                             type="text"
-                                            placeholder="Order #, Client ID or Name..."
+                                            placeholder="Search orders..."
                                             value={liveSearch}
                                             onChange={e => setLiveSearch(e.target.value)}
-                                            className="w-full bg-surface-dark border border-white/10 rounded-lg pl-9 pr-3 py-2 text-sm focus:border-primary/50 focus:outline-none"
+                                            className="w-full bg-white/[0.03] border border-white/[0.08] rounded-lg pl-9 pr-3 py-1.5 text-[13px] text-white placeholder-slate-600 focus:border-white/20 focus:outline-none"
                                         />
                                     </div>
 
-                                    {/* Filters */}
-                                    <div className="flex gap-2 text-[10px] uppercase tracking-wider overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0">
+                                    {/* Filter chips */}
+                                    <div className="flex gap-1.5 overflow-x-auto pb-0.5 sm:pb-0">
                                         {['All', 'Pending', 'In Progress', 'Assigned', 'Completed'].map(f => (
                                             <button
                                                 key={f}
                                                 onClick={() => setFilter(f)}
-                                                className={`px-4 py-2 rounded-xl font-black border whitespace-nowrap transition-all duration-300 ${filter === f
-                                                    ? 'bg-gradient-to-r from-primary to-blue-600 text-white border-transparent shadow-lg shadow-primary/20 scale-105'
-                                                    : 'bg-white/5 border-white/10 text-slate-500 hover:border-white/30 hover:text-white hover:bg-white/10'}`}
+                                                className={`px-3 py-1.5 rounded-lg text-[11px] font-medium border whitespace-nowrap transition-all ${filter === f
+                                                    ? 'bg-primary/15 border-primary/30 text-primary'
+                                                    : 'bg-transparent border-white/[0.08] text-slate-500 hover:text-slate-300 hover:border-white/20'}`}
                                             >
                                                 {i18n.t(f.toLowerCase() as any) || f}
                                             </button>
@@ -1379,6 +1710,80 @@ export const AdminScreens: React.FC<AdminProps> = ({
                                 </div>
                             </div>
 
+                            {isDesktop ? (
+                                <div className="rounded-xl border border-white/[0.06] overflow-hidden">
+                                    <table className="w-full">
+                                        <thead className="bg-white/[0.02]">
+                                            <tr className="border-b border-white/[0.06]">
+                                                <th className="text-left px-4 py-3 text-[10px] font-bold text-slate-600 uppercase tracking-widest">#</th>
+                                                <th className="text-left px-4 py-3 text-[10px] font-bold text-slate-600 uppercase tracking-widest">Client</th>
+                                                <th className="text-left px-4 py-3 text-[10px] font-bold text-slate-600 uppercase tracking-widest">Service</th>
+                                                <th className="text-left px-4 py-3 text-[10px] font-bold text-slate-600 uppercase tracking-widest">Date</th>
+                                                <th className="text-left px-4 py-3 text-[10px] font-bold text-slate-600 uppercase tracking-widest">Washer</th>
+                                                <th className="text-left px-4 py-3 text-[10px] font-bold text-slate-600 uppercase tracking-widest">Status</th>
+                                                <th className="text-right px-4 py-3 text-[10px] font-bold text-slate-600 uppercase tracking-widest">Amount</th>
+                                                <th className="px-4 py-3"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-white/[0.04]">
+                                            {filteredOrders.map(order => (
+                                                <tr key={order.id} onClick={() => setViewingOrderDetails(order)} className="hover:bg-white/[0.02] transition-colors cursor-pointer group">
+                                                    <td className="px-4 py-3.5">
+                                                        <span className="text-[11px] font-mono text-slate-500">
+                                                            {(order as any).displayId ? `#${(order as any).displayId}` : `#${order.id.slice(0,6).toUpperCase()}`}
+                                                        </span>
+                                                    </td>
+                                                    <td className="px-4 py-3.5">
+                                                        <p className="text-[13px] font-medium text-white leading-none">{order.clientName}</p>
+                                                        <p className="text-[11px] text-slate-500 mt-0.5">{order.vehicle}</p>
+                                                    </td>
+                                                    <td className="px-4 py-3.5 max-w-[180px]">
+                                                        <span className="text-[12px] text-slate-300 truncate block">{order.service}</span>
+                                                    </td>
+                                                    <td className="px-4 py-3.5">
+                                                        <p className="text-[12px] text-slate-300 leading-none">{order.date}</p>
+                                                        <p className="text-[11px] text-slate-500 mt-0.5">{order.time}</p>
+                                                    </td>
+                                                    <td className="px-4 py-3.5">
+                                                        {order.washerName
+                                                            ? <span className="text-[12px] text-slate-300">{order.washerName}</span>
+                                                            : <span className="text-[12px] text-amber-500 font-medium">Unassigned</span>
+                                                        }
+                                                    </td>
+                                                    <td className="px-4 py-3.5">
+                                                        <span className={`inline-flex px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider ${
+                                                            order.status === 'Pending' ? 'bg-blue-500/10 text-blue-400' :
+                                                            order.status === 'In Progress' ? 'bg-yellow-500/10 text-yellow-400' :
+                                                            order.status === 'Assigned' ? 'bg-purple-500/10 text-purple-400' :
+                                                            order.status === 'Completed' ? 'bg-green-500/10 text-green-400' :
+                                                            'bg-red-500/10 text-red-400'
+                                                        }`}>{order.status}</span>
+                                                    </td>
+                                                    <td className="px-4 py-3.5 text-right">
+                                                        <span className="text-[14px] font-semibold text-white">${order.price}</span>
+                                                    </td>
+                                                    <td className="px-4 py-3.5" onClick={e => e.stopPropagation()}>
+                                                        <div className="flex items-center gap-1 justify-end opacity-0 group-hover:opacity-100 transition-opacity">
+                                                            {order.status === 'Pending' && (
+                                                                <button onClick={() => setAssigningOrderId(order.id)} className="px-2 py-1 rounded-md bg-primary/10 text-primary text-[11px] font-semibold hover:bg-primary hover:text-white transition-all whitespace-nowrap">Assign</button>
+                                                            )}
+                                                            <button onClick={() => setEditingOrder(order)} className="w-7 h-7 flex items-center justify-center rounded-md hover:bg-white/[0.06] text-slate-600 hover:text-slate-300 transition-all">
+                                                                <span className="material-symbols-outlined text-[14px]">edit</span>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                            {filteredOrders.length === 0 && (
+                                                <tr><td colSpan={8} className="py-12 text-center text-slate-600">
+                                                    <span className="material-symbols-outlined text-3xl block mb-2 mx-auto">inbox</span>
+                                                    <p className="text-[13px]">No orders match this filter</p>
+                                                </td></tr>
+                                            )}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            ) : (
                             <div className="space-y-3.5">
                                 {filteredOrders.map(order => {
                                     const client = clients.find(c => c.id === order.clientId);
@@ -1518,110 +1923,236 @@ export const AdminScreens: React.FC<AdminProps> = ({
                                 })}
                                 {filteredOrders.length === 0 && <div className="text-center py-10 text-slate-500">No active orders found</div>}
                             </div>
+                            )}
                         </div>
                     </div>
 
-                    {assigningOrderId && (
-                        <div className="absolute inset-0 bg-black/80 z-50 flex items-end sm:items-center justify-center sm:p-4">
-                            <div className="bg-surface-dark w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
-                                <div className="p-4 border-b border-white/10 flex justify-between items-center">
-                                    <h3 className="font-bold">Assign Washer</h3>
-                                    <button onClick={() => setAssigningOrderId(null)}><span className="material-symbols-outlined">close</span></button>
-                                </div>
-                                <div className="p-2 max-h-[60vh] overflow-y-auto">
-                                    {washers.map(washer => (
-                                        <button
-                                            key={washer.id}
-                                            onClick={() => { assignOrder(assigningOrderId, washer.id); setAssigningOrderId(null); }}
-                                            className="w-full p-4 mb-2 bg-white/5 hover:bg-white/10 border border-white/5 hover:border-primary/30 rounded-2xl flex items-center gap-4 transition-all duration-300 group"
-                                        >
-                                            <div className="relative">
-                                                <img src={washer.avatar} className="w-12 h-12 rounded-2xl object-cover shadow-lg group-hover:scale-105 transition-transform" alt={washer.name} />
-                                                <div className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-surface-dark ${washer.status === 'On Job' ? 'bg-orange-500' : 'bg-green-500'}`}></div>
-                                            </div>
-                                            <div className="flex-1">
-                                                <div className="font-black text-white">{washer.name}</div>
-                                                <div className="text-[10px] text-slate-500 flex items-center gap-2 uppercase font-bold tracking-widest mt-0.5">
-                                                    <span className="flex items-center gap-0.5"><span className="material-symbols-outlined text-[12px] text-yellow-500">star</span> {washer.rating}</span>
-                                                    <span>ÔÇó {washer.completedJobs} jobs</span>
-                                                </div>
-                                            </div>
-                                            <div className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-tighter ${washer.status === 'On Job' ? 'bg-orange-500/10 text-orange-400' : 'bg-green-500/10 text-green-400'}`}>
-                                                {washer.status === 'On Job' ? 'Busy' : 'Available'}
-                                            </div>
+                    {assigningOrderId && (() => {
+                        const targetOrder = orders.find(o => o.id === assigningOrderId);
+                        return (
+                            <div className="absolute inset-0 bg-black/80 z-50 flex items-end sm:items-center justify-center sm:p-4">
+                                <div className="bg-[#0f0f11] w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl border border-white/[0.08] shadow-2xl overflow-hidden">
+                                    <div className="px-5 py-4 border-b border-white/[0.06] flex items-start justify-between gap-3">
+                                        <div className="min-w-0">
+                                            <p className="text-[9px] uppercase tracking-[0.18em] text-slate-600 font-bold">Assign Washer</p>
+                                            <p className="text-[13px] font-semibold text-white mt-0.5 truncate">{targetOrder?.clientName} — {targetOrder?.address?.split(',')[0]}</p>
+                                        </div>
+                                        <button onClick={() => setAssigningOrderId(null)} className="w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-all shrink-0">
+                                            <span className="material-symbols-outlined text-[15px]">close</span>
                                         </button>
-                                    ))}
+                                    </div>
+                                    <div className="p-3 max-h-[65vh] overflow-y-auto space-y-2">
+                                        {washers.map(washer => {
+                                            const eta = washerETAs[washer.id];
+                                            return (
+                                                <button
+                                                    key={washer.id}
+                                                    onClick={() => {
+                                                        if (eta?.etaStr) updateOrder(assigningOrderId, { estimatedArrival: eta.etaStr } as any);
+                                                        assignOrder(assigningOrderId, washer.id);
+                                                        setAssigningOrderId(null);
+                                                    }}
+                                                    className="w-full p-3 bg-white/[0.03] hover:bg-white/[0.07] border border-white/[0.05] hover:border-white/[0.15] rounded-xl flex items-center gap-3 transition-all"
+                                                >
+                                                    <div className="relative shrink-0">
+                                                        <img src={washer.avatar} className="w-10 h-10 rounded-xl object-cover" alt={washer.name} />
+                                                        <div className={`absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-2 border-[#0f0f11] ${washer.status === 'On Job' ? 'bg-orange-500' : 'bg-green-500'}`} />
+                                                    </div>
+                                                    <div className="flex-1 text-left min-w-0">
+                                                        <div className="text-[12px] font-semibold text-white">{washer.name}</div>
+                                                        <div className="flex items-center gap-2 mt-0.5">
+                                                            <span className="text-[9px] text-slate-500 flex items-center gap-0.5">
+                                                                <span className="material-symbols-outlined text-[11px] text-yellow-500">star</span>{washer.rating}
+                                                            </span>
+                                                            <span className="text-[9px] text-slate-600">{washer.completedJobs} jobs</span>
+                                                            {washer.status === 'On Job' && <span className="text-[9px] text-orange-400">On Job</span>}
+                                                        </div>
+                                                        {eta && !eta.loading && (eta.remainingMin > 0 || eta.travelMin > 0) && (
+                                                            <div className="flex items-center gap-1.5 mt-1.5">
+                                                                {eta.remainingMin > 0 && (
+                                                                    <span className="text-[9px] px-1.5 py-0.5 rounded bg-orange-500/10 text-orange-400 font-medium">
+                                                                        {eta.remainingMin}m job left
+                                                                    </span>
+                                                                )}
+                                                                {eta.travelMin > 0 && (
+                                                                    <span className="text-[9px] px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-400 font-medium">
+                                                                        {eta.travelMin}m drive
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div className="text-right shrink-0">
+                                                        {eta?.loading ? (
+                                                            <div className="w-4 h-4 border border-white/20 border-t-white/60 rounded-full animate-spin mx-auto" />
+                                                        ) : eta?.etaStr ? (
+                                                            <>
+                                                                <div className="text-[14px] font-bold text-white">{eta.etaStr}</div>
+                                                                <div className="text-[9px] text-slate-600 uppercase tracking-wider">ETA</div>
+                                                            </>
+                                                        ) : (
+                                                            <div className="text-[11px] text-green-400 font-semibold">Free</div>
+                                                        )}
+                                                    </div>
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    )}
+                        );
+                    })()}
 
                     {editingOrder && (
-                        <div className="absolute inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
-                            <div className="bg-surface-dark w-full max-w-md rounded-2xl border border-white/10 p-6 space-y-4 max-h-[90vh] overflow-y-auto">
-                                <h3 className="font-bold text-lg">Edit Order {editingOrder.id}</h3>
-
-                                <div className="grid grid-cols-2 gap-4">
+                        <div className="absolute inset-0 bg-black/85 z-50 flex items-center justify-center p-4">
+                            <div className="bg-[#0f1117] w-full max-w-lg rounded-2xl border border-white/[0.08] shadow-2xl max-h-[92vh] overflow-y-auto">
+                                {/* Header */}
+                                <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.06]">
                                     <div>
-                                        <label className="text-xs text-slate-400">Date</label>
-                                        <input
-                                            type="date"
-                                            value={editingOrder.date}
-                                            onChange={e => setEditingOrder({ ...editingOrder, date: e.target.value })}
-                                            className="w-full bg-white/5 border border-white/10 rounded p-2 mt-1"
-                                        />
+                                        <p className="text-[9px] uppercase tracking-[0.2em] text-slate-500 font-bold">Editando</p>
+                                        <p className="text-base font-semibold text-white">#{editingOrder.id.slice(0, 8).toUpperCase()}</p>
                                     </div>
+                                    <button onClick={() => setEditingOrder(null)} className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-all">
+                                        <span className="material-symbols-outlined text-sm">close</span>
+                                    </button>
+                                </div>
+
+                                <div className="p-6 space-y-5">
+                                    {/* Date + Time */}
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Fecha</label>
+                                            <input
+                                                type="date"
+                                                value={editingOrder.date}
+                                                onChange={e => setEditingOrder({ ...editingOrder, date: e.target.value })}
+                                                className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-3 py-2.5 mt-1.5 text-white text-sm focus:outline-none focus:border-primary/50"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Hora</label>
+                                            <input
+                                                type="time"
+                                                value={editingOrder.time}
+                                                onChange={e => setEditingOrder({ ...editingOrder, time: e.target.value })}
+                                                className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-3 py-2.5 mt-1.5 text-white text-sm focus:outline-none focus:border-primary/50"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Status + Washer */}
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Estado</label>
+                                            <select
+                                                value={editingOrder.status}
+                                                onChange={e => setEditingOrder({ ...editingOrder, status: e.target.value as any })}
+                                                className="w-full bg-[#0f1117] text-white border border-white/[0.08] rounded-xl px-3 py-2.5 mt-1.5 text-sm focus:outline-none focus:border-primary/50"
+                                            >
+                                                <option value="New">New</option>
+                                                <option value="Assigned">Assigned</option>
+                                                <option value="In Progress">In Progress</option>
+                                                <option value="Completed">Completed</option>
+                                                <option value="Cancelled">Cancelled</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Washer</label>
+                                            <select
+                                                value={editingOrder.washerId || ''}
+                                                onChange={e => setEditingOrder({ ...editingOrder, washerId: e.target.value })}
+                                                className="w-full bg-[#0f1117] text-white border border-white/[0.08] rounded-xl px-3 py-2.5 mt-1.5 text-sm focus:outline-none focus:border-primary/50"
+                                            >
+                                                <option value="">Sin asignar</option>
+                                                {washers.map(w => <option key={w.id} value={w.id}>{w.name}</option>)}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    {/* Service + Price */}
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Servicio</label>
+                                            <select
+                                                value={(editingOrder as any).service || ''}
+                                                onChange={e => setEditingOrder({ ...editingOrder, service: e.target.value } as any)}
+                                                className="w-full bg-[#0f1117] text-white border border-white/[0.08] rounded-xl px-3 py-2.5 mt-1.5 text-sm focus:outline-none focus:border-primary/50"
+                                            >
+                                                <option value="">— Sin cambio —</option>
+                                                {packages.map(pkg => <option key={pkg.id} value={pkg.name}>{pkg.name}</option>)}
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Precio ($)</label>
+                                            <input
+                                                type="number"
+                                                value={editingOrder.price}
+                                                onChange={e => setEditingOrder({ ...editingOrder, price: Number(e.target.value) })}
+                                                className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-3 py-2.5 mt-1.5 text-white text-sm focus:outline-none focus:border-primary/50"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Vehicle + Type */}
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Vehículo</label>
+                                            <input
+                                                type="text"
+                                                value={(editingOrder as any).vehicle || ''}
+                                                onChange={e => setEditingOrder({ ...editingOrder, vehicle: e.target.value } as any)}
+                                                placeholder="Toyota Camry"
+                                                className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-3 py-2.5 mt-1.5 text-white text-sm focus:outline-none focus:border-primary/50 placeholder-slate-600"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Tipo</label>
+                                            <select
+                                                value={(editingOrder as any).vehicleType || 'sedan'}
+                                                onChange={e => setEditingOrder({ ...editingOrder, vehicleType: e.target.value } as any)}
+                                                className="w-full bg-[#0f1117] text-white border border-white/[0.08] rounded-xl px-3 py-2.5 mt-1.5 text-sm focus:outline-none focus:border-primary/50"
+                                            >
+                                                {vehicleTypes.length > 0
+                                                    ? vehicleTypes.map(vt => <option key={vt.id} value={vt.name?.toLowerCase()}>{vt.name}</option>)
+                                                    : ['Sedan', 'SUV', 'Truck', 'Van', 'RV'].map(t => <option key={t} value={t.toLowerCase()}>{t}</option>)
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    {/* Address */}
                                     <div>
-                                        <label className="text-xs text-slate-400">Time</label>
+                                        <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Dirección</label>
                                         <input
                                             type="text"
-                                            value={editingOrder.time}
-                                            onChange={e => setEditingOrder({ ...editingOrder, time: e.target.value })}
-                                            className="w-full bg-white/5 border border-white/10 rounded p-2 mt-1"
+                                            value={(editingOrder as any).address || ''}
+                                            onChange={e => setEditingOrder({ ...editingOrder, address: e.target.value } as any)}
+                                            placeholder="123 Main St, Los Angeles, CA..."
+                                            className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-3 py-2.5 mt-1.5 text-white text-sm focus:outline-none focus:border-primary/50 placeholder-slate-600"
                                         />
                                     </div>
-                                </div>
 
-                                <div>
-                                    <label className="text-xs text-slate-400">Total Price ($)</label>
-                                    <input
-                                        type="number"
-                                        value={editingOrder.price}
-                                        onChange={e => setEditingOrder({ ...editingOrder, price: Number(e.target.value) })}
-                                        className="w-full bg-white/5 border border-white/10 rounded p-2 mt-1"
-                                    />
-                                </div>
+                                    {/* Notes */}
+                                    <div>
+                                        <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Notas del admin</label>
+                                        <textarea
+                                            value={(editingOrder as any).notes || ''}
+                                            onChange={e => setEditingOrder({ ...editingOrder, notes: e.target.value } as any)}
+                                            rows={2}
+                                            placeholder="Instrucciones especiales para el washer..."
+                                            className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-3 py-2.5 mt-1.5 text-white text-sm focus:outline-none focus:border-primary/50 placeholder-slate-600 resize-none"
+                                        />
+                                    </div>
 
-                                <div>
-                                    <label className="text-xs text-slate-400">Status</label>
-                                    <select
-                                        value={editingOrder.status}
-                                        onChange={e => setEditingOrder({ ...editingOrder, status: e.target.value as any })}
-                                        className="w-full bg-surface-dark text-white border border-white/10 rounded p-2 mt-1 focus:bg-surface-dark focus:outline-none"
-                                    >
-                                        <option value="New">New</option>
-                                        <option value="Assigned">Assigned</option>
-                                        <option value="In Progress">In Progress</option>
-                                        <option value="Completed">Completed</option>
-                                        <option value="Cancelled">Cancelled</option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label className="text-xs text-slate-400">Washer</label>
-                                    <select
-                                        value={editingOrder.washerId || ''}
-                                        onChange={e => setEditingOrder({ ...editingOrder, washerId: e.target.value })}
-                                        className="w-full bg-surface-dark text-white border border-white/10 rounded p-2 mt-1 focus:bg-surface-dark focus:outline-none"
-                                    >
-                                        <option value="">Unassigned</option>
-                                        {washers.map(w => <option key={w.id} value={w.id}>{w.name}</option>)}
-                                    </select>
-                                </div>
-
-                                <div className="flex gap-3 pt-4">
-                                    <button onClick={() => setEditingOrder(null)} className="flex-1 py-4 rounded-2xl font-black text-xs uppercase tracking-widest text-slate-500 hover:bg-white/5 hover:text-white transition-all">Cancel</button>
-                                    <button onClick={handleSaveEdit} className="flex-1 py-4 rounded-2xl font-black text-xs uppercase tracking-widest bg-gradient-to-r from-primary to-blue-600 text-white shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">Save Changes</button>
+                                    {/* Actions */}
+                                    <div className="flex gap-3 pt-2">
+                                        <button onClick={() => setEditingOrder(null)} className="flex-1 py-3 rounded-xl font-semibold text-sm text-slate-500 hover:bg-white/5 hover:text-white transition-all border border-white/[0.06]">
+                                            Cancelar
+                                        </button>
+                                        <button onClick={handleSaveEdit} className="flex-1 py-3 rounded-xl font-bold text-sm bg-primary text-black hover:opacity-90 active:scale-[0.98] transition-all">
+                                            Guardar cambios
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1934,8 +2465,9 @@ export const AdminScreens: React.FC<AdminProps> = ({
             <div className={`flex h-full bg-background-dark text-white ${isDesktop ? 'flex-row' : 'flex-col'}`} style={{ paddingTop: 'env(safe-area-inset-top)' }}>
                 {isDesktop && <DesktopSidebar />}
                 <div className="flex-1 flex flex-col h-full overflow-hidden">
+                {isDesktop && <TopBar title="Client Base" subtitle={`${clients.length} clients`}><button onClick={() => navigate(AdminScreenEnum.ADMIN_SETTINGS)} className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-500 hover:text-slate-300 hover:bg-white/[0.05] transition-all"><span className="material-symbols-outlined text-[17px]">settings</span></button></TopBar>}
                 <div className="flex-1 overflow-y-auto p-4">
-                    <h1 className="text-2xl font-bold mb-4">Clients</h1>
+                    {!isDesktop && <h1 className="text-2xl font-bold mb-4">Clients</h1>}
 
                     {/* Search Bar */}
                     <div className="relative mb-6">
@@ -2597,8 +3129,9 @@ export const AdminScreens: React.FC<AdminProps> = ({
             <div className={`flex h-full bg-background-dark text-white ${isDesktop ? 'flex-row' : 'flex-col'}`} style={{ paddingTop: 'env(safe-area-inset-top)' }}>
                 {isDesktop && <DesktopSidebar />}
                 <div className="flex-1 flex flex-col h-full overflow-hidden">
+                {isDesktop && <TopBar title="Analytics" subtitle="Performance & trends"><button onClick={() => navigate(AdminScreenEnum.ADMIN_SETTINGS)} className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-500 hover:text-slate-300 hover:bg-white/[0.05] transition-all"><span className="material-symbols-outlined text-[17px]">settings</span></button></TopBar>}
                 <div className="flex-1 overflow-y-auto p-4">
-                    <h1 className="text-2xl font-bold mb-6">Analytics</h1>
+                    {!isDesktop && <h1 className="text-2xl font-bold mb-6">Analytics</h1>}
 
                     {/* Time Range Selector */}
                     <div className="bg-surface-dark p-1 rounded-lg flex border border-white/10 mb-6">
@@ -3386,10 +3919,21 @@ export const AdminScreens: React.FC<AdminProps> = ({
             <div className={`flex h-full bg-background-dark text-white ${isDesktop ? 'flex-row' : 'flex-col'}`} style={{ paddingTop: 'env(safe-area-inset-top)' }}>
                 {isDesktop && <DesktopSidebar />}
                 <div className="flex-1 flex flex-col h-full overflow-hidden">
-                <header className="p-4 border-b border-white/5 flex justify-between items-center">
+                {isDesktop && (
+                    <TopBar title="Team Management" subtitle={`${activeMembers.length} active · ${applicants.length} pending`}>
+                        <button
+                            onClick={() => { setNewMemberData({ name: '', email: '', password: '', role: 'washer', driverLicense: '', insuranceNumber: '', vehiclePlate: '', vehicleModel: '' } as any); setShowAddMemberModal(true); }}
+                            className="h-8 px-3 rounded-lg bg-primary/10 text-primary text-[12px] font-semibold hover:bg-primary hover:text-black transition-all flex items-center gap-1.5"
+                        >
+                            <span className="material-symbols-outlined text-[15px]">add</span>
+                            Add Member
+                        </button>
+                    </TopBar>
+                )}
+                {!isDesktop && (<header className="p-4 border-b border-white/5 flex justify-between items-center">
                     <div>
-                        <h1 className="text-xl font-bold">Team Management ­ƒøí´©Å</h1>
-                        <p className="text-xs text-slate-400">{activeMembers.length} Active ÔÇó {applicants.length} Pending</p>
+                        <h1 className="text-xl font-bold">Team Management</h1>
+                        <p className="text-xs text-slate-400">{activeMembers.length} Active · {applicants.length} Pending</p>
                     </div>
                     <button
                         onClick={() => { setNewMemberData({ name: '', email: '', password: '', role: 'washer', driverLicense: '', insuranceNumber: '', vehiclePlate: '', vehicleModel: '' } as any); setShowAddMemberModal(true); }}
@@ -3398,7 +3942,7 @@ export const AdminScreens: React.FC<AdminProps> = ({
                         <span className="material-symbols-outlined text-sm">add</span>
                         Add Member
                     </button>
-                </header>
+                </header>)}
 
                 <div className="px-4 mt-4">
                     <div className="flex bg-surface-dark rounded-lg p-1 border border-white/10">
@@ -4090,6 +4634,17 @@ export const AdminScreens: React.FC<AdminProps> = ({
                         </div>
                     </div>
 
+                    {!isDesktop && (
+                        <div className="px-4 pb-4">
+                            <button
+                                onClick={logout}
+                                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-red-500/20 bg-red-500/5 text-red-400 hover:bg-red-500/10 transition-all font-medium text-sm"
+                            >
+                                <span className="material-symbols-outlined text-[18px]">logout</span>
+                                Log Out
+                            </button>
+                        </div>
+                    )}
                     {!isDesktop && <Nav active={AdminScreenEnum.ADMIN_SETTINGS} navigate={navigate} />}
                 </div>
             </div>

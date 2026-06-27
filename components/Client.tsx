@@ -2410,27 +2410,6 @@ const ClientContent: React.FC<ClientProps> = (props) => {
               <span className="material-symbols-outlined text-slate-500">chevron_right</span>
             </button>
 
-            {/* Manual Push Notifications Request */}
-            <button
-              onClick={() => {
-                import('../services/pushNotificationService').then(m => {
-                  m.pushNotificationService.requestPermissionsIfNeeded().then(success => {
-                    if (success) showToast(i18n.t('notification_requested'), 'success');
-                    else showToast(i18n.t('notification_error'), 'warning');
-                  });
-                });
-              }}
-              className="w-full bg-blue-500/10 p-4 rounded-xl flex items-center justify-between border border-blue-500/20 mt-8 hover:bg-blue-500/20 transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-blue-400">notifications_active</span>
-                <div className="text-left">
-                  <span className="font-bold text-white">{i18n.t('enable_push_notifications')}</span>
-                  <p className="text-xs text-slate-400">{i18n.t('stay_updated_push')}</p>
-                </div>
-              </div>
-              <span className="material-symbols-outlined text-blue-400">chevron_right</span>
-            </button>
 
             {/* Privacy Policy */}
             <button
@@ -2518,60 +2497,62 @@ const ClientContent: React.FC<ClientProps> = (props) => {
           <h1 className="flex-1 text-center font-bold text-lg mr-6">{i18n.t('order_history')}</h1>
         </header>
 
-        <div className="flex-1 overflow-y-auto p-4 pb-24">
+        <div className="flex-1 overflow-y-auto p-4 pb-24 space-y-3">
           {historicalOrders.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-24 text-center opacity-40">
               <span className="material-symbols-outlined text-5xl mb-3">history</span>
               <p className="text-sm font-medium">{i18n.t('no_past_orders')}</p>
             </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {historicalOrders.map((order) => (
-                <div
-                  key={order.id}
-                  onClick={() => {
-                    setViewingOrder(order);
-                    navigate(Screen.CLIENT_RATING);
-                  }}
-                  className="bg-surface-dark border border-white/5 rounded-2xl p-4 active:scale-[0.98] transition-all cursor-pointer hover:border-white/10 flex items-center justify-between gap-4"
-                >
-                  <div className="flex items-center gap-3 min-w-0 flex-1">
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${order.status === 'Completed' ? 'bg-green-500/10 text-green-500' : 'bg-red-500/10 text-red-500'}`}>
-                      <span className="material-symbols-outlined text-2xl">{order.status === 'Completed' ? 'check_circle' : 'cancel'}</span>
+          ) : historicalOrders.map((order) => {
+            const isCompleted = order.status === 'Completed';
+            const serviceName = order.service || (order.vehicleConfigs && order.vehicleConfigs.length > 1 ? `${order.vehicleConfigs.length} Vehicles` : 'Detail Service');
+            const orderDate = new Date((order.createdAt?.seconds || 0) * 1000 || Date.now())
+              .toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            const street = order.address?.split(',')?.[0] || '';
+            const rating = order.clientRating || order.rating;
+            return (
+              <div
+                key={order.id}
+                onClick={() => { setViewingOrder(order); navigate(Screen.CLIENT_RATING); }}
+                className="bg-surface-dark border border-white/[0.06] rounded-2xl overflow-hidden active:scale-[0.98] transition-all cursor-pointer"
+              >
+                {/* Status stripe */}
+                <div className={`h-[3px] ${isCompleted ? 'bg-green-500' : 'bg-red-500/50'}`} />
+                <div className="p-4">
+                  {/* Top row: name + price */}
+                  <div className="flex items-start justify-between gap-3 mb-3">
+                    <div className="flex-1 min-w-0">
+                      <p className="font-bold text-white text-base leading-snug">{serviceName}</p>
+                      <p className="text-[11px] text-slate-500 mt-0.5">{orderDate}</p>
                     </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="font-bold text-sm text-white truncate">{order.service || (order.vehicleConfigs && order.vehicleConfigs.length > 1 ? `${order.vehicleConfigs.length} Vehicles` : 'Custom Service')}</p>
-                      <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-1 text-[11px] text-slate-400">
-                        <span className="font-medium">
-                          {new Date(order.createdAt?.seconds * 1000 || Date.now()).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                        </span>
-                        <span className="text-slate-600">•</span>
-                        <div className="flex items-center gap-0.5 min-w-0">
-                          <span className="material-symbols-outlined text-[12px] shrink-0 text-slate-500">location_on</span>
-                          <span className="truncate max-w-[120px] sm:max-w-[180px]">{order.address?.split(',')?.[0] || i18n.t('address')}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col items-end shrink-0 gap-1.5">
-                    <span className="font-black text-white text-base">${(order.price || 0).toFixed(2)}</span>
-                    <div className="flex items-center gap-2">
-                      {(order.clientRating || order.rating) && (
-                        <div className="flex items-center gap-0.5 text-amber-500 text-[11px]">
-                          <span className="material-symbols-outlined text-xs filled">star</span>
-                          <span className="font-bold">{order.clientRating || order.rating}</span>
-                        </div>
-                      )}
-                      <span className={`px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider ${order.status === 'Completed' ? 'bg-green-500/10 text-green-500' : 'bg-red-500/10 text-red-500'}`}>
+                    <div className="text-right shrink-0">
+                      <p className="font-black text-white text-lg leading-none">${(order.price || 0).toFixed(2)}</p>
+                      <span className={`inline-block mt-1 text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${isCompleted ? 'bg-green-500/10 text-green-400' : 'bg-red-500/10 text-red-400'}`}>
                         {order.status}
                       </span>
                     </div>
                   </div>
+                  {/* Bottom row: address + rating */}
+                  <div className="flex items-center justify-between gap-2">
+                    {street ? (
+                      <div className="flex items-center gap-1 min-w-0">
+                        <span className="material-symbols-outlined text-[13px] text-slate-600 shrink-0">location_on</span>
+                        <span className="text-[11px] text-slate-500 truncate">{street}</span>
+                      </div>
+                    ) : <div />}
+                    {rating ? (
+                      <div className="flex items-center gap-0.5 text-amber-400 text-[11px] shrink-0">
+                        <span className="material-symbols-outlined text-[13px]" style={{fontVariationSettings:"'FILL' 1"}}>star</span>
+                        <span className="font-bold">{rating}</span>
+                      </div>
+                    ) : isCompleted ? (
+                      <span className="text-[10px] text-primary font-medium shrink-0">Tap to rate →</span>
+                    ) : null}
+                  </div>
                 </div>
-              ))}
-            </div>
-          )}
+              </div>
+            );
+          })}
         </div>
 
         <BottomNav />
@@ -2612,8 +2593,7 @@ const ClientContent: React.FC<ClientProps> = (props) => {
 
     // State for rating flow - Initialize with existing or defaults
     // Note: detailed state management is lifted up to ClientScreens logic if needed, but local state works for this form
-    // PAYMENT: Tip removed, total is just the base price
-    const totalWithTip = finalBillTotal;
+    const totalWithTip = finalBillTotal + currentTip;
 
     const handleTipSelect = (pct: number) => {
       if (isRated) return;
@@ -2654,8 +2634,20 @@ const ClientContent: React.FC<ClientProps> = (props) => {
         }
 
         setIsSubmittingRating(true);
+
+        // Charge tip via Stripe if applicable
+        if (currentTip > 0 && orderToView.paymentMethod === 'stripe' && orderToView.stripePaymentMethodId) {
+          try {
+            await StripeService.chargeStripeTip(currentTip, orderToView.stripePaymentMethodId, orderToView.id);
+            console.log(`💰 Tip charged: $${currentTip}`);
+          } catch (tipErr: any) {
+            console.error('Tip charge failed:', tipErr.message);
+            showToast('Tip could not be processed, but your rating was saved.', 'warning');
+          }
+        }
+
         await submitOrderRating(orderToView.id, {
-          clientRating: currentRating || 5, // Fallback to 5 stars
+          clientRating: currentRating || 5,
           clientReview: clientReviewText.trim(),
           tip: currentTip,
           washerId: orderToView.washerId || ''
@@ -3364,7 +3356,7 @@ const ClientContent: React.FC<ClientProps> = (props) => {
             return allCards.find(c => c.id === cardId) || allCards[0] || null;
           })()}
           selectedPaymentType={selectedPaymentType || 'cash'}
-          onAddCard={() => navigate(Screen.CLIENT_PAYMENT_METHODS)}
+          onAddCard={() => setShowPaymentModal(true)}
           userId={user.id}
           userEmail={user.email}
           isFirstOrder={orders.filter(o => o.status === 'Completed').length === 0}

@@ -541,14 +541,20 @@ export const OrderConfirmationScreen: React.FC<OrderConfirmationScreenProps> = (
                         <div className="flex-1">
                             <p className="text-xs text-blue-300">
                                 {selectedPaymentType === 'cash'
-                                    ? 'Cash Payment: Pay the washer directly. A card is required for a $10 cancellation fee (only charged if you cancel after a washer is assigned).'
+                                    ? 'Cash Payment: Pay the washer directly. A card is required for a $25 cancellation fee (only charged if you cancel after a washer is assigned).'
                                     : i18n.t('card_payment_notice')
                                 }
                             </p>
                             {selectedPaymentType === 'cash' && !selectedCard && (
-                                <p className="text-xs text-red-400 font-bold mt-1">
-                                    ⚠️ Please add a credit/debit card to proceed.
-                                </p>
+                                <div className="mt-2 flex items-center gap-2">
+                                    <p className="text-xs text-red-400 font-bold">⚠️ A card is required to proceed.</p>
+                                    <button
+                                        onClick={onAddCard}
+                                        className="text-xs text-blue-400 font-bold underline underline-offset-2 shrink-0"
+                                    >
+                                        Add card →
+                                    </button>
+                                </div>
                             )}
                         </div>
                     </div>

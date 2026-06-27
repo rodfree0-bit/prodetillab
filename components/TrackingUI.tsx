@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Order, User, Message } from '../types';
+import { Order, User, Message, Screen } from '../types';
 import { TrackingMap } from './TrackingMap';
 import { OrderChat } from './OrderChat';
 import { useRealTimeETA } from '../services/etaService';
@@ -289,14 +289,56 @@ export const TrackingUI: React.FC<TrackingUIProps> = ({
 
                 {/* 2. ASSIGNED */}
                 {(activeTrackingOrder.status === 'Assigned') && (
-                    <div className="flex-1 flex flex-col items-center justify-center p-8 text-center animate-fade-in bg-gradient-to-b from-black via-slate-900 to-black w-full">
-                        <h2 className="text-4xl font-black mb-4 text-primary shadow-blue animate-pulse tracking-tight">He's getting ready!</h2>
-                        <p className="text-slate-300 mb-10 text-lg">
-                            <span className="text-primary font-black">{activeTrackingOrder.washerName || 'Washer'}</span> is preparing.
-                        </p>
-                        <button onClick={() => setShowOrderChat(true)} className="w-full max-w-[300px] py-4 bg-[#1a1a1c] border border-white/10 rounded-2xl font-black text-white flex items-center justify-center gap-3">
-                            <span className="material-symbols-outlined">chat</span> Message Washer
-                        </button>
+                    <div className="flex-1 flex flex-col items-center justify-center p-6 text-center animate-fade-in bg-black w-full">
+                        <div className="w-16 h-16 rounded-full bg-primary/20 border-2 border-primary/40 flex items-center justify-center mb-3">
+                            <span className="material-symbols-outlined text-3xl text-primary">check</span>
+                        </div>
+                        <h2 className="text-2xl font-black text-primary tracking-tight mb-1">Washer assigned!</h2>
+                        <p className="text-slate-500 text-sm mb-6">He's getting ready for your service</p>
+
+                        {/* Washer Card */}
+                        <div className="w-full max-w-[300px] bg-white/5 border border-white/10 rounded-2xl p-5">
+                            {/* Washer info row */}
+                            <div className="flex items-center gap-3 mb-4">
+                                {activeTrackingOrder.washerPhoto ? (
+                                    <img src={activeTrackingOrder.washerPhoto} className="w-14 h-14 rounded-full object-cover flex-shrink-0" />
+                                ) : (
+                                    <div className="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xl font-black flex-shrink-0">
+                                        {(activeTrackingOrder.washerName || 'W').charAt(0)}
+                                    </div>
+                                )}
+                                <div className="text-left flex-1">
+                                    <p className="text-white font-black text-base">{activeTrackingOrder.washerName || 'Your Washer'}</p>
+                                    <div className="flex items-center gap-1 mt-0.5">
+                                        <span className="material-symbols-outlined text-yellow-400" style={{fontSize:'13px'}}>star</span>
+                                        <span className="text-yellow-400 text-xs font-bold">{(activeTrackingOrder.washerRating || 5).toFixed(1)}</span>
+                                        {activeTrackingOrder.washerCompletedJobs > 0 && (
+                                            <span className="text-slate-500 text-xs">· {activeTrackingOrder.washerCompletedJobs} jobs</span>
+                                        )}
+                                    </div>
+                                </div>
+                                <button onClick={() => setShowOrderChat(true)} className="w-9 h-9 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0">
+                                    <span className="material-symbols-outlined text-primary" style={{fontSize:'16px'}}>chat</span>
+                                </button>
+                            </div>
+
+                            {/* Car info row */}
+                            {(activeTrackingOrder.washerCarModel || activeTrackingOrder.washerCarColor) && (
+                                <div className="border-t border-white/10 pt-3 flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0">
+                                        <span className="material-symbols-outlined text-slate-400" style={{fontSize:'20px'}}>directions_car</span>
+                                    </div>
+                                    <div className="text-left">
+                                        <p className="text-white text-sm font-bold">
+                                            {[activeTrackingOrder.washerCarModel, activeTrackingOrder.washerCarColor].filter(Boolean).join(' · ')}
+                                        </p>
+                                        {activeTrackingOrder.washerCarPlate && (
+                                            <p className="text-slate-500 text-xs">{activeTrackingOrder.washerCarPlate}</p>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 )}
 
@@ -574,7 +616,7 @@ export const TrackingUI: React.FC<TrackingUIProps> = ({
                                          setShowReviewModal(true);
                                      } else {
                                          setTrackingOrderId(null);
-                                         navigate('CLIENT_HOME');
+                                         navigate(Screen.CLIENT_HOME);
                                          showNativeToast(activeTrackingOrder.paymentMethod === 'stripe' ? 'Thank you! Payment processed.' : 'Thank you!', 'success');
                                      }
                                 } catch (e: any) {

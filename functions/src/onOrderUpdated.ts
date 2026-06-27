@@ -1,5 +1,13 @@
 import * as functions from 'firebase-functions/v1';
 import * as admin from 'firebase-admin';
+import { sendSMS, SMS_MESSAGES } from './sendSMS';
+import { sendCompletionEmail } from './sendCompletionEmail';
+import Stripe from 'stripe';
+
+const getStripe = () => new Stripe(
+    process.env.STRIPE_SECRET_KEY || functions.config().stripe?.secret_key || '',
+    { apiVersion: '2025-02-24.acacia' }
+);
 
 /**
  * Cloud Function que se ejecuta cuando se ACTUALIZA una orden
@@ -30,6 +38,8 @@ export const onOrderUpdated = functions.firestore
 
                 // Notify CLIENT
                 const clientDoc = await admin.firestore().collection('users').doc(after.clientId).get();
+                const clientPhone = clientDoc.data()?.phone;
+                if (clientPhone) notifications.push(sendSMS(clientPhone, SMS_MESSAGES.washerAssigned(after.washerName || 'Your technician')));
                 const clientToken = clientDoc.data()?.fcmToken;
                 if (clientToken) {
                     notifications.push(
@@ -96,6 +106,8 @@ export const onOrderUpdated = functions.firestore
 
                 // Notify CLIENT
                 const clientDoc = await admin.firestore().collection('users').doc(after.clientId).get();
+                const clientPhone = clientDoc.data()?.phone;
+                if (clientPhone) notifications.push(sendSMS(clientPhone, SMS_MESSAGES.cancelled()));
                 const clientToken = clientDoc.data()?.fcmToken;
                 if (clientToken) {
                     notifications.push(
@@ -186,6 +198,16 @@ export const onOrderUpdated = functions.firestore
                 if (messages) {
                     // Notify CLIENT
                     const clientDoc = await admin.firestore().collection('users').doc(after.clientId).get();
+                    const clientPhone = clientDoc.data()?.phone;
+                    if (clientPhone) {
+                        const smsMap: Record<string, string> = {
+                            'En Route':    SMS_MESSAGES.enRoute(after.washerName || 'Your technician'),
+                            'Arrived':     SMS_MESSAGES.arrived(after.washerName || 'Your technician'),
+                            'In Progress': SMS_MESSAGES.inProgress(),
+                            'Completed':   SMS_MESSAGES.completed(),
+                        };
+                        if (smsMap[after.status]) notifications.push(sendSMS(clientPhone, smsMap[after.status]));
+                    }
                     const clientToken = clientDoc.data()?.fcmToken;
                     if (clientToken) {
                         notifications.push(
@@ -250,7 +272,52 @@ export const onOrderUpdated = functions.firestore
                 }
             }
 
-            // 4. AWARD LOYALTY POINTS - When order is completed
+            // 4. STRIPE CAPTURE ON COMPLETION
+            if (statusChanged && after.status === 'Completed') {
+                const paymentIntentId = after.paymentIntentId;
+                const paymentStatus = after.paymentStatus;
+                const captureAmount = after.price || 0; // final price after discounts
+
+                if (paymentIntentId && paymentStatus === 'Authorized' && captureAmount > 0) {
+                    console.log(`💳 Capturing $${captureAmount} for completed order ${orderId}`);
+                    try {
+                        const stripe = getStripe();
+                        await stripe.paymentIntents.capture(paymentIntentId, {
+                            amount_to_capture: Math.round(captureAmount * 100) // cents
+                        });
+                        await admin.firestore().collection('orders').doc(orderId).update({
+                            paymentStatus: 'Paid',
+                            finalChargedAmount: captureAmount,
+                            paidAt: new Date().toISOString()
+                        });
+                        console.log(`✅ Payment captured: $${captureAmount}`);
+                    } catch (stripeErr: any) {
+                        console.error('❌ Stripe capture failed:', stripeErr.message);
+                        await admin.firestore().collection('orders').doc(orderId).update({
+                            paymentStatus: 'CaptureFailed',
+                            paymentError: stripeErr.message
+                        });
+                    }
+                }
+            }
+
+            // 6. COMPLETION EMAIL + LOYALTY POINTS
+            if (statusChanged && after.status === 'Completed' && after.clientId) {
+                // Send review request email
+                const clientDoc2 = await admin.firestore().collection('users').doc(after.clientId).get();
+                const clientEmail = clientDoc2.data()?.email;
+                if (clientEmail) {
+                    notifications.push(sendCompletionEmail(clientEmail, {
+                        clientName: after.clientName || 'Valued Customer',
+                        service: after.serviceType || after.service || 'Mobile Detail',
+                        vehicle: `${after.vehicleYear || ''} ${after.vehicleMake || ''} ${after.vehicleModel || ''} - ${after.vehicleColor || ''}`.trim(),
+                        washerName: after.washerName || 'Your Technician',
+                        completedAt: after.completedAt,
+                    }));
+                }
+            }
+
+            // 7. AWARD LOYALTY POINTS - When order is completed
             if (statusChanged && after.status === 'Completed' && after.clientId) {
                 console.log(`⭐ Awarding 1 loyalty point to client: ${after.clientId}`);
                 notifications.push(

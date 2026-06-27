@@ -182,14 +182,21 @@ async function getOrCreateStripeCustomer(uid, email, role) {
     const userData = userSnapshot.data();
 
     if (userData && userData.stripeCustomerId) {
-        // Verify the customer still exists in this Stripe mode (prevents stale test-mode IDs)
         try {
             await stripe.customers.retrieve(userData.stripeCustomerId);
             console.log(`✅ Verified existing Stripe customer: ${userData.stripeCustomerId}`);
             return userData.stripeCustomerId;
         } catch (err) {
-            console.warn(`⚠️ Stale Stripe customer ID detected (${userData.stripeCustomerId}), creating new one...`);
-            // Fall through to create a new customer
+            // Only replace the customer if Stripe explicitly says it doesn't exist.
+            // For network errors, timeouts, or rate limits, keep the existing ID —
+            // creating a new one would silently delete all saved cards.
+            if (err.code === 'resource_missing' || err.statusCode === 404) {
+                console.warn(`⚠️ Stripe customer not found (${userData.stripeCustomerId}), creating new one...`);
+                // Fall through to create a new customer
+            } else {
+                console.warn(`⚠️ Could not verify Stripe customer (${err.message}) — reusing existing ID to protect saved cards`);
+                return userData.stripeCustomerId;
+            }
         }
     }
 
@@ -238,7 +245,147 @@ const handleSecureRequest = (handler) => (req, res) => {
     });
 };
 
-// 1. NEW ORDER CREATED (Notify all Washers)
+// ── EMAIL HELPER ─────────────────────────────────────────────────────────────
+async function sendEmail(to, subject, html) {
+    if (!to || !to.includes('@')) { console.warn('⚠️ sendEmail: invalid address', to); return; }
+    try {
+        const nodemailer = require('nodemailer');
+        const user = process.env.EMAIL_USER || (functions.config().email && functions.config().email.user);
+        const pass = process.env.EMAIL_PASSWORD || (functions.config().email && functions.config().email.password);
+        if (!user || !pass) { console.warn('⚠️ Email not configured, skipping'); return; }
+        const transporter = nodemailer.createTransport({ service: 'gmail', auth: { user, pass } });
+        await transporter.sendMail({ from: `"Pro Detail Lab" <${user}>`, to, subject, html });
+        console.log(`✅ Email sent to ${to}: ${subject}`);
+    } catch (err) {
+        console.error('❌ sendEmail error:', err.message);
+    }
+}
+
+function fmtDate(date, time) {
+    if (!date) return 'TBD';
+    if (time === 'Wash Now') return 'As soon as possible';
+    try {
+        const d = new Date(`${date}T${time || '00:00'}:00`);
+        return d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+            + (time ? ` at ${d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}` : '');
+    } catch { return `${date} ${time || ''}`; }
+}
+
+function emailShell(bodyContent) {
+    return `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif">
+<table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:32px 16px">
+<table width="100%" style="max-width:560px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08)">
+  <tr><td style="background:linear-gradient(135deg,#1d4ed8,#1e40af);padding:28px 32px;text-align:center">
+    <div style="font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.03em">Pro Detail Lab</div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.65);margin-top:4px;letter-spacing:0.06em;text-transform:uppercase">Premium Mobile Detailing</div>
+  </td></tr>
+  <tr><td style="padding:32px">${bodyContent}</td></tr>
+  <tr><td style="padding:20px 32px;background:#f8fafc;border-top:1px solid #e2e8f0;text-align:center">
+    <p style="margin:0;font-size:12px;color:#94a3b8">Questions? Reply to this email or open the app to chat with us.</p>
+    <p style="margin:8px 0 0;font-size:11px;color:#cbd5e1">© ${new Date().getFullYear()} Pro Detail Lab · Los Angeles, CA</p>
+  </td></tr>
+</table></td></tr></table></body></html>`;
+}
+
+function buildConfirmationEmail(order, orderId) {
+    const vehicles = (order.vehicleConfigs || []).map(v =>
+        `<li style="padding:4px 0;color:#475569;font-size:14px">🚗 ${v.vehicleType || 'Vehicle'} — ${v.packageName || order.service || ''}</li>`
+    ).join('') || `<li style="padding:4px 0;color:#475569;font-size:14px">🚗 ${order.vehicleType || 'Vehicle'} — ${order.service || ''}</li>`;
+
+    const addons = (order.addOns || order.addons || []).length > 0
+        ? `<p style="margin:20px 0 8px;font-size:13px;font-weight:700;color:#1e293b;text-transform:uppercase;letter-spacing:0.05em">Add-ons</p>
+           <ul style="margin:0;padding-left:20px">${(order.addOns || order.addons || []).map(a =>
+               `<li style="padding:3px 0;color:#475569;font-size:13px">${a.name || a}</li>`
+           ).join('')}</ul>` : '';
+
+    return emailShell(`
+        <h1 style="margin:0 0 6px;font-size:24px;font-weight:800;color:#0f172a;letter-spacing:-0.03em">Booking Confirmed! ✅</h1>
+        <p style="margin:0 0 24px;font-size:15px;color:#64748b">Hi ${order.clientName || 'there'}, your detailing appointment is all set.</p>
+
+        <div style="background:#f8fafc;border-radius:12px;padding:20px;margin-bottom:20px;border:1px solid #e2e8f0">
+            <table width="100%" cellpadding="0" cellspacing="0">
+                <tr><td style="padding:6px 0;font-size:13px;color:#94a3b8;font-weight:600;text-transform:uppercase;letter-spacing:0.05em">Date & Time</td></tr>
+                <tr><td style="padding:0 0 14px;font-size:15px;color:#1e293b;font-weight:600">${fmtDate(order.date, order.time)}</td></tr>
+                <tr><td style="padding:6px 0;font-size:13px;color:#94a3b8;font-weight:600;text-transform:uppercase;letter-spacing:0.05em">Location</td></tr>
+                <tr><td style="padding:0 0 14px;font-size:15px;color:#1e293b">${order.address || 'TBD'}</td></tr>
+                <tr><td style="padding:6px 0;font-size:13px;color:#94a3b8;font-weight:600;text-transform:uppercase;letter-spacing:0.05em">Total Charged</td></tr>
+                <tr><td style="padding:0;font-size:22px;color:#1d4ed8;font-weight:800">$${(order.price || 0).toFixed(2)}</td></tr>
+            </table>
+        </div>
+
+        <p style="margin:0 0 8px;font-size:13px;font-weight:700;color:#1e293b;text-transform:uppercase;letter-spacing:0.05em">Services</p>
+        <ul style="margin:0 0 4px;padding-left:20px">${vehicles}</ul>
+        ${addons}
+
+        <div style="margin-top:24px;padding:16px;background:#eff6ff;border-radius:10px;border-left:3px solid #1d4ed8">
+            <p style="margin:0;font-size:13px;color:#1e40af;font-weight:600">📱 Track your detailer in real time</p>
+            <p style="margin:4px 0 0;font-size:13px;color:#3b82f6">Open the Pro Detail Lab app to see live status updates and chat with your detailer.</p>
+        </div>
+
+        <p style="margin:20px 0 0;font-size:12px;color:#94a3b8;text-align:center">Order #${orderId.substring(0, 8).toUpperCase()}</p>
+    `);
+}
+
+function buildReceiptEmail(order, orderId) {
+    const vehicles = (order.vehicleConfigs || []).map(v =>
+        `<tr>
+            <td style="padding:8px 0;font-size:14px;color:#475569">${v.vehicleType || 'Vehicle'} — ${v.packageName || order.service || ''}</td>
+            <td style="padding:8px 0;font-size:14px;color:#1e293b;font-weight:600;text-align:right">$${(v.price || 0).toFixed(2)}</td>
+        </tr>`
+    ).join('') || `<tr>
+        <td style="padding:8px 0;font-size:14px;color:#475569">${order.service || 'Service'}</td>
+        <td style="padding:8px 0;font-size:14px;color:#1e293b;font-weight:600;text-align:right">$${(order.price || 0).toFixed(2)}</td>
+    </tr>`;
+
+    const addonsRows = (order.addOns || order.addons || []).map(a =>
+        `<tr>
+            <td style="padding:6px 0;font-size:13px;color:#64748b">${a.name || a}</td>
+            <td style="padding:6px 0;font-size:13px;color:#64748b;text-align:right">$${(a.price || 0).toFixed(2)}</td>
+        </tr>`
+    ).join('');
+
+    const tip = order.tip ? `<tr>
+        <td style="padding:6px 0;font-size:13px;color:#64748b">Tip</td>
+        <td style="padding:6px 0;font-size:13px;color:#64748b;text-align:right">$${Number(order.tip).toFixed(2)}</td>
+    </tr>` : '';
+
+    const total = (order.finalChargedAmount || order.price || 0) + (order.tip || 0);
+
+    return emailShell(`
+        <h1 style="margin:0 0 6px;font-size:24px;font-weight:800;color:#0f172a;letter-spacing:-0.03em">Service Complete ✨</h1>
+        <p style="margin:0 0 24px;font-size:15px;color:#64748b">Thanks ${order.clientName || 'for your business'}! Here's your receipt.</p>
+
+        <div style="background:#f8fafc;border-radius:12px;padding:20px;margin-bottom:20px;border:1px solid #e2e8f0">
+            <table width="100%" cellpadding="0" cellspacing="0">
+                <tr><td colspan="2" style="padding:0 0 12px;font-size:13px;font-weight:700;color:#1e293b;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e2e8f0">Receipt</td></tr>
+                ${vehicles}
+                ${addonsRows}
+                ${tip}
+                <tr><td colspan="2" style="padding:12px 0 0;border-top:1px solid #e2e8f0"></td></tr>
+                <tr>
+                    <td style="font-size:15px;font-weight:700;color:#0f172a">Total</td>
+                    <td style="font-size:20px;font-weight:800;color:#1d4ed8;text-align:right">$${total.toFixed(2)}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="margin-bottom:20px">
+            <p style="margin:0 0 4px;font-size:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;font-weight:600">Serviced at</p>
+            <p style="margin:0;font-size:14px;color:#1e293b">${order.address || 'Your location'}</p>
+            <p style="margin:4px 0 0;font-size:13px;color:#64748b">${fmtDate(order.date, order.time)}</p>
+        </div>
+
+        <div style="padding:16px;background:#f0fdf4;border-radius:10px;border-left:3px solid #22c55e;margin-bottom:20px">
+            <p style="margin:0;font-size:13px;color:#15803d;font-weight:600">⭐ Rate your experience</p>
+            <p style="margin:4px 0 0;font-size:13px;color:#16a34a">Open the app to leave a review — it helps us a lot!</p>
+        </div>
+
+        <p style="margin:0;font-size:12px;color:#94a3b8;text-align:center">Order #${orderId.substring(0, 8).toUpperCase()} · Powered by Pro Detail Lab</p>
+    `);
+}
+
+// 1. NEW ORDER CREATED (Notify all Washers + Confirmation Email)
 exports.onNewOrderCreated = functions.region('us-central1').firestore
     .document('orders/{orderId}')
     .onCreate(async (snapshot, context) => {
@@ -252,6 +399,15 @@ exports.onNewOrderCreated = functions.region('us-central1').firestore
         const cityMatch = address.match(/,\s*([^,]+),\s*[A-Z]{2}\s*\d{5}/) || address.match(/,\s*([^,]+),/);
         const location = cityMatch ? cityMatch[1] : (address.split(',')[0] || "Unknown");
         const total = orderData.price || 0;
+
+        // Send confirmation email to client
+        if (orderData.clientEmail) {
+            await sendEmail(
+                orderData.clientEmail,
+                '✅ Booking Confirmed — Pro Detail Lab',
+                buildConfirmationEmail(orderData, orderId)
+            );
+        }
 
         // Query ALL Washers
         const washersSnapshot = await db.collection("users")
@@ -341,6 +497,15 @@ exports.onOrderStatusUpdated = functions.region('us-central1').firestore
             title = "All Done! ✨";
             body = "Service finished. Please rate your experience!";
             targetUserId = clientId;
+
+            // Send receipt email to client
+            if (newData.clientEmail) {
+                sendEmail(
+                    newData.clientEmail,
+                    '✨ Your receipt — Pro Detail Lab',
+                    buildReceiptEmail(newData, orderId)
+                ).catch(e => console.error('❌ Receipt email failed:', e.message));
+            }
 
             // Trigger Social Media Prep
             try {
@@ -896,6 +1061,19 @@ exports.washerJobReminder = functions.region('us-central1').pubsub.schedule('eve
                 reminderType: reminderType,
                 screen: "WASHER_JOBS"
             }));
+
+            // Also remind the CLIENT (only at 60m and 30m — not 10m/0m to avoid spam)
+            const clientId = order.clientId;
+            if (clientId && (reminderType === "60m" || reminderType === "30m")) {
+                const clientMsg = reminderType === "60m"
+                    ? `Your detailer arrives in about 1 hour. Make sure your vehicle is accessible.`
+                    : `Your detailer is on the way — arriving in about 30 minutes!`;
+                notifications.push(sendNotification(clientId, "🚗 Upcoming Appointment", clientMsg, {
+                    type: "appointment_reminder",
+                    orderId: doc.id,
+                    screen: "CLIENT_TRACKING"
+                }));
+            }
 
             // Mark reminder as sent
             notifications.push(doc.ref.update({

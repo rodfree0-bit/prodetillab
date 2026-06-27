@@ -356,6 +356,9 @@ export interface TeamMember extends User {
   insuranceNumber?: string;
   vehiclePlate?: string;
   vehicleModel?: string;
+  carModel?: string;
+  carColor?: string;
+  carPhoto?: string;
   joinedDate: string;
   // Availability tracking (for single-washer mode with travel time buffer)
   schedule?: WorkingDay[];
